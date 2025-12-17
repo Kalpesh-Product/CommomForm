@@ -1,5 +1,5 @@
 export const allowedOrigins = [
-  "http://localhost:5173",
+  "http://localhost:5174",
   "http://localhost:5174",
   "http://localhost:3000",
   "http://localhost:3001",
@@ -18,13 +18,13 @@ export const allowedOrigins = [
   "http://localhost:5007",
   "https://nomad.wono.co",
   "https://host.wono.co",
-  "http://nomad.localhost:5173",
-  "http://host.localhost:5173",
+  "http://nomad.localhost:5174",
+  "http://host.localhost:5174",
 ];
 
 const regexAllowedOrigins = [
   /\.wono\.co$/, // allow any subdomain of wono.co
-  /\.localhost:5173$/, // allow any subdomain of localhost:5173 (for Vite dev tenant sites)
+  /\.localhost:5174$/, // allow any subdomain of localhost:5174 (for Vite dev tenant sites)
 ];
 
 export const corsConfig = {

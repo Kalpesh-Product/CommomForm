@@ -279,7 +279,7 @@ const ReviewFetch = () => {
               Enable <b>Places API (New)</b> & <b>Maps JavaScript API</b>
             </li>
             <li>
-              Key referrers include <code>http://localhost:5173/*</code>
+              Key referrers include <code>http://localhost:5174/*</code>
             </li>
             <li>If you just enabled, give it a couple of minutes and retry</li>
           </ul>
@@ -331,7 +331,8 @@ const ReviewFetch = () => {
                   href={place.googleMapsURI}
                   target="_blank"
                   rel="noreferrer"
-                  className="underline">
+                  className="underline"
+                >
                   View on Google Maps
                 </a>
               </>
@@ -358,7 +359,8 @@ const ReviewFetch = () => {
                         href={r.authorAttribution.uri}
                         target="_blank"
                         rel="noreferrer"
-                        className="underline text-xs">
+                        className="underline text-xs"
+                      >
                         Profile
                       </a>
                     )}

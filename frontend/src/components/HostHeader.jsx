@@ -24,14 +24,14 @@ const HostHeader = () => {
 
   const goToNomads = () => {
     if (window.location.hostname.includes("localhost")) {
-      window.location.href = "http://nomad.localhost:5173";
+      window.location.href = "http://nomad.localhost:5174";
     } else {
       window.location.href = "https://nomad.wono.co";
     }
   };
   const goToNomadsMain = () => {
     if (window.location.hostname.includes("localhost")) {
-      window.location.href = "http://localhost:5173";
+      window.location.href = "http://localhost:5174";
     } else {
       window.location.href = "https://wono.co";
     }

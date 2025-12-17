@@ -75,14 +75,14 @@ const Header = () => {
 
   const goToHosts = () => {
     if (window.location.hostname.includes("localhost")) {
-      window.location.href = "http://hosts.localhost:5173";
+      window.location.href = "http://hosts.localhost:5174";
     } else {
       window.location.href = "https://hosts.wono.co";
     }
   };
   const goToHostssMain = () => {
     if (window.location.hostname.includes("localhost")) {
-      window.location.href = "http://localhost:5173";
+      window.location.href = "http://localhost:5174";
     } else {
       window.location.href = "https://wono.co";
     }

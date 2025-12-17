@@ -33,14 +33,14 @@ const Footer = () => {
 
   const goToHostsPrivacy = () => {
     if (window.location.hostname.includes("localhost")) {
-      window.location.href = "http://nomad.localhost:5173/privacy";
+      window.location.href = "http://nomad.localhost:5174/privacy";
     } else {
       window.location.href = "https://nomad.wono.co/privacy";
     }
   };
   const goToHostsTC = () => {
     if (window.location.hostname.includes("localhost")) {
-      window.location.href = "http://nomad.localhost:5173/terms-and-conditions";
+      window.location.href = "http://nomad.localhost:5174/terms-and-conditions";
     } else {
       window.location.href = "https://nomad.wono.co/terms-and-conditions";
     }
@@ -48,14 +48,14 @@ const Footer = () => {
   const goToHostsContentCopyright = () => {
     if (window.location.hostname.includes("localhost")) {
       window.location.href =
-        "http://nomad.localhost:5173/content-and-copyright";
+        "http://nomad.localhost:5174/content-and-copyright";
     } else {
       window.location.href = "https://nomad.wono.co/content-and-copyright";
     }
   };
   const goToHostsContentUseRemoval = () => {
     if (window.location.hostname.includes("localhost")) {
-      window.location.href = "http://nomad.localhost:5173/content-use-removal";
+      window.location.href = "http://nomad.localhost:5174/content-use-removal";
     } else {
       window.location.href = "https://nomad.wono.co/content-use-removal";
     }
