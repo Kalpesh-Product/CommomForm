@@ -52,7 +52,7 @@ const Product = () => {
   const DUMMY_COMPANY = {
     _id: "dummy-id",
     companyId: "CMP-DUMMY",
-    companyName: "Nomad Haven Goa",
+    companyName: "University of Birmingham",
     companyType: "coliving",
 
     logo: {
@@ -60,7 +60,7 @@ const Product = () => {
     },
 
     about:
-      "Nomad Haven is a peaceful coliving space designed for remote workers who value community, comfort, and strong WiFi. Located close to beaches and cafés.",
+      "The university also has an affiliated Dubai campus established in 2017 at Dubai International Academic City (DIAC). They have since moved from the DIAC headquarters with the construction of a new campus in 2022 in the same area, inaugurated by the Dubai crown prince Hamdan Bin Mohammed Al Maktoum. The campus boasts of having all faculty flown in or permanently staffed from the UK campus.",
     ratings: 4.6,
     reviewCount: 128,
     totalReviews: 128,
