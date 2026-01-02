@@ -14,7 +14,7 @@ const Amenities = ({ image, title, isAvailable }) => {
         )}
       </div>
       <p
-        className={`text-center text-secondary-dark w-full text-[0.89rem] uppercase ${
+        className={`text-center text-secondary-dark w-full text-[0.89rem]  ${
           !isAvailable ? "line-through" : ""
         }`}
       >

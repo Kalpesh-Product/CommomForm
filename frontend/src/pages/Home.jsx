@@ -8,6 +8,7 @@ import { ReactFitty } from "react-fitty";
 import { useDispatch, useSelector } from "react-redux";
 import { setFormValues } from "../features/locationSlice";
 import Image from "/images/homepage.jpeg";
+import ImageText from "/images/building-text.png";
 import ReviewCard from "../components/ReviewCard";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -29,11 +30,11 @@ import useAuth from "../hooks/useAuth"; // ensure you already have this import a
 
 const Home = () => {
   const destinationData = [
-    { label: "Co-Working", image: coworking },
-    { label: "Hostels", image: hostels },
-    { label: "Cafe’s & Meeting Rooms", image: cafes },
-    { label: "Private Stay", image: privateStay },
-    { label: "Company Workation", image: companyWorkation },
+    { label: "Abu Dhabi", image: coworking },
+    { label: "Dubai", image: hostels },
+    { label: "Sharjah", image: cafes },
+    { label: "Ajman", image: privateStay },
+    { label: "Ras Al Khaimah", image: companyWorkation },
   ];
   const location = useLocation();
   // const { companyId, type } = location.state;
@@ -316,26 +317,26 @@ const Home = () => {
     },
   ];
   const amenities = [
-    { image: icons.desk, title: "PRIVATE DESK", isAvailable: true },
-    { image: icons.privatestorage, title: "Private Storage" },
-    { image: icons.aircondition, title: "AC" },
-    { image: icons.fastinternet, title: "High Speed Wi-Fi" },
-    { image: icons.itsupport, title: "IT SUPPORT" },
-    { image: icons.teacoffee, title: "Tea & Coffee" },
-    { image: icons.receptionsupport, title: "RECEPTION" },
-    { image: icons.adminsupport, title: "ADMIN SUPPORT" },
-    { image: icons.housekeeping, title: "HOUSEKEEPING" },
-    { image: icons.community, title: "COMMUNITY" },
-    { image: icons.maintenance, title: "MAINTANANCE" },
-    { image: icons.generator, title: "POWER BACKUP" },
-    { image: icons.meetingrooms, title: "MEETING ROOM" },
-    { image: icons.cafedining, title: "CAFETERIA" },
-    { image: icons.printingservices, title: "PRINTING" },
-    { image: icons.secure, title: "CCTV SECURE" },
-    { image: icons.television, title: "SMART TV" },
-    { image: icons.purifiedwater, title: "PURIFIED WATER" },
-    { image: icons.pool, title: "SWIMMING POOL" },
-    { image: icons.customsolutions, title: "SOLUTIONS" },
+ { image: icons.desk, title: "Library", isAvailable: true },
+  { image: icons.privatestorage, title: "Swimming Pool" },
+  { image: icons.aircondition, title: "Basketball Court" },
+  { image: icons.fastinternet, title: "Football Field" },
+  { image: icons.itsupport, title: "Cafeteria" },
+  { image: icons.teacoffee, title: "Auditorium" },
+  { image: icons.receptionsupport, title: "Prayer Room" },
+  { image: icons.adminsupport, title: "Tennis Court" },
+  { image: icons.housekeeping, title: "Student Housing" },
+  { image: icons.community, title: "Padel Court" },
+  { image: icons.maintenance, title: "Medical Room" },
+  { image: icons.generator, title: "CCTV Secure" },
+  { image: icons.meetingrooms, title: "Shuttle Service" },
+  { image: icons.cafedining, title: "Laboratory" },
+  { image: icons.printingservices, title: "Gym" },
+  { image: icons.secure, title: "Recreational Zones" },
+  { image: icons.television, title: "Clubs & Community" },
+  { image: icons.purifiedwater, title: "Study Rooms" },
+  { image: icons.pool, title: "Careers Team" },
+  { image: icons.customsolutions, title: "Green Spaces" },
     // { image: icons.rentbikecar, title: "CAR / BIKE / BUS" },
     // { image: icons.television, title: "TELEVISION" },
     // { image: icons.stationery, title: "STATIONERY" },
@@ -566,31 +567,45 @@ const Home = () => {
             <div className=" flex flex-col tab:flex-col lg:flex-row items-strech justify-between h-full gap-12">
               {/* Left: Text */}
               <div className="lg:w-1/2 flex flex-col h-full justify-between gap-5 text-center md:text-start">
-                <div className=" font-light text-primary-blue text-center font-play leading-relaxed lg:space-y-6 lg:leading-normal">
+                {/* <div className=" font-light text-primary-blue text-center font-play leading-relaxed lg:space-y-6 lg:leading-normal">
                   <div className="text-center">
                     <h1 className="text-[clamp(1rem,13.71vw,6rem)] text-nowrap">
                       Building the
                     </h1>
-                  </div>
-                  <div className="text-title ">
-                    <h1 className="text-[clamp(1.7rem,3.4vw,4rem)] text-nowrap">
-                      <span className="font-medium"> Largest Community of</span>
+                  </div>{" "}
+                  <div className="text-center">
+                    <h1 className="text-[clamp(1rem,13.71vw,6rem)] text-nowrap">
+                      Largest
                     </h1>
                   </div>
-                  <div className="font-semibold">
-                    <h1 className="text-[clamp(3.7rem,7.3vw,16rem)]">NOMADS</h1>
+                  <div className="text-title ">
+                    <h1 className="text-[clamp(1.7rem,3.4vw,5rem)] text-nowrap">
+                      <span className="font-medium">Community of</span>
+                    </h1>
                   </div>
+                  <div className="text-center">
+                    <h1 className="text-[clamp(1rem,13.71vw,4.5rem)] text-nowrap">
+                      Students in UAE
+                    </h1>
+                  </div>
+                </div> */}
+
+                <div className="rounded-md h-full overflow-hidden ">
+                  <img
+                    src={ImageText}
+                    alt="Nomads working together"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
 
                 <div className="flex flex-col gap-4 text-start text-pretty lg:text-center">
                   <p className=" text-gray-700 text-base md:leading-7 md:text-[1.03rem]">
-                    A global movement of remote workers, companies, creators,
-                    entrepreneurs, hosts, investors who are redefining how the
-                    world lives and works.
+                    A growing community of students, schools, and universities
+                    shaping the future of education in the UAE.
                   </p>
                   <p className=" text-gray-700 text-base md:leading-7 md:text-[1.03rem]">
-                    Bound by freedom, flexibility, and connection, nomads are
-                    building the future—one destination at a time.
+                    Together, we are redefining how students discover, connect,
+                    and choose their education path & next campus in the UAE.
                   </p>
                 </div>
               </div>
@@ -609,7 +624,7 @@ const Home = () => {
           </section>
         </Container>
 
-        <section className="bg-black w-full flex flex-col gap-4 py-16 lg:py-16">
+        {/* <section className="bg-black w-full flex flex-col gap-4 py-16 lg:py-16">
           <div className="lg:max-w-[80rem] lg:min-w-[85%] max-w-full lg:mx-auto flex flex-col text-primary-blue  justify-center items-center leading-none">
             <div className="flex flex-col text-center w-full font-hero px-4 md:px-0">
               <h1 className="text-giant uppercase">Introducing</h1>
@@ -619,9 +634,7 @@ const Home = () => {
             <p className="uppercase text-[clamp(2.5rem,7.3vw,7rem)] font-hero text-white pt-4 pb-20">
               ("nomad commerce")
             </p>
-            {/* <div className="flex justify-center items-end w-full">
-            <PrimaryButton title={"Partner now"} />
-          </div> */}
+
             <div className="text-white w-full text-center px-4">
               <h2 className="text-clamp-heading font-normal">
                 End-to-end Nomad solutions for working from aspiring
@@ -629,12 +642,12 @@ const Home = () => {
               </h2>
             </div>
           </div>
-        </section>
+        </section> */}
         {/*  */}
         <section className="w-full px-6 py-12 bg-gray-50">
           <div className="w-full min-w-[] max-w-[79rem] mx-auto lg:px-3">
-            <h2 className="text-2xl md:text-3xl font-medium text-left mb-10 text-primary-blue uppercase">
-              Solutions for your aspiring destinations.
+            <h2 className="text-2xl md:text-3xl font-medium text-left mb-10 text-gray-600 ">
+              Explore universities in top destinations.
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 afterPro:grid-cols-5 gap-6">
@@ -661,7 +674,7 @@ const Home = () => {
                     <AiOutlineHeart className="text-white text-xl" />
                   </div> */}
                   </div>
-                  <p className="mt-6 text-sm md:text-base font-medium text-gray-800 text-center uppercase">
+                  <p className="mt-6 text-sm md:text-base font-medium text-gray-800 text-center ">
                     {item.label}
                   </p>
                 </div>
@@ -672,7 +685,7 @@ const Home = () => {
 
         <Container padding={false}>
           <div className="flex flex-col gap-8 w-full border-t-2 border-gray-300 py-8">
-            <h2 className="text-2xl md:text-3xl font-medium text-left mb-10 text-primary-blue uppercase">
+            <h2 className="text-2xl md:text-3xl font-medium text-left mb-10 text-gray-600">
               Platform Inclusions.
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-5 gap-x-16 md:gap-x-16 lg:gap-x-28 gap-y-10">
@@ -689,8 +702,8 @@ const Home = () => {
         </Container>
         <Container padding={false}>
           <div className="flex flex-col gap-8 w-full border-t-2 border-gray-300 py-8">
-            <h1 className="text-title font-medium text-primary-blue uppercase">
-              Happy customers.
+            <h1 className="text-title font-medium text-gray-600">
+              Happy Students!
             </h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-0 lg:p-6">
               {reviewData.length > 0 ? (
