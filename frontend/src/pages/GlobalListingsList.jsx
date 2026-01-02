@@ -42,6 +42,149 @@ const GlobalListingsList = () => {
   const selectedCountry = watch("country");
   const selectedState = watch("location");
 
+  const DUMMY_LISTINGS = [
+    // ===== BUSINESS =====
+    {
+      _id: "business-1",
+      companyId: "business-1",
+      companyName: "University of Birmingham",
+      companyType: "business",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }, { starCount: 4 }, { starCount: 3 }],
+      coverImage: "/images/dummy/university-1.jpg",
+    },
+    {
+      _id: "business-2",
+      companyId: "business-2",
+      companyName: "University of Wollongong",
+      companyType: "business",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }, { starCount: 4 }, { starCount: 4 }],
+      coverImage: "/images/dummy/university-2.jpg",
+    },
+    {
+      _id: "business-3",
+      companyId: "business-3",
+      companyName: "Hult International Business School",
+      companyType: "business",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }, { starCount: 3 }],
+      coverImage: "/images/dummy/university-3.jpg",
+    },
+    {
+      _id: "business-4",
+      companyId: "business-4",
+      companyName: "University of Dubai",
+      companyType: "business",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 5 }, { starCount: 4 }],
+      coverImage: "/images/dummy/university-4.jpg",
+    },
+    {
+      _id: "business-5",
+      companyId: "business-5",
+      companyName: "Canadian University Dubai",
+      companyType: "business",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }, { starCount: 4 }],
+      coverImage: "/images/dummy/university-5.jpg",
+    },
+
+    // ===== ENGINEERING =====
+    {
+      _id: "engineering-1",
+      companyId: "engineering-1",
+      companyName: "University of Birmingham",
+      companyType: "engineering",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }],
+      coverImage: "/images/dummy/university-1.jpg",
+    },
+    {
+      _id: "engineering-2",
+      companyId: "engineering-2",
+      companyName: "University of Wollongong",
+      companyType: "engineering",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }, { starCount: 4 }],
+      coverImage: "/images/dummy/university-2.jpg",
+    },
+    {
+      _id: "engineering-3",
+      companyId: "engineering-3",
+      companyName: "Hult International Business School",
+      companyType: "engineering",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }],
+      coverImage: "/images/dummy/university-3.jpg",
+    },
+    {
+      _id: "engineering-4",
+      companyId: "engineering-4",
+      companyName: "University of Dubai",
+      companyType: "engineering",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 5 }],
+      coverImage: "/images/dummy/university-4.jpg",
+    },
+    {
+      _id: "engineering-5",
+      companyId: "engineering-5",
+      companyName: "Canadian University Dubai",
+      companyType: "engineering",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }],
+      coverImage: "/images/dummy/university-5.jpg",
+    },
+
+    // ===== HEALTH & LIFE SCIENCES =====
+    {
+      _id: "health-1",
+      companyId: "health-1",
+      companyName: "University of Birmingham",
+      companyType: "health",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }],
+      coverImage: "/images/dummy/university-1.jpg",
+    },
+    {
+      _id: "health-2",
+      companyId: "health-2",
+      companyName: "University of Wollongong",
+      companyType: "health",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }],
+      coverImage: "/images/dummy/university-2.jpg",
+    },
+    {
+      _id: "health-3",
+      companyId: "health-3",
+      companyName: "Hult International Business School",
+      companyType: "health",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }],
+      coverImage: "/images/dummy/university-3.jpg",
+    },
+    {
+      _id: "health-4",
+      companyId: "health-4",
+      companyName: "University of Dubai",
+      companyType: "health",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 5 }],
+      coverImage: "/images/dummy/university-4.jpg",
+    },
+    {
+      _id: "health-5",
+      companyId: "health-5",
+      companyName: "Canadian University Dubai",
+      companyType: "health",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }],
+      coverImage: "/images/dummy/university-5.jpg",
+    },
+  ];
+
   // 🧠 Special users who can see all locations
   const specialUserEmails = [
     "allan.wono@gmail.com",
@@ -219,6 +362,9 @@ const GlobalListingsList = () => {
 
   console.log("location data :", listingsData);
 
+  const effectiveListings =
+    listingsData && listingsData.length > 0 ? listingsData : DUMMY_LISTINGS;
+
   // derive categoryOptions from API response
   const categoryOptions = useMemo(() => {
     if (!listingsData || listingsData.length === 0) return [];
@@ -258,7 +404,14 @@ const GlobalListingsList = () => {
       .sort((a, b) => typeOrder.indexOf(a.value) - typeOrder.indexOf(b.value));
   }, [listingsData]);
 
-  const groupedListings = listingsData?.reduce((acc, item) => {
+  // const groupedListings = listingsData?.reduce((acc, item) => {
+  //   if (item.companyType === "privatestay") return acc;
+  //   if (!acc[item.companyType]) acc[item.companyType] = [];
+  //   acc[item.companyType].push(item);
+  //   return acc;
+  // }, {});
+
+  const groupedListings = effectiveListings.reduce((acc, item) => {
     if (item.companyType === "privatestay") return acc;
     if (!acc[item.companyType]) acc[item.companyType] = [];
     acc[item.companyType].push(item);
@@ -268,14 +421,14 @@ const GlobalListingsList = () => {
   console.log("frou[ed ", groupedListings);
 
   const typeLabels = {
-    coworking: "Co-Working Spaces",
-    coliving: "Co-Living Spaces",
-    hostel: "Hostels",
-    privatestay: "Private Stays",
-    meetingroom: "Meeting Rooms",
-    cafe: "Cafes",
+    business: "Business",
+    engineering: "Engineering & Technology",
+    health: "Health & Life Sciences",
+    // privatestay: "Private Stays",
+    // meetingroom: "Meeting Rooms",
+    // cafe: "Cafes",
     // fallback for unknown types
-    default: (type) => `${type[0].toUpperCase() + type.slice(1)} Spaces`,
+    default: (type) => `${type[0].toUpperCase() + type.slice(1)} `,
   };
 
   const toggleFavorite = (id) => {
@@ -425,7 +578,7 @@ const GlobalListingsList = () => {
                 className=" flex justify-around md:w-full lg:w-full border-2 bg-gray-50 rounded-full p-0 items-center"
                 // className=" flex justify-around md:w-full lg:w-3/4 border-2 bg-gray-50 rounded-full p-0 items-center"
               >
-                <Controller
+                {/* <Controller
                   name="continent"
                   control={control}
                   render={({ field }) => (
@@ -438,8 +591,8 @@ const GlobalListingsList = () => {
                       className="w-full "
                     />
                   )}
-                />
-                <div className="w-px h-10 bg-gray-300 mx-2 my-auto" />
+                /> */}
+                {/* <div className="w-px h-10 bg-gray-300 mx-2 my-auto" /> */}
                 <Controller
                   name="country"
                   control={control}
@@ -565,7 +718,7 @@ const GlobalListingsList = () => {
                 </motion.div>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                  <Controller
+                  {/* <Controller
                     name="continent"
                     control={control}
                     render={({ field }) => (
@@ -578,7 +731,7 @@ const GlobalListingsList = () => {
                         className="w-full "
                       />
                     )}
-                  />
+                  /> */}
 
                   <Controller
                     name="country"
@@ -715,7 +868,7 @@ const GlobalListingsList = () => {
                       const showViewMore = sortedItems.length > 5;
                       const sectionTitle = `Popular ${
                         typeLabels[type] || typeLabels.default(type)
-                      } in ${
+                      } Universities in ${
                         formData?.location
                           ? formData.location.charAt(0).toUpperCase() +
                             formData.location.slice(1)
