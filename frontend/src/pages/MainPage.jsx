@@ -21,11 +21,13 @@ import { FaXTwitter } from "react-icons/fa6";
 const slides = [
   {
     image: sliderImageOne,
-    text: "A one stop platform for Nomads to manage their Nomad Lifestyle and discover the most curated co-working, hostels, working cafes, meeting spaces across Aspiring Destinations!",
+    text: "A one stop platform for students to explore schools and universities in Dubai and across the UAE. Discover, explore, evaluate, compare and choose your future path and apply across universities & schools that fits your journey through",
+  belowText: "ONE COMMON FORM!"
   },
   {
     image: sliderImageTwo,
-    text: "A No-Code SaaS platform built to empower nomad-friendly hosting businesses worldwide. Includes Website Builder, Meeting Room Booking, Tickets, Visitors and other modules.",
+    text: "A one stop platform for students to explore schools and universities in Dubai and across the UAE. Discover, explore, evaluate, compare and choose your future path and apply across universities & schools that fits your journey through",
+    belowText: "ONE COMMON FORM!"
   },
 ];
 
@@ -94,20 +96,26 @@ const MainPage = () => {
                   alt={`Slide ${index + 1}`}
                   className="w-full h-auto object-contain"
                 />
+                <div>
+
                 <p className="text-gray-700 text-[0.9rem] text-pretty leading-relaxed md:line-clamp-3 md:max-h-[6em] overflow-hidden">
                   {slide.text}
+                </p>{" "}
+                <p className="text-gray-700 text-[0.9rem] text-pretty leading-relaxed md:line-clamp-3 md:max-h-[6em] overflow-hidden">
+                  {slide.belowText}
                 </p>
+                </div>
               </div>
             ))}
           </div>
           <div className="flex gap-8 w-full justify-center items-center pt-4">
             <PrimaryButton
-              title="For Nomads"
+              title="Find Universities"
               handleSubmit={goToNomads}
               externalStyles="bg-[#FF5757] text-[0.8rem] xs:text-[0.9rem] sm:text-[1rem] md:text-[1rem] lg:text-[1rem] flex text-white font-[500] capatilize hover:bg-[#E14C4C] w-[12rem] px-6"
             />
             <PrimaryButton
-              title="For Hosts"
+              title="Find Schools"
               handleSubmit={goToHosts}
               externalStyles="bg-[#FF5757] text-[0.8rem] xs:text-[0.9rem] sm:text-[1rem] md:text-[1rem] lg:text-[1rem] flex text-white font-[500] capatilize hover:bg-[#E14C4C] w-[12rem] px-6"
             />
@@ -124,7 +132,8 @@ const MainPage = () => {
             </span>
             <span className="block sm:inline">
               {" "}
-              WONOCO PRIVATE LIMITED – SINGAPORE. All Rights Reserved.
+              {/* COMMON FORM – SINGAPORE. All Rights Reserved. */}
+              COMMON FORM – All Rights Reserved.
             </span>
           </p>
         </div>
