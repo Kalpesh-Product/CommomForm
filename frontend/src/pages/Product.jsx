@@ -33,6 +33,8 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 dayjs.extend(relativeTime);
 
 const Product = () => {
+  const USE_DUMMY_DATA = true; // ⬅️ flip this when API is ready
+
   const location = useLocation();
   const navigate = useNavigate();
   const { companyId, type } = location.state;
@@ -46,6 +48,112 @@ const Product = () => {
   const [open, setOpen] = useState(false);
 
   const axiosPrivate = useAxiosPrivate();
+
+  const DUMMY_COMPANY = {
+    _id: "dummy-id",
+    companyId: "CMP-DUMMY",
+    companyName: "Nomad Haven Goa",
+    companyType: "coliving",
+
+    logo: {
+      url: "/images/univ-logo.png",
+    },
+
+    about:
+      "Nomad Haven is a peaceful coliving space designed for remote workers who value community, comfort, and strong WiFi. Located close to beaches and cafés.",
+    ratings: 4.6,
+    reviewCount: 128,
+    totalReviews: 128,
+    isLiked: false,
+
+    images: [
+      {
+        _id: "img1",
+        url: "https://conferences.bham.ac.uk/wp-content/uploads/2025/02/UoB_aerial_imagery_5.jpg",
+      },
+      {
+        _id: "img2",
+        url: "https://hub.birmingham.ac.uk/wp-content/uploads/2024/11/uob-about-image-1-1-1026x684.jpg",
+      },
+      {
+        _id: "img3",
+        url: "https://images.unsplash.com/photo-1649115993062-d40c5ba24f76?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMG9mJTIwYmlybWluZ2hhbXxlbnwwfHwwfHx8MA%3D%3D",
+      },
+      {
+        _id: "img4",
+        url: "https://assets.simpleviewinc.com/simpleview/image/fetch/c_fill,f_jpg,h_822,q_75,w_1220/https://entiretydmsmedia.newmindmedia.com/wsimgs/92F1B4BD7E94E1A17B0F99164A5D01338C637183.jpg",
+      },
+      {
+        _id: "img5",
+        url: "https://www.russellgroup.ac.uk/sites/default/files/styles/1080x545/public/2025-02/Aston-webb-building-and-domes%202.jpg?h=917ba7cf&itok=IHsh35m5",
+      },
+    ],
+
+    inclusions:
+      "wifi, powerBackup, kitchen, housekeeping, laundry, workspace, airConditioning",
+
+    country: "India",
+    state: "Goa",
+    city: "Velha Goa",
+    latitude: 15.4989,
+    longitude: 73.8278,
+
+    reviews: [
+      {
+        _id: "rev1",
+        reviewerName: "Alex",
+        starCount: 5,
+        description:
+          "Fantastic stay. Super fast internet and great vibe. Very comfortable and quiet. Would visit again next time.",
+        createdAt: new Date(),
+      },
+      {
+        _id: "rev2",
+        reviewerName: "Priya",
+        starCount: 4,
+        description:
+          "Fantastic stay. Super fast internet and great vibe. Very comfortable and quiet. Would visit again next time.",
+        createdAt: new Date(),
+      },
+      {
+        _id: "rev2",
+        reviewerName: "John",
+        starCount: 4,
+        description:
+          "Fantastic stay. Super fast internet and great vibe. Very comfortable and quiet. Would visit again next time.",
+        createdAt: new Date(),
+      },
+      {
+        _id: "rev2",
+        reviewerName: "Robert",
+        starCount: 4,
+        description:
+          "Fantastic stay. Super fast internet and great vibe. Very comfortable and quiet. Would visit again next time.",
+        createdAt: new Date(),
+      },
+      {
+        _id: "rev2",
+        reviewerName: "Eren",
+        starCount: 4,
+        description:
+          "Fantastic stay. Super fast internet and great vibe. Very comfortable and quiet. Would visit again next time.",
+        createdAt: new Date(),
+      },
+      {
+        _id: "rev2",
+        reviewerName: "Reiner",
+        starCount: 4,
+        description:
+          "Fantastic stay. Super fast internet and great vibe. Very comfortable and quiet. Would visit again next time.",
+        createdAt: new Date(),
+      },
+    ],
+
+    poc: {
+      name: "Amit Goenka",
+      designation: "Property Host",
+    },
+  };
 
   const { data: companyDetails, isPending: isCompanyDetails } = useQuery({
     queryKey: ["companyDetails", companyId, userId || "guest"], // safe for guests too
@@ -62,14 +170,18 @@ const Product = () => {
     refetchOnMount: "always",
   });
 
+  const resolvedCompanyDetails = USE_DUMMY_DATA
+    ? DUMMY_COMPANY
+    : resolvedCompanyDetails;
+
   console.log("location.state", location.state);
   console.log("companyId", companyId);
 
-  console.log("companuDetials ", companyDetails);
-  const companyImages = companyDetails?.images?.slice(0, 4) || [];
-  const showMore = (companyDetails?.images?.length || 0) > 4;
+  console.log("companuDetials ", resolvedCompanyDetails);
+  const companyImages = resolvedCompanyDetails?.images?.slice(0, 4) || [];
+  const showMore = (resolvedCompanyDetails?.images?.length || 0) > 4;
   const inclusions =
-    companyDetails?.inclusions?.split(",").map((item) => {
+    resolvedCompanyDetails?.inclusions?.split(",").map((item) => {
       return item?.split(" ")?.length
         ? item?.split(" ").join("")?.trim()
         : item?.trim();
@@ -141,17 +253,17 @@ const Product = () => {
           : "",
         endDate: data.endDate ? dayjs(data.endDate).format("YYYY-MM-DD") : "",
 
-        country: companyDetails?.country,
-        state: companyDetails?.state,
-        companyType: companyDetails?.companyType,
+        country: resolvedCompanyDetails?.country,
+        state: resolvedCompanyDetails?.state,
+        companyType: resolvedCompanyDetails?.companyType,
         personelCount: parseInt(data?.noOfPeople),
-        companyName: companyDetails?.companyName,
+        companyName: resolvedCompanyDetails?.companyName,
         sheetName: "All_Enquiry",
         phone: data?.mobileNumber,
-        company: companyDetails?._id,
-        companyId: companyDetails?.companyId,
+        company: resolvedCompanyDetails?._id,
+        companyId: resolvedCompanyDetails?.companyId,
         source: "nomad",
-        productType: companyDetails?.companyType,
+        productType: resolvedCompanyDetails?.companyType,
       });
       return response.data;
     },
@@ -168,9 +280,9 @@ const Product = () => {
     mutationFn: async (data) => {
       const response = await axios.post("/forms/add-new-b2c-form-submission", {
         ...data,
-        pocName: companyDetails?.poc?.name || "Sales Team",
-        pocCompany: companyDetails?.companyName,
-        pocDesignation: companyDetails?.poc?.designation,
+        pocName: resolvedCompanyDetails?.poc?.name || "Sales Team",
+        pocCompany: resolvedCompanyDetails?.companyName,
+        pocDesignation: resolvedCompanyDetails?.poc?.designation,
         sheetName: "All_POC_Contact",
         mobile: data.mobileNumber,
       });
@@ -194,7 +306,7 @@ const Product = () => {
 
   const reviewData = isCompanyDetails
     ? []
-    : companyDetails?.reviews?.map((item) => ({
+    : resolvedCompanyDetails?.reviews?.map((item) => ({
         ...item,
         stars: item.starCount,
         message: item.description,
@@ -202,15 +314,15 @@ const Product = () => {
       }));
 
   const forMapsData = {
-    id: companyDetails?._id,
-    lat: companyDetails?.latitude,
-    lng: companyDetails?.longitude,
-    name: companyDetails?.companyName,
-    location: companyDetails?.city,
-    reviews: companyDetails?.totalReviews,
-    ratings: companyDetails?.ratings,
+    id: resolvedCompanyDetails?._id,
+    lat: resolvedCompanyDetails?.latitude,
+    lng: resolvedCompanyDetails?.longitude,
+    name: resolvedCompanyDetails?.companyName,
+    location: resolvedCompanyDetails?.city,
+    reviews: resolvedCompanyDetails?.totalReviews,
+    ratings: resolvedCompanyDetails?.ratings,
     image:
-      companyDetails?.images?.[0]?.url ||
+      resolvedCompanyDetails?.images?.[0]?.url ||
       "https://biznest.co.in/assets/img/projects/subscription/Managed%20Workspace.webp",
   };
 
@@ -218,16 +330,16 @@ const Product = () => {
   const [heartClicked, setHeartClicked] = useState(null);
 
   useEffect(() => {
-    if (!companyDetails) return;
+    if (!resolvedCompanyDetails) return;
     if (heartClicked === null) {
-      setHeartClicked(companyDetails?.isLiked || false);
+      setHeartClicked(resolvedCompanyDetails?.isLiked || false);
     }
-  }, [companyDetails, heartClicked]);
+  }, [resolvedCompanyDetails, heartClicked]);
 
   const { mutate: toggleLike } = useMutation({
     mutationFn: async (isLikedNow) => {
       const response = await axiosPrivate.patch(`/user/like`, {
-        listingId: companyDetails?._id,
+        listingId: resolvedCompanyDetails?._id,
         userId,
         isLiked: isLikedNow,
       });
@@ -293,15 +405,15 @@ const Product = () => {
               <div className="w-full h-[28.5rem] overflow-hidden rounded-md">
                 <img
                   src={
-                    companyDetails?.images?.[0]?.url ||
+                    resolvedCompanyDetails?.images?.[0]?.url ||
                     "https://via.placeholder.com/400x200?text=No+Image+Found+"
                   }
                   className="w-full h-full object-cover cursor-pointer"
                   onClick={() =>
                     navigate("images", {
                       state: {
-                        companyName: companyDetails?.companyName,
-                        images: companyDetails?.images,
+                        companyName: resolvedCompanyDetails?.companyName,
+                        images: resolvedCompanyDetails?.images,
                         selectedImageId: selectedImage?._id, // ✅ Fix here
                       },
                     })
@@ -312,51 +424,54 @@ const Product = () => {
 
               {/* Thumbnail Images */}
               <div className="grid grid-cols-2 gap-1">
-                {companyDetails?.images?.slice(1, 5).map((item, index) => (
-                  <div
-                    key={item._id}
-                    className={`relative w-full h-56 overflow-hidden rounded-md cursor-pointer border-2 ${
-                      selectedImage?._id === item._id
-                        ? "border-primary-dark"
-                        : "border-transparent"
-                    }`}
-                    onClick={() =>
-                      navigate("images", {
-                        state: {
-                          companyName: companyDetails?.companyName,
-                          images: companyDetails?.images,
-                          selectedImageId: item._id,
-                        },
-                      })
-                    }
-                  >
-                    <img
-                      src={item.url}
-                      alt="company-thumbnail"
-                      className="w-full h-full object-cover"
-                    />
+                {resolvedCompanyDetails?.images
+                  ?.slice(1, 5)
+                  .map((item, index) => (
+                    <div
+                      key={item._id}
+                      className={`relative w-full h-56 overflow-hidden rounded-md cursor-pointer border-2 ${
+                        selectedImage?._id === item._id
+                          ? "border-primary-dark"
+                          : "border-transparent"
+                      }`}
+                      onClick={() =>
+                        navigate("images", {
+                          state: {
+                            companyName: resolvedCompanyDetails?.companyName,
+                            images: resolvedCompanyDetails?.images,
+                            selectedImageId: item._id,
+                          },
+                        })
+                      }
+                    >
+                      <img
+                        src={item.url}
+                        alt="company-thumbnail"
+                        className="w-full h-full object-cover"
+                      />
 
-                    {/* Button on bottom right of 4th image */}
-                    {showMore && index === 3 && (
-                      <div className="absolute inset-0 bg-black/40 flex items-end justify-end p-2">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation(); // prevent selecting the image
-                            navigate("images", {
-                              state: {
-                                companyName: companyDetails?.companyName,
-                                images: companyDetails?.images,
-                              },
-                            });
-                          }}
-                          className="bg-white text-sm px-3 py-1 rounded shadow font-medium"
-                        >
-                          +{companyDetails.images.length - 4} more
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                ))}
+                      {/* Button on bottom right of 4th image */}
+                      {showMore && index === 3 && (
+                        <div className="absolute inset-0 bg-black/40 flex items-end justify-end p-2">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation(); // prevent selecting the image
+                              navigate("images", {
+                                state: {
+                                  companyName:
+                                    resolvedCompanyDetails?.companyName,
+                                  images: resolvedCompanyDetails?.images,
+                                },
+                              });
+                            }}
+                            className="bg-white text-sm px-3 py-1 rounded shadow font-medium"
+                          >
+                            +{resolvedCompanyDetails.images.length - 4} more
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  ))}
               </div>
             </div>
           )}
@@ -367,7 +482,7 @@ const Product = () => {
               {/* {isCompanyDetails ? (
                 // 🔄 Skeleton while loading
                 <div className="w-full h-36 bg-gray-200 animate-pulse rounded-md" />
-              ) : !companyDetails?.logo || !companyDetails?.logo?.url ? (
+              ) : !resolvedCompanyDetails?.logo || !resolvedCompanyDetails?.logo?.url ? (
                 // 🚫 Fallback UI when logo is missing
                 <div className="w-full h-36 flex items-center justify-center bg-gray-100 border border-dashed border-gray-300 rounded-md">
                   <span className="text-gray-500 text-sm">
@@ -378,7 +493,7 @@ const Product = () => {
                 // ✅ Show actual logo
                 <div className="w-full h-36 overflow-hidden rounded-md">
                   <img
-                    src={companyDetails?.logo?.url || companyDetails?.logo}
+                    src={resolvedCompanyDetails?.logo?.url || resolvedCompanyDetails?.logo}
                     alt="company-logo"
                     className="h-full w-full object-contain"
                   />
@@ -389,9 +504,9 @@ const Product = () => {
                 // 🔄 Skeleton while loading
                 <div className="w-full h-36 bg-gray-200 animate-pulse rounded-md" />
               ) : !(
-                  (typeof companyDetails?.logo === "string" &&
-                    companyDetails.logo) ||
-                  companyDetails?.logo?.url
+                  (typeof resolvedCompanyDetails?.logo === "string" &&
+                    resolvedCompanyDetails.logo) ||
+                  resolvedCompanyDetails?.logo?.url
                 ) ? (
                 // 🚫 Fallback UI when logo is missing
                 <div className="w-full h-36 flex items-center justify-center bg-gray-100 border border-dashed border-gray-300 rounded-md">
@@ -404,9 +519,9 @@ const Product = () => {
                 <div className="w-full h-36 overflow-hidden rounded-md">
                   <img
                     src={
-                      (typeof companyDetails?.logo === "string" &&
-                        companyDetails.logo) ||
-                      companyDetails?.logo?.url
+                      (typeof resolvedCompanyDetails?.logo === "string" &&
+                        resolvedCompanyDetails.logo) ||
+                      resolvedCompanyDetails?.logo?.url
                     }
                     alt="company-logo"
                     className="h-full w-full object-contain"
@@ -420,10 +535,10 @@ const Product = () => {
                     About
                   </h1>
                   <div className="items-center flex gap-2">
-                    {companyDetails?.websiteTemplateLink && (
+                    {resolvedCompanyDetails?.websiteTemplateLink && (
                       <div>
                         <a
-                          href={companyDetails?.websiteTemplateLink}
+                          href={resolvedCompanyDetails?.websiteTemplateLink}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-small underline text-primary-blue"
@@ -471,7 +586,7 @@ const Product = () => {
                     <div className="h-3 bg-gray-200 rounded w-2/3" />
                     <div className="h-3 bg-gray-200 rounded w-1/2" />
                   </div>
-                ) : !companyDetails?.about ? (
+                ) : !resolvedCompanyDetails?.about ? (
                   // 🚫 Fallback if no "about" content
                   <div className="place-content-center w-full h-full">
                     <p className="text-sm text-gray-500 italic">
@@ -481,7 +596,7 @@ const Product = () => {
                 ) : (
                   // ✅ Actual content
                   <p className="text-sm text-secondary-dark">
-                    {companyDetails.about.replace(/\\n/g, " ")}
+                    {resolvedCompanyDetails.about.replace(/\\n/g, " ")}
                   </p>
                 )}
               </div>
@@ -504,10 +619,10 @@ const Product = () => {
                 <div className="flex w-full lg:w-1/2 gap-1 justify-end">
                   <div className="flex flex-col gap-0 justify-center items-center">
                     <p className="text-tiny lg:text-subtitle">
-                      {companyDetails?.ratings || 0}
+                      {resolvedCompanyDetails?.ratings || 0}
                     </p>
                     <span className="text-tiny flex lg:text-small font-medium">
-                      {renderStars(companyDetails?.ratings || 0)}
+                      {renderStars(resolvedCompanyDetails?.ratings || 0)}
                     </span>
                   </div>
                   {/* Vertical Separator */}
@@ -526,8 +641,8 @@ const Product = () => {
 
                   <div className="flex flex-col gap-4 lg:gap-0 justify-center items-center">
                     <p className="text-tiny lg:text-subtitle mt-1">
-                      {companyDetails?.reviewCount ||
-                        companyDetails?.totalReviews ||
+                      {resolvedCompanyDetails?.reviewCount ||
+                        resolvedCompanyDetails?.totalReviews ||
                         0}
                     </p>
                     <span className="text-tiny lg:text-small font-medium">
@@ -671,7 +786,7 @@ const Product = () => {
                     )}
                   />
 
-                  {/* {companyDetails?.type === "coworking" && (
+                  {/* {resolvedCompanyDetails?.type === "coworking" && (
                     <Controller
                       name="numberOfDesks"
                       control={control}
@@ -841,7 +956,7 @@ const Product = () => {
             ) : (
               <div className="flex flex-col gap-10 w-full">
                 <AmenitiesList
-                  type={companyDetails?.companyType.toLowerCase() || ""}
+                  type={resolvedCompanyDetails?.companyType.toLowerCase() || ""}
                   inclusions={inclusions}
                 />
                 {/* <div className="flex justify-end">
@@ -861,7 +976,7 @@ const Product = () => {
             <div className="flex flex-col justify-center items-center max-w-4xl mx-auto">
               <h1 className="text-main-header font-medium mt-5">
                 <LeafRatings
-                  ratings={companyDetails?.ratings || 0}
+                  ratings={resolvedCompanyDetails?.ratings || 0}
                   align="items-start"
                 />
               </h1>
@@ -873,17 +988,19 @@ const Product = () => {
               </span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-0 lg:p-0">
-              {companyDetails?.reviews?.length > 0 ? (
-                companyDetails?.reviews?.slice(0, 6).map((review, index) => (
-                  <ReviewCard
-                    handleClick={() => {
-                      setSelectedReview(review);
-                      setOpen(true);
-                    }}
-                    key={index}
-                    review={review}
-                  />
-                ))
+              {resolvedCompanyDetails?.reviews?.length > 0 ? (
+                resolvedCompanyDetails?.reviews
+                  ?.slice(0, 6)
+                  .map((review, index) => (
+                    <ReviewCard
+                      handleClick={() => {
+                        setSelectedReview(review);
+                        setOpen(true);
+                      }}
+                      key={index}
+                      review={review}
+                    />
+                  ))
               ) : (
                 <div className="col-span-full border-2 border-dotted border-gray-300 rounded-xl p-6 text-center text-sm text-gray-500 h-40 flex justify-center items-center">
                   No reviews yet.
@@ -904,14 +1021,16 @@ const Product = () => {
               />
             </div>
 
-            {["CMP0001", "CMP0052"].includes(companyDetails?.companyId) && (
+            {["CMP0001", "CMP0052"].includes(
+              resolvedCompanyDetails?.companyId
+            ) && (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 pt-10">
                   <div className="flex flex-col lg:flex-row justify-center items-center col-span-1 border-2 shadow-md gap-4 rounded-xl p-6 w-full">
                     <div className="flex flex-col gap-4 justify-between items-center h-full w-56">
                       {/* Avatar with Initials */}
                       <div className="w-32 aspect-square rounded-full bg-primary-blue flex items-center justify-center text-white text-6xl font-semibold uppercase">
-                        {companyDetails?.poc?.name
+                        {resolvedCompanyDetails?.poc?.name
                           ?.split(" ")
                           .map((n) => n[0])
                           .join("")
@@ -921,10 +1040,10 @@ const Product = () => {
                       {/* Name & Designation */}
                       <div className="text-center space-y-3 h-1/2 flex flex-col justify-evenly items-center">
                         <h1 className="text-title text-gray-700 font-medium leading-10">
-                          {companyDetails?.poc?.name || "Sales Team"}
+                          {resolvedCompanyDetails?.poc?.name || "Sales Team"}
                         </h1>
                         <p className="text-content">
-                          {companyDetails?.poc?.designation ||
+                          {resolvedCompanyDetails?.poc?.designation ||
                             "Sales Department"}
                         </p>
                       </div>
@@ -1138,9 +1257,9 @@ const Product = () => {
         onClose={() => setShowAmenities(false)}
       >
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
-          {(Array.isArray(companyDetails?.inclusions)
-            ? companyDetails.inclusions
-            : companyDetails?.inclusions?.split(",") || []
+          {(Array.isArray(resolvedCompanyDetails?.inclusions)
+            ? resolvedCompanyDetails.inclusions
+            : resolvedCompanyDetails?.inclusions?.split(",") || []
           ).map((item) => (
             <span
               key={item}
