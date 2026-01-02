@@ -34,6 +34,14 @@ const slides = [
 const MainPage = () => {
   const navigate = useNavigate();
   const intervalRef = useRef(null);
+  const goToColleges = () => {
+    if (window.location.hostname.includes("localhost")) {
+      window.location.href = "http://localhost:5174/college";
+    } else {
+      window.location.href = "https://nomad.wono.co";
+    }
+  };  
+  
   const goToNomads = () => {
     if (window.location.hostname.includes("localhost")) {
       window.location.href = "http://nomad.localhost:5174";
@@ -111,12 +119,12 @@ const MainPage = () => {
           <div className="flex gap-8 w-full justify-center items-center pt-4">
             <PrimaryButton
               title="Find Universities"
-              handleSubmit={goToNomads}
+              handleSubmit={goToColleges}
               externalStyles="bg-[#FF5757] text-[0.8rem] xs:text-[0.9rem] sm:text-[1rem] md:text-[1rem] lg:text-[1rem] flex text-white font-[500] capatilize hover:bg-[#E14C4C] w-[12rem] px-6"
             />
             <PrimaryButton
               title="Find Schools"
-              handleSubmit={goToHosts}
+              handleSubmit={goToColleges}
               externalStyles="bg-[#FF5757] text-[0.8rem] xs:text-[0.9rem] sm:text-[1rem] md:text-[1rem] lg:text-[1rem] flex text-white font-[500] capatilize hover:bg-[#E14C4C] w-[12rem] px-6"
             />
           </div>

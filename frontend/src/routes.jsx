@@ -53,140 +53,97 @@ import NomadTermsAndConditions from "./pages/NomadTermsAndConditions";
 import SiteIsDown from "./pages/SiteIsDown";
 import WebsiteUnderMaintenance from "./pages/WebsiteUnderMaintenance";
 
-function getTenantFromHost() {
-  const hostname = window.location.hostname; // e.g. "nomad.wono.co" or "nomad.localhost"
-  const rootDomain = "wono.co";
+// function getTenantFromHost() {
+//   const hostname = window.location.hostname; // e.g. "nomad.wono.co" or "nomad.localhost"
+//   const rootDomain = "wono.co";
 
-  // Case 1: main site (no subdomain or localhost root)
-  if (
-    hostname === rootDomain ||
-    hostname === `www.${rootDomain}` ||
-    hostname === "localhost" ||
-    hostname.startsWith("localhost:")
-  ) {
-    return "main";
-  }
+//   // Case 1: main site (no subdomain or localhost root)
+//   if (
+//     hostname === rootDomain ||
+//     hostname === `www.${rootDomain}` ||
+//     hostname === "localhost" ||
+//     hostname.startsWith("localhost:")
+//   ) {
+//     return "main";
+//   }
 
-  // Case 2: production subdomains (*.wono.co)
-  if (hostname.endsWith(`.${rootDomain}`)) {
-    return hostname.replace(`.${rootDomain}`, "");
-  }
+//   // Case 2: production subdomains (*.wono.co)
+//   if (hostname.endsWith(`.${rootDomain}`)) {
+//     return hostname.replace(`.${rootDomain}`, "");
+//   }
 
-  // Case 3: dev subdomains (*.localhost)
-  if (hostname.endsWith(".localhost")) {
-    return hostname.replace(".localhost", "");
-  }
+//   // Case 3: dev subdomains (*.localhost)
+//   if (hostname.endsWith(".localhost")) {
+//     return hostname.replace(".localhost", "");
+//   }
 
-  return null;
-}
+//   return null;
+// }
 
-const tenant = getTenantFromHost();
+// const tenant = getTenantFromHost();
 
-let routerConfig = [];
+// let routerConfig = [];
 
-if (tenant === "main") {
-  // Marketing site
-  routerConfig = [
-    {
-      path: "/",
-      element: <App />,
-      children: [
-        { path: "", index: true, element: <MainPage /> },
-        { path: "site-is-down", element: <SiteIsDown /> },
-        {
-          path: "website-under-maintenance",
-          element: <WebsiteUnderMaintenance />,
-        },
-      ],
-    },
-  ];
-} else if (tenant === "nomad") {
-  console.log("nomad routes");
-  // Nomads subdomain
-  routerConfig = [
-    {
-      element: <PersistLogin />,
-      children: [
-        {
-          element: <NomadLayout />,
-          path: "/",
-          children: [
-            { path: "", element: <Home /> },
-            { path: "verticals", element: <GlobalListings /> },
-            { path: "listings", element: <Listings /> },
-            { path: "listings/:company", element: <Product /> },
-            { path: "listings/:company/images", element: <ImageGallery /> },
-            { path: "components", element: <ReusableComponents /> },
-            { path: "contact", element: <Contact /> },
-            { path: "news", element: <DestinationNews /> },
-            { path: "news/news-details", element: <BlogDetails /> },
-            { path: "blog", element: <LocalBlog /> },
-            { path: "blog/blog-details", element: <BlogDetails /> },
-            { path: "career", element: <Career /> },
-            { path: "career/job/:title", element: <JobDetails /> },
-            { path: "login", element: <Login /> },
-            { path: "forgot-password", element: <ForgotPassword /> },
-            { path: "reset-password/:token", element: <ResetPassword /> },
-            { path: "signup", element: <Signup /> },
-            { path: "about", element: <NomadAbout /> },
-            {
-              path: "terms-and-conditions",
-              element: <NomadTermsAndConditions />,
-            },
-            {
-              path: "content-and-copyright",
-              element: <NomadContentAndCopyright />,
-            },
-            {
-              path: "content-use-removal",
-              element: <NomadContentUseRemoval />,
-            },
-            { path: "privacy", element: <NomadPrivacy /> },
-            { path: "faq", element: <NomadFAQ /> },
-            { path: "profile", element: <Profile /> },
-            { path: "favorites", element: <Favorites /> },
-          ],
-        },
-      ],
-    },
-  ];
-} else if (tenant === "hosts") {
-  // Hosts subdomain
-  routerConfig = [
-    {
-      path: "/",
-      element: <HostLayout />,
-      children: [
-        { path: "", element: <HostHome /> },
-        { path: "contact", element: <HostContact /> },
-        { path: "career", element: <HostCareer /> },
-        { path: "career/job/:title", element: <JobDetails /> },
-        { path: "login", element: <HostLogin /> },
-        { path: "signup", element: <HostSignup /> },
-        { path: "modules", element: <Modules /> },
-        { path: "themes", element: <Themes /> },
-        { path: "themes/products", element: <HostProduct /> },
-        { path: "leads", element: <Leads /> },
-        { path: "capital", element: <Capital /> },
-        { path: "about", element: <HostAbout /> },
-        { path: "terms-and-conditions", element: <HostTermsAndConditions /> },
-        { path: "content-and-copyright", element: <ContentAndCopyright /> },
-        { path: "content-use-removal", element: <ContentUseRemoval /> },
-        { path: "privacy", element: <HostPrivacy /> },
-        { path: "faq", element: <HostFAQ /> },
-      ],
-    },
-  ];
-} else {
-  // Company tenant subdomain
-  routerConfig = [
-    {
-      path: "*",
-      element: <TemplateSite />,
-      children: [{ path: "", index: true, element: <TemplateHome /> }],
-    },
-  ];
-}
+const routerConfig = [
+  // ===== Main marketing site =====
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      { index: true, element: <MainPage /> },
+      { path: "home", element: <Home /> },
+      { path: "site-is-down", element: <SiteIsDown /> },
+      {
+        path: "website-under-maintenance",
+        element: <WebsiteUnderMaintenance />,
+      },
+    ],
+  },
+
+  // ===== Nomad site =====
+  {
+    element: <PersistLogin />,
+    children: [
+      {
+        path: "/college",
+        element: <NomadLayout />,
+        children: [
+          { index: true, element: <Home /> },
+          { path: "verticals", element: <GlobalListings /> },
+          { path: "listings", element: <Listings /> },
+          { path: "listings/:company", element: <Product /> },
+          { path: "listings/:company/images", element: <ImageGallery /> },
+          { path: "components", element: <ReusableComponents /> },
+          { path: "contact", element: <Contact /> },
+          { path: "news", element: <DestinationNews /> },
+          { path: "news/news-details", element: <BlogDetails /> },
+          { path: "blog", element: <LocalBlog /> },
+          { path: "blog/blog-details", element: <BlogDetails /> },
+          { path: "career", element: <Career /> },
+          { path: "career/job/:title", element: <JobDetails /> },
+          { path: "login", element: <Login /> },
+          { path: "forgot-password", element: <ForgotPassword /> },
+          { path: "reset-password/:token", element: <ResetPassword /> },
+          { path: "signup", element: <Signup /> },
+          { path: "about", element: <NomadAbout /> },
+          {
+            path: "terms-and-conditions",
+            element: <NomadTermsAndConditions />,
+          },
+          {
+            path: "content-and-copyright",
+            element: <NomadContentAndCopyright />,
+          },
+          { path: "content-use-removal", element: <NomadContentUseRemoval /> },
+          { path: "privacy", element: <NomadPrivacy /> },
+          { path: "faq", element: <NomadFAQ /> },
+          { path: "profile", element: <Profile /> },
+          { path: "favorites", element: <Favorites /> },
+        ],
+      },
+    ],
+  },
+];
 
 const router = createBrowserRouter(routerConfig);
 
