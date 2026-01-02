@@ -138,17 +138,17 @@ const Home = () => {
     }
   }, [locations]); // ← notice: remove selectedCountry / selectedState here
 
-  const continentOptions = React.useMemo(() => {
-    const uniqueContinents = [
-      ...new Set(locations.map((item) => item.continent).filter(Boolean)),
-    ];
-    return uniqueContinents
-      .map((cont) => ({
-        label: cont.charAt(0).toUpperCase() + cont.slice(1),
-        value: cont.toLowerCase(),
-      }))
-      .sort((a, b) => a.label.localeCompare(b.label));
-  }, [locations]);
+  // const continentOptions = React.useMemo(() => {
+  //   const uniqueContinents = [
+  //     ...new Set(locations.map((item) => item.continent).filter(Boolean)),
+  //   ];
+  //   return uniqueContinents
+  //     .map((cont) => ({
+  //       label: cont.charAt(0).toUpperCase() + cont.slice(1),
+  //       value: cont.toLowerCase(),
+  //     }))
+  //     .sort((a, b) => a.label.localeCompare(b.label));
+  // }, [locations]);
 
   // const countryOptions = locations
   //   .map((item) => ({
@@ -215,30 +215,59 @@ const Home = () => {
   }, [locations, selectedContinent]);
 
   // Filter countries based on user email
-  const countryOptions = React.useMemo(
-    () => allCountryOptions,
-    [allCountryOptions]
-  );
+  // const countryOptions = React.useMemo(
+  //   () => allCountryOptions,
+  //   [allCountryOptions]
+  // );
 
   // Build locations with same filtering logic
-  const filteredLocation = locations.find(
-    (item) => item.country?.toLowerCase() === selectedCountry?.toLowerCase()
-  );
+  // const filteredLocation = locations.find(
+  //   (item) => item.country?.toLowerCase() === selectedCountry?.toLowerCase()
+  // );
+
+  // const locationOptions = React.useMemo(() => {
+  //   const baseLocations =
+  //     filteredLocation?.states?.map((item) => ({
+  //       label: item.name,
+  //       value: item.name?.toLowerCase(),
+  //     })) || [];
+  //   return baseLocations;
+  // }, [filteredLocation]);
+
+  const hardcodedLocationsMap = {
+    uae: [
+      { label: "Dubai", value: "dubai" },
+      { label: "Abu Dhabi", value: "abu-dhabi" },
+      { label: "Sharjah", value: "sharjah" },
+    ],
+    india: [
+      { label: "Goa", value: "goa" },
+      { label: "Bangalore", value: "bangalore" },
+      { label: "Mumbai", value: "mumbai" },
+    ],
+    usa: [
+      { label: "New York", value: "new-york" },
+      { label: "Austin", value: "austin" },
+      { label: "San Francisco", value: "san-francisco" },
+    ],
+  };
 
   const locationOptions = React.useMemo(() => {
-    const baseLocations =
-      filteredLocation?.states?.map((item) => ({
-        label: item.name,
-        value: item.name?.toLowerCase(),
-      })) || [];
-    return baseLocations;
-  }, [filteredLocation]);
+    if (!selectedCountry) return [];
+    return hardcodedLocationsMap[selectedCountry] || [];
+  }, [selectedCountry]);
+
+  const hardcodedCountries = [
+    { label: "United Arab Emirates", value: "uae" },
+    // { label: "India", value: "india" },
+    // { label: "United States", value: "usa" },
+  ];
+
+  const countryOptions = hardcodedCountries;
 
   const countOptions = [
-    { label: "1 - 5", value: "1-5" },
-    { label: "5 - 10", value: "5-10" },
-    { label: "10 - 25", value: "10-25" },
-    { label: "25+", value: "25+" },
+    { label: "University", value: "University" },
+    { label: "School", value: "School" },
   ];
 
   const reviewData = [
@@ -317,26 +346,26 @@ const Home = () => {
     },
   ];
   const amenities = [
- { image: icons.desk, title: "Library", isAvailable: true },
-  { image: icons.privatestorage, title: "Swimming Pool" },
-  { image: icons.aircondition, title: "Basketball Court" },
-  { image: icons.fastinternet, title: "Football Field" },
-  { image: icons.itsupport, title: "Cafeteria" },
-  { image: icons.teacoffee, title: "Auditorium" },
-  { image: icons.receptionsupport, title: "Prayer Room" },
-  { image: icons.adminsupport, title: "Tennis Court" },
-  { image: icons.housekeeping, title: "Student Housing" },
-  { image: icons.community, title: "Padel Court" },
-  { image: icons.maintenance, title: "Medical Room" },
-  { image: icons.generator, title: "CCTV Secure" },
-  { image: icons.meetingrooms, title: "Shuttle Service" },
-  { image: icons.cafedining, title: "Laboratory" },
-  { image: icons.printingservices, title: "Gym" },
-  { image: icons.secure, title: "Recreational Zones" },
-  { image: icons.television, title: "Clubs & Community" },
-  { image: icons.purifiedwater, title: "Study Rooms" },
-  { image: icons.pool, title: "Careers Team" },
-  { image: icons.customsolutions, title: "Green Spaces" },
+    { image: icons.desk, title: "Library", isAvailable: true },
+    { image: icons.privatestorage, title: "Swimming Pool" },
+    { image: icons.aircondition, title: "Basketball Court" },
+    { image: icons.fastinternet, title: "Football Field" },
+    { image: icons.itsupport, title: "Cafeteria" },
+    { image: icons.teacoffee, title: "Auditorium" },
+    { image: icons.receptionsupport, title: "Prayer Room" },
+    { image: icons.adminsupport, title: "Tennis Court" },
+    { image: icons.housekeeping, title: "Student Housing" },
+    { image: icons.community, title: "Padel Court" },
+    { image: icons.maintenance, title: "Medical Room" },
+    { image: icons.generator, title: "CCTV Secure" },
+    { image: icons.meetingrooms, title: "Shuttle Service" },
+    { image: icons.cafedining, title: "Laboratory" },
+    { image: icons.printingservices, title: "Gym" },
+    { image: icons.secure, title: "Recreational Zones" },
+    { image: icons.television, title: "Clubs & Community" },
+    { image: icons.purifiedwater, title: "Study Rooms" },
+    { image: icons.pool, title: "Careers Team" },
+    { image: icons.customsolutions, title: "Green Spaces" },
     // { image: icons.rentbikecar, title: "CAR / BIKE / BUS" },
     // { image: icons.television, title: "TELEVISION" },
     // { image: icons.stationery, title: "STATIONERY" },
@@ -385,7 +414,7 @@ const Home = () => {
                 className=" flex justify-around md:w-full lg:w-full border-2 bg-gray-50 rounded-full p-0 items-center"
                 // className=" flex justify-around md:w-full lg:w-3/4 border-2 bg-gray-50 rounded-full p-0 items-center"
               >
-                <Controller
+                {/* <Controller
                   name="continent"
                   control={control}
                   render={({ field }) => (
@@ -398,8 +427,8 @@ const Home = () => {
                       className="w-full "
                     />
                   )}
-                />
-                <div className="w-px h-10 bg-gray-300 mx-2 my-auto" />
+                /> */}
+                {/* <div className="w-px h-10 bg-gray-300 mx-2 my-auto" /> */}
                 <Controller
                   name="country"
                   control={control}
@@ -410,7 +439,7 @@ const Home = () => {
                       options={countryOptions}
                       label="Select Country"
                       placeholder="Select aspiring destination"
-                      disabled={!selectedContinent}
+                      // disabled={!selectedContinent}
                       className="w-full "
                     />
                   )}
@@ -440,8 +469,8 @@ const Home = () => {
                       value={field.value}
                       onChange={field.onChange}
                       options={countOptions}
-                      label="Select Count"
-                      placeholder="Booking for no. of Nomads"
+                      label="Select Category"
+                      placeholder="Select type of institute"
                       disabled={!selectedState}
                       className="w-full "
                     />
@@ -489,7 +518,7 @@ const Home = () => {
 
               <motion.div initial={{ y: "-100%" }} animate={{ y: "0%" }}>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                  <Controller
+                  {/* <Controller
                     name="continent"
                     control={control}
                     render={({ field }) => (
@@ -502,7 +531,7 @@ const Home = () => {
                         className="w-full "
                       />
                     )}
-                  />
+                  /> */}
 
                   <Controller
                     name="country"
@@ -514,7 +543,7 @@ const Home = () => {
                         options={countryOptions}
                         label="Select Country"
                         placeholder="Select aspiring destination"
-                        disabled={!selectedContinent}
+                        // disabled={!selectedContinent}
                         className="w-full"
                       />
                     )}
@@ -542,8 +571,8 @@ const Home = () => {
                         value={field.value}
                         onChange={field.onChange}
                         options={countOptions}
-                        label="Select Count"
-                        placeholder="Booking for no. of Nomads"
+                        label="Select Category"
+                        placeholder="Select type of institute"
                         disabled={!selectedState}
                         className="w-full"
                       />
