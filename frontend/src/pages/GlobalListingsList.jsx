@@ -888,12 +888,15 @@ const GlobalListingsList = () => {
                                 item={item}
                                 showVertical={false}
                                 handleNavigation={() =>
-                                  navigate(`/listings/${item.companyName}`, {
-                                    state: {
-                                      companyId: item.companyId,
-                                      type: item.companyType,
-                                    },
-                                  })
+                                  navigate(
+                                    `/college/listings/${item.companyName}`,
+                                    {
+                                      state: {
+                                        companyId: item.companyId,
+                                        type: item.companyType,
+                                      },
+                                    }
+                                  )
                                 }
                               />
                             ))}
