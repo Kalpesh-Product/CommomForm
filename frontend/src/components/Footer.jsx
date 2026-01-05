@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/WONO_LOGO_Black_TP.png";
+import logoBlack from "../assets/commonform-logo-black.png";
 import { FaTwitter, FaLinkedinIn } from "react-icons/fa";
 import { FaGlobe, FaRupeeSign, FaFacebookF, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
@@ -89,17 +89,17 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="w-full bg-gray-100 text-black flex flex-col justify-center items-center shadow-lg">
+    <footer className="w-full bg-black text-white flex flex-col justify-center items-center shadow-lg">
       <div className="w-full flex flex-wrap justify-between items-center pt-12 pb-8 px-4 md:px-[7.5rem]">
         {/* Left Section */}
         <div className="flex flex-col items-center md:items-center lg:items-start mb-8 lg:mb-0 w-full md:w-auto text-center lg:text-left">
           <img
-            src={logo}
+            src={logoBlack}
             className="w-36 cursor-pointer mb-4 mx-auto lg:mx-0"
             alt="logo"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           />
-          <p className="text-sm leading-6">
+          <p className="text-sm leading-6 text-white">
             WONOCO PRIVATE LIMITED - SINGAPORE
             <br />
             <Link
@@ -124,7 +124,7 @@ const Footer = () => {
                     <span
                       key={i}
                       onClick={linkObj.link}
-                      className="text-sm opacity-80 hover:text-gray-500 cursor-pointer uppercase p-2"
+                      className="text-sm opacity-80 hover:text-gray-500 cursor-pointer uppercase p-2 text-white"
                     >
                       {linkObj.name}
                     </span>
@@ -132,7 +132,7 @@ const Footer = () => {
                     <Link
                       key={i}
                       to={linkObj.link}
-                      className="text-sm opacity-80 hover:text-gray-500 uppercase p-2"
+                      className="text-sm opacity-80 hover:text-gray-500 text-white uppercase p-2"
                     >
                       {linkObj.name}
                     </Link>
@@ -150,9 +150,9 @@ const Footer = () => {
         Rights Reserved.
       </div> */}
       {/* Copyright */}
-      <div className="w-full flex flex-col md:flex-row justify-between items-center text-center md:text-left py-6 border-t-2 border-white px-4 md:px-[7.5rem]">
+      <div className="w-full flex flex-col md:flex-row justify-between items-center text-center md:text-left py-6 border-t-2 border-white px-4 md:px-[7.5rem] text-black bg-gray-50">
         {/* Left side — Copyright */}
-        <div className="flex flex-col md:flex-row justify-center md:justify-start items-center gap-1 text-[10px] md:text-xs font-semibold text-gray-800 mb-3 md:mb-0">
+        <div className="flex flex-col md:flex-row justify-center md:justify-start items-center gap-1 text-[10px] md:text-xs font-semibold text-black bg-gray-50 mb-3 md:mb-0">
           <span>
             &copy; Copyright {new Date().getFullYear()} -{" "}
             {(new Date().getFullYear() + 1).toString().slice(-2)}
@@ -163,7 +163,7 @@ const Footer = () => {
         </div>
 
         {/* Right side — Policy Links */}
-        <div className="flex flex-col md:flex-row justify-center md:justify-end items-center gap-4 text-[10px] md:text-xs text-gray-800 ">
+        <div className="flex flex-col md:flex-row justify-center md:justify-end items-center gap-4 text-[10px] md:text-xs text-black bg-gray-50 ">
           <span
             onClick={goToHostsContentCopyright}
             className="hover:opacity-100 hover:text-gray-500 uppercase text-center md:text-right cursor-pointer"
@@ -180,7 +180,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="w-full flex justify-center items-center gap-4 py-4 bg-gray-50 text-xs font-semibold border-t border-gray-200">
+      <div className="w-full flex justify-center items-center gap-4 py-4 bg-gray-50 text-xs font-semibold border-t border-gray-200 text-black ">
         {/* Language Selector */}
         <div
           onClick={() => setShowLangModal(true)}
