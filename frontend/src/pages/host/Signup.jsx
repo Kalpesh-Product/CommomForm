@@ -1530,6 +1530,254 @@ const HostSignup = () => {
 
       case 4:
         return (
+          <>
+            <Controller
+              name="Activity1"
+              control={control}
+              // rules={{ required: "High School Name is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="First Choice Program"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Scholarship / Financial Aid Interest"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Second Choice Program"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Communication Preference"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Any Special Requirements"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Consent & Declaration"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Emergency Contact Information"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Digital Signature"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />
+            {/* <h2 className="font-semibold text-lg pt-4">
+              Please Select Your Services
+            </h2>
+            <Controller
+              name="selectedServices"
+              control={control}
+              defaultValue={["Website Builder", "Lead Generation"]}
+              // rules={{
+              //   validate: (value) =>
+              //     value.length > 0 || "Please select at least one service",
+              // }}
+              render={({ field, fieldState }) => {
+                const mandatoryServices = [
+                  "Website Builder",
+                  "Lead Generation",
+                  "Automated Google Sheets",
+                ];
+
+                // Always merge mandatory into value
+                const valueWithMandatory = Array.from(
+                  new Set([...(field.value || []), ...mandatoryServices])
+                );
+
+                const renderCard = (service, isMandatory) => {
+                  const isSelected = valueWithMandatory.includes(service);
+
+                  const handleToggle = () => {
+                    if (isMandatory) return;
+                    const newValue = isSelected
+                      ? valueWithMandatory.filter((s) => s !== service)
+                      : [...valueWithMandatory, service];
+
+                    console.log("Selected services:", newValue);
+                    field.onChange(newValue);
+                  };
+
+                  return (
+                    <Box
+                      key={service}
+                      onClick={handleToggle}
+                      role="checkbox"
+                      aria-checked={isSelected}
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (
+                          (e.key === "Enter" || e.key === " ") &&
+                          !isMandatory
+                        )
+                          handleToggle();
+                      }}
+                      sx={{
+                        border: "1px solid",
+                        borderColor: isSelected ? "primary.main" : "divider",
+                        borderRadius: 2,
+                        p: 2,
+                        cursor: isMandatory ? "not-allowed" : "pointer",
+                        userSelect: "none",
+                        boxShadow: isSelected ? 3 : 0,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        opacity: isMandatory ? 0.8 : 1,
+                      }}
+                    >
+                      <span className="font-medium">{service}</span>
+
+                      <Checkbox
+                        checked={isSelected}
+                        disabled={isMandatory}
+                        onChange={(e) => {
+                          e.stopPropagation();
+                          handleToggle();
+                        }}
+                        inputProps={{
+                          "aria-label": `${service} checkbox`,
+                        }}
+                      />
+                    </Box>
+                  );
+                };
+
+                return (
+                  <Box sx={{ mt: 2 }} className="col-span-1 lg:col-span-2">
+               
+                    <h3 className="font-semibold mb-2">
+                      Your Activated Services
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+                      {mandatoryServices.map((service) =>
+                        renderCard(service, true)
+                      )}
+                    </div>
+
+              
+                    {serviceOptions.map((group) => (
+                      <Box key={group.category} sx={{ mb: 4 }}>
+                        <h3 className="font-semibold mb-2">{group.category}</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                          {group.items.map((service) =>
+                            renderCard(service, false)
+                          )}
+                        </div>
+                      </Box>
+                    ))}
+
+                    {fieldState.error && (
+                      <FormHelperText error>
+                        {fieldState.error.message}
+                      </FormHelperText>
+                    )}
+                  </Box>
+                );
+              }}
+            /> */}
+          </>
+        );
+
+      case 5:
+        return (
           <div className="flex flex-col gap-4 col-span-2">
             <h1 className="text-title text-center">Account Activation</h1>
             <div className="space-y-10">
@@ -1638,7 +1886,8 @@ const HostSignup = () => {
             {activeStep === 1 && "Add your education details"}
             {activeStep === 2 && "Extracurricular Activity Info"}
             {activeStep === 3 && "Documents Info"}
-            {activeStep === 4 && "Activate your account"}
+            {activeStep === 4 && "Final Info"}
+            {activeStep === 5 && "Activate your account"}
           </h1>
         )}
 
@@ -1788,7 +2037,7 @@ const HostSignup = () => {
                 handleSubmit={() => setActiveStep((prev) => prev - 1)}
               />
             )} */}
-            {activeStep > 0 && activeStep < stepFields.length - 1 && (
+            {activeStep > 0 && activeStep < steps.length - 1 && (
               <GetStartedButton
                 title="Back"
                 handleSubmit={() => setActiveStep((prev) => prev - 1)}
@@ -1832,7 +2081,7 @@ const HostSignup = () => {
               </div>
             )} */}
 
-            {activeStep === stepFields.length - 1 && (
+            {activeStep === steps.length - 2 && (
               <div className="flex justify-end items-center w-full">
                 <GetStartedButton
                   title={isRegisterLoading ? "Submitting..." : "Submit"}
@@ -1843,8 +2092,8 @@ const HostSignup = () => {
               </div>
             )}
 
-            {/* Go To Home button on 5th step */}
-            {activeStep === stepFields.length && (
+            {/* Go To Home button on Activation step */}
+            {activeStep === steps.length - 1 && (
               <div className="flex justify-center items-center w-full">
                 <GetStartedButton
                   title="Go To Home"

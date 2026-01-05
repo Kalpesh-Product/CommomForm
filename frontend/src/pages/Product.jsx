@@ -621,14 +621,14 @@ const Product = () => {
                 <div className="text-tiny w-full hidden lg:flex justify-center items-center">
                   <LeafWrapper height="3rem" width={"2rem"}>
                     <div className="text-secondary-dark font-semibold flex lg:text-subtitle flex-col leading-5  items-center">
-                      <span>Guest</span>
+                      <span>Student</span>
                       <span>Favorite</span>
                     </div>
                   </LeafWrapper>
                 </div>
                 <div className="w-full hidden lg:flex">
                   <p className="text-tiny ">
-                    One of the most loved places on WoNo, according to guests
+                    One of the most loved Universities in Dubai, by students
                   </p>
                 </div>
                 <div className="flex w-full lg:w-1/2 gap-1 justify-end">
@@ -669,7 +669,7 @@ const Product = () => {
 
               <div className="shadow-md flex flex-col gap-4 p-6 rounded-xl border-2">
                 <h1 className="text-card-title text-secondary-dark font-semibold leading-normal">
-                  Enquire & Recieve Quote
+                  START BUILDING YOUR COMMON FORM
                 </h1>
                 <form
                   onSubmit={handleSubmit((data) => submitEnquiry(data))}
@@ -704,13 +704,12 @@ const Product = () => {
                     control={control}
                     rules={{
                       required: "No. of people is required",
-                      validate: (value) =>
-                        value > 0 || "At least one person is required",
+                      validate: (value) => value > 0 || "Country is required",
                     }}
                     render={({ field }) => (
                       <div className="flex flex-col gap-1">
                         <label className="text-sm text-gray-600 font-medium">
-                          No. Of People
+                          Country
                         </label>
                         <div className="flex items-center border-b border-gray-300 py-1 w-full max-w-xs">
                           {/* Minus Button */}
