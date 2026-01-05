@@ -442,11 +442,11 @@ const HostSignup = () => {
             <Controller
               name="companyName"
               control={control}
-              rules={{ required: "Company Name is required" }}
+              rules={{ required: "High School Name is required" }}
               render={({ field, fieldState }) => (
                 <TextField
                   {...field}
-                  label="Company Name"
+                  label="High School Name"
                   fullWidth
                   margin="normal"
                   variant="standard"
@@ -462,7 +462,103 @@ const HostSignup = () => {
               render={({ field, fieldState }) => (
                 <TextField
                   {...field}
-                  label="Industry"
+                  label="Class Rank (If Applicable)"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="High School Graduation Year"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Subjects Taken / Majors"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Curriculum / Board"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Standardized Test Scores"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="GPA / Grade"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Extracurricular Courses"
                   fullWidth
                   margin="normal"
                   variant="standard"
@@ -471,7 +567,7 @@ const HostSignup = () => {
                 />
               )}
             />
-            <Controller
+            {/* <Controller
               name="companySize"
               control={control}
               rules={{
@@ -608,14 +704,142 @@ const HostSignup = () => {
                   </TextField>
                 );
               }}
-            />
+            /> */}
           </>
         );
 
       case 2:
         return (
           <>
-            <div className="col-span-1 lg:col-span-2">
+            <Controller
+              name="Activity1"
+              control={control}
+              // rules={{ required: "High School Name is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Activity 1"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Activity 3"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Description"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Description"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Activity 2"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Activity 4"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Description"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Description"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />
+            {/* <div className="col-span-1 lg:col-span-2">
               <h2 className="font-semibold mt-4 text-xl">Website Banner</h2>
             </div>
             <div className="col-span-1 lg:col-span-2 rounded-lg border border-gray-300 p-3 mb-2 grid grid-cols-2 gap-4">
@@ -652,7 +876,7 @@ const HostSignup = () => {
                 )}
               />
 
-              {/* Company Logo (single upload) */}
+            
               <Controller
                 name="companyLogo"
                 control={control}
@@ -680,7 +904,7 @@ const HostSignup = () => {
                 )}
               />
 
-              {/* Hero Images (multiple upload) */}
+           
               <Controller
                 name="heroImages"
                 control={control}
@@ -710,7 +934,7 @@ const HostSignup = () => {
               />
             </div>
 
-            {/* <div> */}
+      
             <div className="col-span-1 lg:col-span-2">
               <h3 className="font-semibold mb-2 text-xl mt-4">About Company</h3>
               {aboutFields.map((field, index) => (
@@ -758,24 +982,9 @@ const HostSignup = () => {
               </button>
             </div>
 
-            {/* <Controller
-              name="contactTitle"
-              control={control}
-              rules={{ required: "Contact Title is required" }}
-              render={({ field, fieldState }) => (
-                <TextField
-                  {...field}
-                  label="Contact Title"
-                  fullWidth
-                  margin="normal"
-                  variant="standard"
-                  error={!!fieldState.error}
-                  helperText={fieldState.error?.message}
-                />
-              )}
-            /> */}
 
-            {/* Products Section */}
+
+       
             <div className="col-span-1 lg:col-span-2">
               <h3 className="font-semibold mb-2 text-xl mt-4">Products</h3>
 
@@ -795,7 +1004,7 @@ const HostSignup = () => {
                     </button>
                   </div>
 
-                  {/* Grid for first 4 inputs */}
+               
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Controller
                       name={`products.${index}.name`}
@@ -867,7 +1076,7 @@ const HostSignup = () => {
                     />
                   </div>
 
-                  {/* Product Images */}
+            
                   <Controller
                     name={`products.${index}.files`}
                     control={control}
@@ -908,9 +1117,9 @@ const HostSignup = () => {
               </button>
             </div>
 
-            {/* Gallery Section (already there) */}
+        
 
-            {/* Gallery Section */}
+    
             <div className="col-span-1 lg:col-span-2">
               <h3 className="font-semibold mb-2 text-xl mt-4">Gallery</h3>
               <Controller
@@ -1067,14 +1276,142 @@ const HostSignup = () => {
                   />
                 )}
               />
-            </div>
+            </div> */}
           </>
         );
 
       case 3:
         return (
           <>
-            <h2 className="font-semibold text-lg pt-4">
+            <Controller
+              name="Activity1"
+              control={control}
+              // rules={{ required: "High School Name is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Resume"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Personal Statement"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Passport"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Letters of Recommendation"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="UAE residency visa (if available)"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="English Proficiency Test"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Emirates ID (if available)"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />{" "}
+            <Controller
+              name="industry"
+              control={control}
+              // rules={{ required: "Industry is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="high school mark sheets"
+                  fullWidth
+                  margin="normal"
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />
+            {/* <h2 className="font-semibold text-lg pt-4">
               Please Select Your Services
             </h2>
             <Controller
@@ -1157,7 +1494,7 @@ const HostSignup = () => {
 
                 return (
                   <Box sx={{ mt: 2 }} className="col-span-1 lg:col-span-2">
-                    {/* Mandatory Section */}
+               
                     <h3 className="font-semibold mb-2">
                       Your Activated Services
                     </h3>
@@ -1167,7 +1504,7 @@ const HostSignup = () => {
                       )}
                     </div>
 
-                    {/* Other Categories */}
+              
                     {serviceOptions.map((group) => (
                       <Box key={group.category} sx={{ mb: 4 }}>
                         <h3 className="font-semibold mb-2">{group.category}</h3>
@@ -1187,7 +1524,7 @@ const HostSignup = () => {
                   </Box>
                 );
               }}
-            />
+            /> */}
           </>
         );
 
@@ -1295,13 +1632,13 @@ const HostSignup = () => {
             Let's set up your free account
           </h1>
         )} */}
-        {activeStep !== 3 && (
+        {activeStep !== 5 && (
           <h1 className="text-title text-center">
             {activeStep === 0 && "Let's set up your free account"}
-            {activeStep === 1 && "Add your company details"}
-            {activeStep === 2 && "Add Your Website Content"}
-            {/* {activeStep === 3 && "Choose your services"} */}
-            {/* {activeStep === 4 && "Activate your account"} */}
+            {activeStep === 1 && "Add your education details"}
+            {activeStep === 2 && "Extracurricular Activity Info"}
+            {activeStep === 3 && "Documents Info"}
+            {activeStep === 4 && "Activate your account"}
           </h1>
         )}
 
@@ -1495,7 +1832,7 @@ const HostSignup = () => {
               </div>
             )} */}
 
-            {activeStep === stepFields.length - 2 && (
+            {activeStep === stepFields.length - 1 && (
               <div className="flex justify-end items-center w-full">
                 <GetStartedButton
                   title={isRegisterLoading ? "Submitting..." : "Submit"}
@@ -1507,7 +1844,7 @@ const HostSignup = () => {
             )}
 
             {/* Go To Home button on 5th step */}
-            {activeStep === stepFields.length - 1 && (
+            {activeStep === stepFields.length && (
               <div className="flex justify-center items-center w-full">
                 <GetStartedButton
                   title="Go To Home"
