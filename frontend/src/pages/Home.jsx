@@ -387,7 +387,7 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Nomads | Work, Stay & Connect Globally</title>
+        <title>CommonForm</title>
         <meta
           name="description"
           content="Join the largest global community of digital nomads. Find coworking spaces, hostels, cafes, and private stays designed for remote work and collaboration."
