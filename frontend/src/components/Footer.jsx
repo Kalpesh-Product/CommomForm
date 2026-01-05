@@ -65,9 +65,9 @@ const Footer = () => {
     {
       heading: "Services",
       links: [
-        { name: "About", link: "/about" },
-        { name: "Career", link: "career" },
-        { name: "FAQs", link: "faq" },
+        // { name: "About", link: "/about" },
+        // { name: "Career", link: "career" },
+        // { name: "FAQs", link: "faq" },
         // {
         //   name: "Content and Copyright Policy",
         //   link: goToHostsContentCopyright,
@@ -77,9 +77,9 @@ const Footer = () => {
     {
       heading: "Corporate",
       links: [
-        { name: "Privacy", link: goToHostsPrivacy },
-        { name: "T&C", link: goToHostsTC },
-        { name: "Contact", link: "/contact" },
+        // { name: "Privacy", link: goToHostsPrivacy },
+        // { name: "T&C", link: goToHostsTC },
+        // { name: "Contact", link: "/contact" },
         // {
         //   name: "Content Use & Removal Policy",
         //   link: goToHostsContentUseRemoval,
@@ -162,7 +162,7 @@ const Footer = () => {
             {(new Date().getFullYear() + 1).toString().slice(-2)}
           </span>
           <span className="text-[10px] md:text-xs font-semibold md:ml-2">
-            WONOCO PRIVATE LIMITED - SINGAPORE. All Rights Reserved.
+            COMMON FORM - All Rights Reserved.
           </span>
         </div>
 
