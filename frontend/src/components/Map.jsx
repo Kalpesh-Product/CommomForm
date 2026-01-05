@@ -9,7 +9,9 @@ import {
 import { FaStar } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
-const FALLBACK_CENTER = { lat: 15.501, lng: 73.8294 };
+// const FALLBACK_CENTER = { lat: 15.501, lng: 73.8294 };
+// Default to University of Birmingham Dubai to ensure the map opens in Dubai 25.132425615145237, 55.4223161
+const FALLBACK_CENTER = { lat: 25.132425615145237, lng: 55.4223161 };
 const CONTAINER_STYLE = { width: "100%", height: "100%" };
 
 // --- Helpers ---
@@ -198,7 +200,8 @@ export default function Map({
     <GoogleMap
       mapContainerStyle={CONTAINER_STYLE}
       center={mapCenter}
-      zoom={12}
+      // zoom={12}
+      zoom={14}
       options={mapOptions}
     >
       <MarkerClusterer options={clusterOptions}>

@@ -91,8 +91,8 @@ const Header = () => {
 
   const headerLinks = [
     { id: 1, text: "Home", to: "/" },
-    { id: 2, text: "News", to: "/news" },
-    { id: 3, text: "Blog", to: "/blog" },
+    { id: 2, text: "News", to: "/college/news" },
+    { id: 3, text: "Blog", to: "/college/blog" },
   ];
 
   return (
