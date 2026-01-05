@@ -69,23 +69,23 @@ const Product = () => {
     images: [
       {
         _id: "img1",
-        url: "/images/img1.jpeg",
+        url: "/images/img1.jpg",
       },
       {
         _id: "img2",
-        url: "/images/img1.jpeg",
+        url: "/images/img2.jpg",
       },
       {
         _id: "img3",
-        url: "/images/img1.jpeg",
+        url: "/images/img3.jpg",
       },
       {
         _id: "img4",
-        url: "/images/img1.jpeg",
+        url: "/images/img4.jpg",
       },
       {
         _id: "img5",
-        url: "/images/img1.jpeg",
+        url: "/images/img5.jpg",
       },
     ],
 
@@ -155,19 +155,33 @@ const Product = () => {
     },
   };
 
-  const { data: companyDetails, isPending: isCompanyDetails } = useQuery({
-    queryKey: ["companyDetails", companyId, userId || "guest"], // safe for guests too
+  // const { data: companyDetails, isPending: isFetching && !USE_DUMMY_DATA } = useQuery({
+  //   queryKey: ["companyDetails", companyId, userId || "guest"], // safe for guests too
+  //   queryFn: async () => {
+  //     const url = userId
+  //       ? `company/get-single-company-data?companyId=${companyId}&companyType=${type}&userId=${userId}`
+  //       : `company/get-single-company-data?companyId=${companyId}&companyType=${type}`;
+  //     const response = await axios.get(url); // ✅ use public axios when not logged in
+
+  //     console.log("logox", response.data.logo.url);
+  //     return response?.data;
+  //   },
+  //   enabled: !!companyId, // ✅ allow guests to load
+  //   refetchOnMount: "always",
+  // });
+
+  const { data: companyDetails = DUMMY_COMPANY, isFetching } = useQuery({
+    queryKey: ["companyDetails", companyId, userId || "guest"],
     queryFn: async () => {
       const url = userId
         ? `company/get-single-company-data?companyId=${companyId}&companyType=${type}&userId=${userId}`
         : `company/get-single-company-data?companyId=${companyId}&companyType=${type}`;
-      const response = await axios.get(url); // ✅ use public axios when not logged in
 
-      console.log("logox", response.data.logo.url);
+      const response = await axios.get(url);
       return response?.data;
     },
-    enabled: !!companyId, // ✅ allow guests to load
-    refetchOnMount: "always",
+    enabled: !!companyId && !USE_DUMMY_DATA, // 🔥 stop API when dummy is on
+    initialData: DUMMY_COMPANY, // 🔥 instant render
   });
 
   const resolvedCompanyDetails = USE_DUMMY_DATA
@@ -304,14 +318,15 @@ const Product = () => {
     }
   }, [companyImages, selectedImage]);
 
-  const reviewData = isCompanyDetails
-    ? []
-    : resolvedCompanyDetails?.reviews?.map((item) => ({
-        ...item,
-        stars: item.starCount,
-        message: item.description,
-        date: dayjs(item.createdAt).fromNow(),
-      }));
+  const reviewData =
+    isFetching && !USE_DUMMY_DATA
+      ? []
+      : resolvedCompanyDetails?.reviews?.map((item) => ({
+          ...item,
+          stars: item.starCount,
+          message: item.description,
+          date: dayjs(item.createdAt).fromNow(),
+        }));
 
   const forMapsData = {
     id: resolvedCompanyDetails?._id,
@@ -371,7 +386,7 @@ const Product = () => {
       <div className="min-w-[70%] max-w-[80rem] lg:max-w-[70rem] mx-0 md:mx-auto">
         <div className="flex flex-col gap-8">
           {/* Image Section */}
-          {isCompanyDetails ? (
+          {isFetching && !USE_DUMMY_DATA ? (
             // 🔄 Loading skeletons
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 overflow-hidden animate-pulse">
               {/* Main Skeleton */}
@@ -479,7 +494,7 @@ const Product = () => {
           {/* About and Location */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <div className="flex flex-col gap-8">
-              {/* {isCompanyDetails ? (
+              {/* {isFetching && !USE_DUMMY_DATA ? (
                 // 🔄 Skeleton while loading
                 <div className="w-full h-36 bg-gray-200 animate-pulse rounded-md" />
               ) : !resolvedCompanyDetails?.logo || !resolvedCompanyDetails?.logo?.url ? (
@@ -500,7 +515,7 @@ const Product = () => {
                 </div>
               )} */}
 
-              {isCompanyDetails ? (
+              {isFetching && !USE_DUMMY_DATA ? (
                 // 🔄 Skeleton while loading
                 <div className="w-full h-36 bg-gray-200 animate-pulse rounded-md" />
               ) : !(
@@ -579,7 +594,7 @@ const Product = () => {
                   </div>
                 </div>
 
-                {isCompanyDetails ? (
+                {isFetching && !USE_DUMMY_DATA ? (
                   // 🔄 Skeleton UI while loading
                   <div className="space-y-1 animate-pulse">
                     <div className="h-3 bg-gray-200 rounded w-3/4" />

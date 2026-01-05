@@ -381,7 +381,9 @@ const GlobalListingsMap = () => {
             <div className="hidden lg:flex flex-col gap-4 justify-between items-center">
               {/* the 5 icons */}
 
-              <div className=" w-3/4 pb-4">
+              <div className="h-6"></div>
+
+              {/* <div className=" w-3/4 pb-4">
                 <div className="flex justify-between items-center">
                   {categoryOptions.map((cat) => {
                     const iconSrc = newIcons[cat.value];
@@ -410,7 +412,7 @@ const GlobalListingsMap = () => {
                     );
                   })}
                 </div>
-              </div>
+              </div> */}
 
               {/* Search Form */}
               <form
@@ -682,12 +684,15 @@ const GlobalListingsMap = () => {
                               item={item}
                               showVertical={true}
                               handleNavigation={() =>
-                                navigate(`/listings/${item.companyName}`, {
-                                  state: {
-                                    companyId: item.companyId,
-                                    type: item.companyType || "ss",
-                                  },
-                                })
+                                navigate(
+                                  `/college/listings/${item.companyName}`,
+                                  {
+                                    state: {
+                                      companyId: item.companyId,
+                                      type: item.companyType || "ss",
+                                    },
+                                  }
+                                )
                               }
                             />
                           </motion.div>
