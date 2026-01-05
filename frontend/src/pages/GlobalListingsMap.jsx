@@ -354,7 +354,7 @@ const GlobalListingsMap = () => {
   return (
     <>
       <Helmet>
-        <title>Nomads | Explore Global Co-working & Stay Listings</title>
+        <title>CommonForm</title>
         <meta
           name="description"
           content="Discover top-rated coworking spaces, hostels, cafes, and workation stays across the world. Browse verified listings with reviews, maps, and amenities for digital nomads."
