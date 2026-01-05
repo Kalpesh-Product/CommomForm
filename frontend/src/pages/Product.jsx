@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
-import { TextField } from "@mui/material";
+import { MenuItem, TextField } from "@mui/material";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -29,6 +29,7 @@ import { FaCheck } from "react-icons/fa";
 import TransparentModal from "../components/TransparentModal";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { Country } from "country-state-city";
 
 dayjs.extend(relativeTime);
 
@@ -60,7 +61,7 @@ const Product = () => {
     },
 
     about:
-      "The university also has an affiliated Dubai campus established in 2017 at Dubai International Academic City (DIAC). They have since moved from the DIAC headquarters with the construction of a new campus in 2022 in the same area, inaugurated by the Dubai crown prince Hamdan Bin Mohammed Al Maktoum. The campus boasts of having all faculty flown in or permanently staffed from the UK campus.",
+      "The University of Birmingham established its Dubai campus in 2018, becoming the first top 100 global university and the first Russell Group institution to open in the UAE. In 2022, the university moved into its purpose-built campus at Dubai International Academic City, designed to accommodate around 3,000 students with state-of-the-art laboratories, learning spaces, and facilities.",
     ratings: 4.6,
     reviewCount: 128,
     totalReviews: 128,
@@ -210,6 +211,7 @@ const Product = () => {
     handleSubmit,
     control,
     reset,
+    setValue,
     formState: { errors },
     watch,
   } = useForm({
@@ -220,6 +222,7 @@ const Product = () => {
       email: "",
       startDate: null,
       endDate: null,
+      country: "",
     },
     mode: "onChange",
   });
@@ -238,9 +241,16 @@ const Product = () => {
         noOfPeople: 0,
         startDate: null,
         endDate: null,
+        country: resolvedCompanyDetails?.country || "",
       });
     }
-  }, [auth, reset]);
+  }, [auth, reset, resolvedCompanyDetails]);
+
+  useEffect(() => {
+    if (resolvedCompanyDetails?.country) {
+      setValue("country", resolvedCompanyDetails.country);
+    }
+  }, [resolvedCompanyDetails, setValue]);
 
   const selectedStartDate = watch("startDate");
   const {
@@ -267,7 +277,7 @@ const Product = () => {
           : "",
         endDate: data.endDate ? dayjs(data.endDate).format("YYYY-MM-DD") : "",
 
-        country: resolvedCompanyDetails?.country,
+        country: data.country,
         state: resolvedCompanyDetails?.state,
         companyType: resolvedCompanyDetails?.companyType,
         personelCount: parseInt(data?.noOfPeople),
@@ -621,14 +631,14 @@ const Product = () => {
                 <div className="text-tiny w-full hidden lg:flex justify-center items-center">
                   <LeafWrapper height="3rem" width={"2rem"}>
                     <div className="text-secondary-dark font-semibold flex lg:text-subtitle flex-col leading-5  items-center">
-                      <span>Guest</span>
+                      <span>Student</span>
                       <span>Favorite</span>
                     </div>
                   </LeafWrapper>
                 </div>
                 <div className="w-full hidden lg:flex">
                   <p className="text-tiny ">
-                    One of the most loved places on WoNo, according to guests
+                    One of the most loved Universities in Dubai, by students
                   </p>
                 </div>
                 <div className="flex w-full lg:w-1/2 gap-1 justify-end">
@@ -669,7 +679,7 @@ const Product = () => {
 
               <div className="shadow-md flex flex-col gap-4 p-6 rounded-xl border-2">
                 <h1 className="text-card-title text-secondary-dark font-semibold leading-normal">
-                  Enquire & Recieve Quote
+                  START BUILDING YOUR COMMON FORM
                 </h1>
                 <form
                   onSubmit={handleSubmit((data) => submitEnquiry(data))}
@@ -700,20 +710,47 @@ const Product = () => {
                     )}
                   />
                   <Controller
+                    name="country"
+                    control={control}
+                    rules={{
+                      required: "Country is required",
+                    }}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        select
+                        label="Country"
+                        fullWidth
+                        variant="standard"
+                        size="small"
+                        value={field.value || ""}
+                        helperText={errors?.country?.message}
+                        error={!!errors.country}
+                        onChange={(event) => field.onChange(event.target.value)}
+                        sx={{ marginTop: 3 }}
+                      >
+                        {Country.getAllCountries().map((c) => (
+                          <MenuItem key={c.isoCode} value={c.name}>
+                            {c.name}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    )}
+                  />
+                  {/* <Controller
                     name="noOfPeople"
                     control={control}
                     rules={{
                       required: "No. of people is required",
-                      validate: (value) =>
-                        value > 0 || "At least one person is required",
+                      validate: (value) => value > 0 || "Country is required",
                     }}
                     render={({ field }) => (
                       <div className="flex flex-col gap-1">
                         <label className="text-sm text-gray-600 font-medium">
-                          No. Of People
+                          Country
                         </label>
                         <div className="flex items-center border-b border-gray-300 py-1 w-full max-w-xs">
-                          {/* Minus Button */}
+                      
                           <button
                             type="button"
                             onClick={() =>
@@ -726,7 +763,7 @@ const Product = () => {
                             −
                           </button>
 
-                          {/* Count Display */}
+                    
                           <input
                             {...field}
                             readOnly
@@ -734,7 +771,7 @@ const Product = () => {
                             value={field.value || 0}
                           />
 
-                          {/* Plus Button */}
+                   
                           <button
                             type="button"
                             onClick={() =>
@@ -752,7 +789,7 @@ const Product = () => {
                         )}
                       </div>
                     )}
-                  />
+                  /> */}
 
                   <Controller
                     name="mobileNumber"
@@ -865,8 +902,8 @@ const Product = () => {
                     render={({ field }) => (
                       <DesktopDatePicker
                         {...field}
-                        label="Start Date"
-                        disablePast
+                        label="DOB"
+                        // disablePast
                         format="DD-MM-YYYY"
                         value={field.value ? dayjs(field.value) : null}
                         onChange={field.onChange}
@@ -925,9 +962,15 @@ const Product = () => {
                     render={({ field }) => (
                       <DesktopDatePicker
                         {...field}
-                        label="End Date"
-                        format="DD-MM-YYYY"
-                        disablePast
+                        label="Applying For Year"
+                        // format="DD-MM-YYYY"
+                        // disablePast
+                        format="YYYY"
+                        views={["year"]}
+                        openTo="year"
+                        shouldDisableYear={(date) =>
+                          date.year() < dayjs().year()
+                        }
                         disabled={!selectedStartDate}
                         value={field.value ? dayjs(field.value) : null}
                         onChange={field.onChange}
@@ -948,9 +991,9 @@ const Product = () => {
                     <SecondaryButton
                       disabled={isSubmitting}
                       isLoading={isSubmitting}
-                      title={"Get Quote"}
+                      title={"Build Your Profile To Apply"}
                       type={"submit"}
-                      externalStyles={"w-1/2"}
+                      externalStyles={"w-3/4"}
                     />
                   </div>
                 </form>
@@ -988,7 +1031,7 @@ const Product = () => {
 
           <hr className="my-5 lg:my-10" />
           <div className="flex flex-col gap-8 w-full">
-            <div className="flex flex-col justify-center items-center max-w-4xl mx-auto">
+            {/* <div className="flex flex-col justify-center items-center max-w-4xl mx-auto">
               <h1 className="text-main-header font-medium mt-5">
                 <LeafRatings
                   ratings={resolvedCompanyDetails?.ratings || 0}
@@ -1001,7 +1044,10 @@ const Product = () => {
                 This place is a guest favourite based on <br /> ratings, reviews
                 and reliability
               </span>
-            </div>
+            </div> */}
+            <h1 className="text-title text-gray-700 font-medium uppercase">
+              Student Reviews
+            </h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-0 lg:p-0">
               {resolvedCompanyDetails?.reviews?.length > 0 ? (
                 resolvedCompanyDetails?.reviews

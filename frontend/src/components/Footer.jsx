@@ -100,13 +100,17 @@ const Footer = () => {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           />
           <p className="text-sm leading-6 text-white">
-            WONOCO PRIVATE LIMITED - SINGAPORE
+            COMMON FORM
+            <br />
+            BIZ Nest Co-Working, Sunteck Kanaka Park,
+            <br />
+            Panjim, Goa - India 403001
             <br />
             <Link
               to="mailto:response@wono.co"
               className="text-primary-blue lowercase hover:underline"
             >
-              response@wono.co
+              response@commonform.com
             </Link>
           </p>
         </div>

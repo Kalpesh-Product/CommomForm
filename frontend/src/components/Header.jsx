@@ -76,16 +76,16 @@ const Header = () => {
 
   const goToHosts = () => {
     if (window.location.hostname.includes("localhost")) {
-      window.location.href = "http://hosts.localhost:5174";
+      window.location.href = "http://localhost:5174/college";
     } else {
-      window.location.href = "https://hosts.wono.co";
+      window.location.href = "https://commonformfe.vercel.app/college";
     }
   };
   const goToHostssMain = () => {
     if (window.location.hostname.includes("localhost")) {
       window.location.href = "http://localhost:5174";
     } else {
-      window.location.href = "https://wono.co";
+      window.location.href = "https://commonformfe.vercel.app";
     }
   };
 
@@ -194,7 +194,7 @@ const Header = () => {
                   onClick={goToHosts}
                   className="relative pb-1 transition-all cursor-pointer duration-300 group font-bold bg-transparent uppercase border-none"
                 >
-                  Become a host
+                  Find Your School
                   <span className="absolute left-0 w-0 bottom-0 block h-[2px] bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
                 </button>
               </div>
@@ -293,7 +293,7 @@ const Header = () => {
                   title="Login"
                   padding="py-1"
                   uppercase
-                  handleSubmit={() => navigate("/login")}
+                  handleSubmit={() => navigate("/college/login")}
                   className="bg-[#FF5757] flex text-white font-[500] capatilize hover:bg-[#E14C4C] w-[7rem] px-4"
                 />
               )}
@@ -369,7 +369,7 @@ const Header = () => {
                     className="py-4 cursor-pointer"
                   >
                     <p className="text-secondary-dark text-lg font-semibold">
-                      Become A Host
+                      Find Your School
                     </p>
                   </div>
                   <div className="h-[0.2px] bg-gray-300"></div>
