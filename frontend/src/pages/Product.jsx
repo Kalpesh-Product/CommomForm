@@ -864,7 +864,7 @@ const Product = () => {
                     render={({ field }) => (
                       <DesktopDatePicker
                         {...field}
-                        label="Start Date"
+                        label="DOB"
                         disablePast
                         format="DD-MM-YYYY"
                         value={field.value ? dayjs(field.value) : null}
@@ -924,7 +924,7 @@ const Product = () => {
                     render={({ field }) => (
                       <DesktopDatePicker
                         {...field}
-                        label="End Date"
+                        label="Applying For Year"
                         format="DD-MM-YYYY"
                         disablePast
                         disabled={!selectedStartDate}
