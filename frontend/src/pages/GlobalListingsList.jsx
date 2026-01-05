@@ -342,22 +342,41 @@ const GlobalListingsList = () => {
     );
   };
 
-  const { data: listingsData, isPending: isLisitingLoading } = useQuery({
-    queryKey: ["globallistings", formData], // ✅ ensures it refetches when formData changes
-    queryFn: async () => {
-      const { country, location, category } = formData || {};
+  // const { data: listingsData, isPending: isLisitingLoading } = useQuery({
+  //   queryKey: ["globallistings", formData], // ✅ ensures it refetches when formData changes
+  //   queryFn: async () => {
+  //     const { country, location, category } = formData || {};
 
-      const response = await axios.get(
+  //     const response = await axios.get(
+  //       `company/companiesn?country=${country}&state=${location}&userId=${
+  //         userId || ""
+  //       }`
+  //     );
+
+  //     // return response.data;
+  //     return Array.isArray(response.data) ? response.data : [];
+  //   },
+  //   enabled: !!formData?.country && !!formData?.location, // ✅ prevents fetching on empty state
+  //   refetchOnMount: "always", // ✅ forces refetch on every mount
+  // });
+
+  const {
+    data: listingsData = DUMMY_LISTINGS,
+    isFetching,
+    isPending: isLisitingLoading,
+  } = useQuery({
+    queryKey: ["globallistings", formData],
+    queryFn: async () => {
+      const { country, location } = formData || {};
+      const res = await axios.get(
         `company/companiesn?country=${country}&state=${location}&userId=${
           userId || ""
         }`
       );
-
-      // return response.data;
-      return Array.isArray(response.data) ? response.data : [];
+      return Array.isArray(res.data) ? res.data : [];
     },
-    enabled: !!formData?.country && !!formData?.location, // ✅ prevents fetching on empty state
-    refetchOnMount: "always", // ✅ forces refetch on every mount
+    enabled: !!formData?.country && !!formData?.location,
+    initialData: DUMMY_LISTINGS, // ⭐ instant render
   });
 
   console.log("location data :", listingsData);
@@ -541,8 +560,8 @@ const GlobalListingsList = () => {
           <div className="min-w-[82%] max-w-[80rem] lg:max-w-[80rem] mx-0 md:mx-auto px-6 sm:px-6 lg:px-0">
             <div className="hidden lg:flex flex-col gap-4 justify-between items-center w-full h-full">
               {/* the 5 icons */}
-
-              <div className=" w-3/4 pb-4">
+              <div className="h-5"></div>
+              {/* <div className=" w-3/4 pb-4">
                 <div className="flex justify-between items-center">
                   {categoryOptions.map((cat) => {
                     const iconSrc = newIcons[cat.value];
@@ -571,7 +590,7 @@ const GlobalListingsList = () => {
                     );
                   })}
                 </div>
-              </div>
+              </div> */}
 
               <form
                 onSubmit={handleSubmit(onSubmit)}

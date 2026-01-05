@@ -69,23 +69,23 @@ const Product = () => {
     images: [
       {
         _id: "img1",
-        url: "https://conferences.bham.ac.uk/wp-content/uploads/2025/02/UoB_aerial_imagery_5.jpg",
+        url: "/images/img1.jpeg",
       },
       {
         _id: "img2",
-        url: "https://hub.birmingham.ac.uk/wp-content/uploads/2024/11/uob-about-image-1-1-1026x684.jpg",
+        url: "/images/img1.jpeg",
       },
       {
         _id: "img3",
-        url: "https://images.unsplash.com/photo-1649115993062-d40c5ba24f76?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dW5pdmVyc2l0eSUyMG9mJTIwYmlybWluZ2hhbXxlbnwwfHwwfHx8MA%3D%3D",
+        url: "/images/img1.jpeg",
       },
       {
         _id: "img4",
-        url: "https://assets.simpleviewinc.com/simpleview/image/fetch/c_fill,f_jpg,h_822,q_75,w_1220/https://entiretydmsmedia.newmindmedia.com/wsimgs/92F1B4BD7E94E1A17B0F99164A5D01338C637183.jpg",
+        url: "/images/img1.jpeg",
       },
       {
         _id: "img5",
-        url: "https://www.russellgroup.ac.uk/sites/default/files/styles/1080x545/public/2025-02/Aston-webb-building-and-domes%202.jpg?h=917ba7cf&itok=IHsh35m5",
+        url: "/images/img1.jpeg",
       },
     ],
 
