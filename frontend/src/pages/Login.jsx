@@ -153,7 +153,7 @@ export default function LoginPage() {
             <p className="text-gray-600 hover:text-black ">
               <span>New to CommonForm? </span>
               <span className="underline">
-                <Link to="/signup">Sign Up</Link>
+                <Link to="/college/signup">Sign Up</Link>
               </span>
             </p>
           </div>
