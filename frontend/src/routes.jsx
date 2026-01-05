@@ -124,7 +124,7 @@ const routerConfig = [
           { path: "login", element: <Login /> },
           { path: "forgot-password", element: <ForgotPassword /> },
           { path: "reset-password/:token", element: <ResetPassword /> },
-          { path: "signup", element: <Signup /> },
+          { path: "signup", element: <HostSignup /> },
           { path: "about", element: <NomadAbout /> },
           {
             path: "terms-and-conditions",

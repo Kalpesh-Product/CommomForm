@@ -25,9 +25,10 @@ import { isValidInternationalPhone } from "../../utils/validators";
 
 const steps = [
   "Personal Info",
-  "Company Info",
-  "Create Website Info",
-  "Services",
+  "Education Info",
+  "Extracurricular Activity Info",
+  "Documents Info",
+  "Final Info",
   "Activation",
 ];
 
