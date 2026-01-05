@@ -61,7 +61,7 @@ const Product = () => {
     },
 
     about:
-      "The university also has an affiliated Dubai campus established in 2017 at Dubai International Academic City (DIAC). They have since moved from the DIAC headquarters with the construction of a new campus in 2022 in the same area, inaugurated by the Dubai crown prince Hamdan Bin Mohammed Al Maktoum. The campus boasts of having all faculty flown in or permanently staffed from the UK campus.",
+      "The University of Birmingham established its Dubai campus in 2018, becoming the first top 100 global university and the first Russell Group institution to open in the UAE. In 2022, the university moved into its purpose-built campus at Dubai International Academic City, designed to accommodate around 3,000 students with state-of-the-art laboratories, learning spaces, and facilities.",
     ratings: 4.6,
     reviewCount: 128,
     totalReviews: 128,
@@ -727,6 +727,7 @@ const Product = () => {
                         helperText={errors?.country?.message}
                         error={!!errors.country}
                         onChange={(event) => field.onChange(event.target.value)}
+                        sx={{ marginTop: 3 }}
                       >
                         {Country.getAllCountries().map((c) => (
                           <MenuItem key={c.isoCode} value={c.name}>
@@ -990,9 +991,9 @@ const Product = () => {
                     <SecondaryButton
                       disabled={isSubmitting}
                       isLoading={isSubmitting}
-                      title={"Get Quote"}
+                      title={"Build Your Profile To Apply"}
                       type={"submit"}
-                      externalStyles={"w-1/2"}
+                      externalStyles={"w-3/4"}
                     />
                   </div>
                 </form>
@@ -1030,7 +1031,7 @@ const Product = () => {
 
           <hr className="my-5 lg:my-10" />
           <div className="flex flex-col gap-8 w-full">
-            <div className="flex flex-col justify-center items-center max-w-4xl mx-auto">
+            {/* <div className="flex flex-col justify-center items-center max-w-4xl mx-auto">
               <h1 className="text-main-header font-medium mt-5">
                 <LeafRatings
                   ratings={resolvedCompanyDetails?.ratings || 0}
@@ -1043,7 +1044,10 @@ const Product = () => {
                 This place is a guest favourite based on <br /> ratings, reviews
                 and reliability
               </span>
-            </div>
+            </div> */}
+            <h1 className="text-title text-gray-700 font-medium uppercase">
+              Student Reviews
+            </h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-0 lg:p-0">
               {resolvedCompanyDetails?.reviews?.length > 0 ? (
                 resolvedCompanyDetails?.reviews

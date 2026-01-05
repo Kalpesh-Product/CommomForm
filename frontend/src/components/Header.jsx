@@ -76,9 +76,9 @@ const Header = () => {
 
   const goToHosts = () => {
     if (window.location.hostname.includes("localhost")) {
-      window.location.href = "http://localhost:5174";
+      window.location.href = "http://localhost:5174/college";
     } else {
-      window.location.href = "https://commonformfe.vercel.app";
+      window.location.href = "https://commonformfe.vercel.app/college";
     }
   };
   const goToHostssMain = () => {
@@ -369,7 +369,7 @@ const Header = () => {
                     className="py-4 cursor-pointer"
                   >
                     <p className="text-secondary-dark text-lg font-semibold">
-                      Become A Host
+                      Find Your School
                     </p>
                   </div>
                   <div className="h-[0.2px] bg-gray-300"></div>
