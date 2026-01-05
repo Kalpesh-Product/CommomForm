@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
-import { TextField } from "@mui/material";
+import { MenuItem, TextField } from "@mui/material";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -29,6 +29,7 @@ import { FaCheck } from "react-icons/fa";
 import TransparentModal from "../components/TransparentModal";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { Country } from "country-state-city";
 
 dayjs.extend(relativeTime);
 
@@ -210,6 +211,7 @@ const Product = () => {
     handleSubmit,
     control,
     reset,
+    setValue,
     formState: { errors },
     watch,
   } = useForm({
@@ -220,6 +222,7 @@ const Product = () => {
       email: "",
       startDate: null,
       endDate: null,
+      country: "",
     },
     mode: "onChange",
   });
@@ -238,9 +241,16 @@ const Product = () => {
         noOfPeople: 0,
         startDate: null,
         endDate: null,
+        country: resolvedCompanyDetails?.country || "",
       });
     }
-  }, [auth, reset]);
+  }, [auth, reset, resolvedCompanyDetails]);
+
+  useEffect(() => {
+    if (resolvedCompanyDetails?.country) {
+      setValue("country", resolvedCompanyDetails.country);
+    }
+  }, [resolvedCompanyDetails, setValue]);
 
   const selectedStartDate = watch("startDate");
   const {
@@ -267,7 +277,7 @@ const Product = () => {
           : "",
         endDate: data.endDate ? dayjs(data.endDate).format("YYYY-MM-DD") : "",
 
-        country: resolvedCompanyDetails?.country,
+        country: data.country,
         state: resolvedCompanyDetails?.state,
         companyType: resolvedCompanyDetails?.companyType,
         personelCount: parseInt(data?.noOfPeople),
@@ -700,6 +710,33 @@ const Product = () => {
                     )}
                   />
                   <Controller
+                    name="country"
+                    control={control}
+                    rules={{
+                      required: "Country is required",
+                    }}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        select
+                        label="Country"
+                        fullWidth
+                        variant="standard"
+                        size="small"
+                        value={field.value || ""}
+                        helperText={errors?.country?.message}
+                        error={!!errors.country}
+                        onChange={(event) => field.onChange(event.target.value)}
+                      >
+                        {Country.getAllCountries().map((c) => (
+                          <MenuItem key={c.isoCode} value={c.name}>
+                            {c.name}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    )}
+                  />
+                  {/* <Controller
                     name="noOfPeople"
                     control={control}
                     rules={{
@@ -712,7 +749,7 @@ const Product = () => {
                           Country
                         </label>
                         <div className="flex items-center border-b border-gray-300 py-1 w-full max-w-xs">
-                          {/* Minus Button */}
+                      
                           <button
                             type="button"
                             onClick={() =>
@@ -725,7 +762,7 @@ const Product = () => {
                             −
                           </button>
 
-                          {/* Count Display */}
+                    
                           <input
                             {...field}
                             readOnly
@@ -733,7 +770,7 @@ const Product = () => {
                             value={field.value || 0}
                           />
 
-                          {/* Plus Button */}
+                   
                           <button
                             type="button"
                             onClick={() =>
@@ -751,7 +788,7 @@ const Product = () => {
                         )}
                       </div>
                     )}
-                  />
+                  /> */}
 
                   <Controller
                     name="mobileNumber"
@@ -865,7 +902,7 @@ const Product = () => {
                       <DesktopDatePicker
                         {...field}
                         label="DOB"
-                        disablePast
+                        // disablePast
                         format="DD-MM-YYYY"
                         value={field.value ? dayjs(field.value) : null}
                         onChange={field.onChange}
@@ -925,8 +962,14 @@ const Product = () => {
                       <DesktopDatePicker
                         {...field}
                         label="Applying For Year"
-                        format="DD-MM-YYYY"
-                        disablePast
+                        // format="DD-MM-YYYY"
+                        // disablePast
+                        format="YYYY"
+                        views={["year"]}
+                        openTo="year"
+                        shouldDisableYear={(date) =>
+                          date.year() < dayjs().year()
+                        }
                         disabled={!selectedStartDate}
                         value={field.value ? dayjs(field.value) : null}
                         onChange={field.onChange}
