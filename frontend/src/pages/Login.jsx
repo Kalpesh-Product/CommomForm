@@ -151,7 +151,7 @@ export default function LoginPage() {
             <p className="hidden md:block">|</p>
 
             <p className="text-gray-600 hover:text-black ">
-              <span>New to WoNo? </span>
+              <span>New to CommonForm? </span>
               <span className="underline">
                 <Link to="/signup">Sign Up</Link>
               </span>
