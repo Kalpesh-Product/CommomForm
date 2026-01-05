@@ -22,12 +22,12 @@ const slides = [
   {
     image: sliderImageOne,
     text: "A one stop platform for students to explore schools and universities in Dubai and across the UAE. Discover, explore, evaluate, compare and choose your future path and apply across universities & schools that fits your journey through",
-  belowText: "ONE COMMON FORM!"
+    belowText: "ONE COMMON FORM!",
   },
   {
     image: sliderImageTwo,
     text: "A one stop platform for students to explore schools and universities in Dubai and across the UAE. Discover, explore, evaluate, compare and choose your future path and apply across universities & schools that fits your journey through",
-    belowText: "ONE COMMON FORM!"
+    belowText: "ONE COMMON FORM!",
   },
 ];
 
@@ -38,15 +38,15 @@ const MainPage = () => {
     if (window.location.hostname.includes("localhost")) {
       window.location.href = "http://localhost:5174/college";
     } else {
-      window.location.href = "https://nomad.wono.co";
+      window.location.href = "https://commonformfe.vercel.app/college";
     }
-  };  
-  
+  };
+
   const goToNomads = () => {
     if (window.location.hostname.includes("localhost")) {
       window.location.href = "http://nomad.localhost:5174";
     } else {
-      window.location.href = "https://nomad.wono.co";
+      window.location.href = "https://commonformfe.vercel.app/college";
     }
   };
 
@@ -105,13 +105,12 @@ const MainPage = () => {
                   className="w-full h-auto object-contain"
                 />
                 <div>
-
-                <p className="text-gray-700 text-[0.9rem] text-pretty leading-relaxed md:line-clamp-3 md:max-h-[6em] overflow-hidden">
-                  {slide.text}
-                </p>{" "}
-                <p className="text-gray-700 text-[0.9rem] text-pretty leading-relaxed md:line-clamp-3 md:max-h-[6em] overflow-hidden">
-                  {slide.belowText}
-                </p>
+                  <p className="text-gray-700 text-[0.9rem] text-pretty leading-relaxed md:line-clamp-3 md:max-h-[6em] overflow-hidden">
+                    {slide.text}
+                  </p>{" "}
+                  <p className="text-gray-700 text-[0.9rem] text-pretty leading-relaxed md:line-clamp-3 md:max-h-[6em] overflow-hidden">
+                    {slide.belowText}
+                  </p>
                 </div>
               </div>
             ))}
