@@ -88,7 +88,7 @@ const ImageGallery = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 flex flex-col gap-4">
+    <div className="max-w-6xl mx-auto px-4 py-6 flex flex-col gap-8">
       <div>
         <h1 className="text-title font-semibold text-secondary-dark">
           {companyName || "Unknown"} Gallery

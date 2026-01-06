@@ -31,6 +31,8 @@ import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { Country } from "country-state-city";
 
+import { standardAmenities } from "../constants/amenities";
+
 dayjs.extend(relativeTime);
 
 const Product = () => {
@@ -395,6 +397,11 @@ const Product = () => {
     <div className="p-4">
       <div className="min-w-[70%] max-w-[80rem] lg:max-w-[70rem] mx-0 md:mx-auto">
         <div className="flex flex-col gap-8">
+          <div>
+            <h1 className="text-title font-semibold text-secondary-dark">
+              {resolvedCompanyDetails?.companyName || "Unknown"} Gallery
+            </h1>
+          </div>
           {/* Image Section */}
           {isFetching && !USE_DUMMY_DATA ? (
             // 🔄 Loading skeletons
@@ -1000,9 +1007,9 @@ const Product = () => {
               </div>
             </div>
           </div>
-          <hr className="my-5 lg:my-10" />
+          {/* <hr className="my-5 lg:my-10" /> */}
           {/* Inclusions */}
-          <div className="flex flex-col gap-8 w-full">
+          {/* <div className="flex flex-col gap-8 w-full">
             <h1 className="text-title text-gray-700 font-medium uppercase">
               What Inclusions does it offer
             </h1>
@@ -1017,16 +1024,35 @@ const Product = () => {
                   type={resolvedCompanyDetails?.companyType.toLowerCase() || ""}
                   inclusions={inclusions}
                 />
-                {/* <div className="flex justify-end">
-                  <button
-                    onClick={() => setShowAmenities(true)}
-                    className="text-primary-blue text-content hover:underline"
-                  >
-                    Show more
-                  </button>
-                </div> */}
+          
               </div>
             )}
+          </div> */}
+
+          <hr className="my-5 lg:my-10" />
+          <div className="flex flex-col gap-8 w-full">
+            <h1 className="text-title text-gray-700 font-medium uppercase">
+              What Inclusions does it offer
+            </h1>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-24 gap-y-10">
+              {standardAmenities.map((amenity) => (
+                <div
+                  key={amenity.title}
+                  className="flex flex-row gap-1 w-full lg:w-40 items-center"
+                >
+                  <div className="h-10 w-10 overflow-hidden relative rounded">
+                    <img
+                      src={amenity.image}
+                      className="h-full w-full object-contain"
+                      alt={amenity.title}
+                    />
+                  </div>
+                  <p className="text-center text-secondary-dark w-full text-[0.89rem] uppercase">
+                    {amenity.title}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
 
           <hr className="my-5 lg:my-10" />
