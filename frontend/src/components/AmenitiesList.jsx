@@ -1,6 +1,41 @@
 import React from "react";
 import icons from "../assets/icons";
 
+const universityAmenities = [
+  "Auditorium",
+  "Basketball Court",
+  "Football Field",
+  "Tennis Court",
+  "Padel Court",
+  "Recreational Zone",
+  "Gym",
+  "Laboratory",
+  "Laboratory 1",
+  "Medical Room",
+  "CCTV Secure",
+  "Prayer Room",
+  "Cafeteria",
+  "Study Rooms",
+  "Student Housing",
+  "Career Team",
+  "Clubs & Community",
+  "Green Space",
+  "Swimming Pool",
+  "Shuttle Service",
+];
+
+const schoolAmenities = [
+  ...universityAmenities,
+  "Art Room",
+  "Computer Lab",
+  "Dance Room",
+  "Drama Room",
+  "Music Room",
+  "Play Area",
+  "Student Counselling",
+  "Theatre",
+];
+
 // Master fixed amenities dictionary by vertical
 const fixedAmenitiesMap = {
   coworking: [
@@ -24,6 +59,10 @@ const fixedAmenitiesMap = {
     "Purified Water",
     "Custom Solutions",
   ],
+  school: schoolAmenities,
+  schools: schoolAmenities,
+  university: universityAmenities,
+  universities: universityAmenities,
   coliving: [
     "Shared Space",
     "Private Space",
