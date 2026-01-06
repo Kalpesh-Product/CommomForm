@@ -50,7 +50,7 @@ const Home = () => {
   const formData = useSelector((state) => state.location.formValues);
   const { handleSubmit, control, reset, register, watch, setValue } = useForm({
     defaultValues: {
-      country: "",
+      country: "uae",
       location: "",
       count: "",
     },
@@ -263,6 +263,10 @@ const Home = () => {
     // { label: "United States", value: "usa" },
   ];
 
+  useEffect(() => {
+    setValue("country", "uae");
+  }, [setValue]);
+
   const countryOptions = hardcodedCountries;
 
   const countOptions = [
@@ -454,7 +458,8 @@ const Home = () => {
                   control={control}
                   render={({ field }) => (
                     <SearchBarCombobox
-                      value={field.value}
+                      // value={field.value}
+                      value={"uae" || field.value}
                       onChange={field.onChange}
                       options={countryOptions}
                       label="Select Country"

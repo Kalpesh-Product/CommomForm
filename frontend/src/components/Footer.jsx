@@ -61,6 +61,8 @@ const Footer = () => {
     }
   };
 
+  const arePolicyLinksDisabled = true;
+
   const footerSections = [
     {
       heading: "Services",
@@ -172,14 +174,35 @@ const Footer = () => {
         {/* Right side — Policy Links */}
         <div className="flex flex-col md:flex-row justify-center md:justify-end items-center gap-4 text-[10px] md:text-xs text-black bg-gray-50 ">
           <span
-            onClick={goToHostsContentCopyright}
-            className="hover:opacity-100 hover:text-gray-500 uppercase text-center md:text-right cursor-pointer"
+            // onClick={goToHostsContentCopyright}
+            // className="hover:opacity-100 hover:text-gray-500 uppercase text-center md:text-right cursor-pointer"
+            onClick={
+              arePolicyLinksDisabled
+                ? (e) => e.preventDefault()
+                : goToHostsContentCopyright
+            }
+            className={`hover:opacity-100 hover:text-gray-500 uppercase text-center md:text-right ${
+              arePolicyLinksDisabled
+                ? "cursor-not-allowed opacity-60"
+                : "cursor-pointer"
+            }`}
           >
             Content and Copyright Policy
           </span>
           <span
-            onClick={goToHostsContentUseRemoval}
-            className="hover:opacity-100 hover:text-gray-500 uppercase text-center md:text-right cursor-pointer"
+            // onClick={goToHostsContentUseRemoval}
+            // className="hover:opacity-100 hover:text-gray-500 uppercase text-center md:text-right cursor-pointer"
+
+            onClick={
+              arePolicyLinksDisabled
+                ? (e) => e.preventDefault()
+                : goToHostsContentUseRemoval
+            }
+            className={`hover:opacity-100 hover:text-gray-500 uppercase text-center md:text-right ${
+              arePolicyLinksDisabled
+                ? "cursor-not-allowed opacity-60"
+                : "cursor-pointer"
+            }`}
           >
             Content Use & Removal Policy
           </span>

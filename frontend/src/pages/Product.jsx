@@ -399,7 +399,7 @@ const Product = () => {
         <div className="flex flex-col gap-8">
           <div>
             <h1 className="text-title font-semibold text-secondary-dark">
-              {resolvedCompanyDetails?.companyName || "Unknown"} Gallery
+              {resolvedCompanyDetails?.companyName || "Unknown"}
             </h1>
           </div>
           {/* Image Section */}
