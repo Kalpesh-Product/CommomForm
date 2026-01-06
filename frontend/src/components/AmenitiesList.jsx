@@ -15,12 +15,13 @@ const universityAmenities = [
   "CCTV Secure",
   "Prayer Room",
   "Cafeteria",
-  "Study Room",
+  "Study Rooms",
   "Student Housing",
   "Career Team",
-  "Club & Community",
+  "Clubs & Community",
   "Green Space",
   "Swimming Pool",
+  "Shuttle Service",
 ];
 
 const schoolAmenities = [
@@ -31,7 +32,6 @@ const schoolAmenities = [
   "Drama Room",
   "Music Room",
   "Play Area",
-  "Shuttle Service",
   "Student Counselling",
   "Theatre",
 ];

@@ -65,9 +65,9 @@ const Footer = () => {
     {
       heading: "Services",
       links: [
-        // { name: "About", link: "/about" },
-        // { name: "Career", link: "career" },
-        // { name: "FAQs", link: "faq" },
+        { name: "About", link: "/about" },
+        { name: "Career", link: "career" },
+        { name: "FAQs", link: "faq" },
         // {
         //   name: "Content and Copyright Policy",
         //   link: goToHostsContentCopyright,
@@ -77,9 +77,9 @@ const Footer = () => {
     {
       heading: "Corporate",
       links: [
-        // { name: "Privacy", link: goToHostsPrivacy },
-        // { name: "T&C", link: goToHostsTC },
-        // { name: "Contact", link: "/contact" },
+        { name: "Privacy", link: goToHostsPrivacy },
+        { name: "T&C", link: goToHostsTC },
+        { name: "Contact", link: "/contact" },
         // {
         //   name: "Content Use & Removal Policy",
         //   link: goToHostsContentUseRemoval,
@@ -127,7 +127,8 @@ const Footer = () => {
                   typeof linkObj.link === "function" ? (
                     <span
                       key={i}
-                      onClick={linkObj.link}
+                      // onClick={linkObj.link}
+                      onClick={(e) => e.preventDefault()}
                       className="text-sm opacity-80 hover:text-gray-500 cursor-pointer uppercase p-2 text-white"
                     >
                       {linkObj.name}
@@ -135,7 +136,9 @@ const Footer = () => {
                   ) : (
                     <Link
                       key={i}
-                      to={linkObj.link}
+                      // to={linkObj.link}
+                      to="#"
+                      onClick={(e) => e.preventDefault()}
                       className="text-sm opacity-80 hover:text-gray-500 text-white uppercase p-2"
                     >
                       {linkObj.name}
