@@ -196,7 +196,7 @@ const EventsFetch = () => {
   return (
     <div className="my-6">
       <div className="flex justify-between items-center mb-4 flex-col sm:flex-col xs:flex-col md:flex-row lg:flex-row">
-        <h2 className="text-title font-semibold text-host">News</h2>
+        <h2 className="text-title font-semibold text-host">Events</h2>
         {/* Controls */}
         <div className="flex items-center justify-end gap-3 mb-0 ">
           <label className="text-sm font-medium text-gray-700">
@@ -229,7 +229,7 @@ const EventsFetch = () => {
         )}
         {isError && (
           <div className="h-screen">
-            <span className="text-sm text-red-600">Could not load news.</span>
+            <span className="text-sm text-red-600">Could not load events.</span>
           </div>
         )}
         {articles.map((a) => (
