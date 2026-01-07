@@ -8,7 +8,7 @@ import { ReactFitty } from "react-fitty";
 import { useDispatch, useSelector } from "react-redux";
 import { setFormValues } from "../features/locationSlice";
 import Image from "/images/homepage.jpeg";
-import ImageText from "/images/building-text.png";
+import ImageText from "/images/building-text2.png";
 import ReviewCard from "../components/ReviewCard";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -239,8 +239,8 @@ const Home = () => {
 
   const hardcodedLocationsMap = {
     uae: [
-      { label: "Dubai", value: "dubai" },
       { label: "Abu Dhabi", value: "abu-dhabi" },
+      { label: "Dubai", value: "dubai" },
       { label: "Sharjah", value: "sharjah" },
     ],
     india: [
@@ -279,6 +279,7 @@ const Home = () => {
   const countOptions = [
     { label: "University", value: "University" },
     { label: "School", value: "School" },
+    { label: "Tuition", value: "Tuition" },
   ];
 
   const reviewData = [
