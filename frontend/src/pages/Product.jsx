@@ -1072,7 +1072,31 @@ const Product = () => {
               </span>
             </div> */}
             <h1 className="text-title text-gray-700 font-medium uppercase">
-              Student Reviews
+              CommonForm Student Reviews
+            </h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-0 lg:p-0">
+              {resolvedCompanyDetails?.reviews?.length > 0 ? (
+                resolvedCompanyDetails?.reviews
+                  ?.slice(0, 6)
+                  .map((review, index) => (
+                    <ReviewCard
+                      handleClick={() => {
+                        setSelectedReview(review);
+                        setOpen(true);
+                      }}
+                      key={index}
+                      review={review}
+                    />
+                  ))
+              ) : (
+                <div className="col-span-full border-2 border-dotted border-gray-300 rounded-xl p-6 text-center text-sm text-gray-500 h-40 flex justify-center items-center">
+                  No reviews yet.
+                </div>
+              )}
+            </div>{" "}
+            <hr className="my-5 lg:my-10" />
+            <h1 className="text-title text-gray-700 font-medium uppercase">
+              Google Student Reviews
             </h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-0 lg:p-0">
               {resolvedCompanyDetails?.reviews?.length > 0 ? (
@@ -1094,7 +1118,6 @@ const Product = () => {
                 </div>
               )}
             </div>
-
             <hr className="my-5 lg:my-10" />
             {/* Map */}
             <div className="w-full h-[500px] flex flex-col gap-8 rounded-xl overflow-hidden">
@@ -1107,7 +1130,6 @@ const Product = () => {
                 disableTwoFingerScroll
               />
             </div>
-
             {["CMP0001", "CMP0052"].includes(
               resolvedCompanyDetails?.companyId
             ) && (
@@ -1250,7 +1272,6 @@ const Product = () => {
               </>
             )}
             <hr className="mt-5 mb-0 lg:mt-10 lg:mb-0" />
-
             {/* Content & Source Disclaimer */}
             <div className="text-[0.5rem] text-gray-500 leading-relaxed">
               <p className="mb-2">

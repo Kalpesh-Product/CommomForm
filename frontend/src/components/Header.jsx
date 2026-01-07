@@ -91,6 +91,7 @@ const Header = () => {
 
   const headerLinks = [
     { id: 1, text: "Home", to: "/" },
+    { id: 2, text: "Events", to: "/college/events" },
     { id: 2, text: "News", to: "/college/news" },
     { id: 3, text: "Blog", to: "/college/blog" },
   ];
@@ -188,7 +189,7 @@ const Header = () => {
 
           {/* Right Section */}
           <div className="hidden lg:flex pl-10 gap-10">
-            <li className="flex items-center">
+            {/* <li className="flex items-center">
               <div className="p-4 px-0 whitespace-nowrap">
                 <button
                   onClick={goToHosts}
@@ -198,7 +199,7 @@ const Header = () => {
                   <span className="absolute left-0 w-0 bottom-0 block h-[2px] bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
                 </button>
               </div>
-            </li>
+            </li> */}
 
             <div className="px-1 hidden xl:flex xl:gap-4 py-2">
               {auth?.user ? (
@@ -291,7 +292,7 @@ const Header = () => {
               ) : (
                 <PrimaryButton
                   title="Login"
-                  padding="py-1"
+                  padding="py-3"
                   uppercase
                   handleSubmit={() => navigate("/college/login")}
                   className="bg-[#FF5757] flex text-white font-[500] capatilize hover:bg-[#E14C4C] w-[7rem] px-4"
@@ -360,7 +361,7 @@ const Header = () => {
                 ))}
 
                 {/* ✅ NEW: Become a host visible in mobile drawer */}
-                <li className="items-center text-center">
+                {/* <li className="items-center text-center">
                   <div
                     onClick={() => {
                       goToHosts();
@@ -373,7 +374,7 @@ const Header = () => {
                     </p>
                   </div>
                   <div className="h-[0.2px] bg-gray-300"></div>
-                </li>
+                </li> */}
 
                 {auth?.user ? (
                   <>
