@@ -114,6 +114,8 @@ const Home = () => {
   });
 
   useEffect(() => {
+    if (!locations.length) return;
+
     const countryExists = locations.some(
       (c) => c.country?.toLowerCase() === selectedCountry?.toLowerCase()
     );
@@ -136,7 +138,8 @@ const Home = () => {
         setValue("location", "");
       }
     }
-  }, [locations]); // ← notice: remove selectedCountry / selectedState here
+    // }, [locations]); // ← notice: remove selectedCountry / selectedState here
+  }, [locations, selectedCountry, selectedState, setValue]);
 
   // const continentOptions = React.useMemo(() => {
   //   const uniqueContinents = [
@@ -253,8 +256,12 @@ const Home = () => {
   };
 
   const locationOptions = React.useMemo(() => {
-    if (!selectedCountry) return [];
-    return hardcodedLocationsMap[selectedCountry] || [];
+    // if (!selectedCountry) return [];
+    // return hardcodedLocationsMap[selectedCountry] || [];
+    if (selectedCountry && hardcodedLocationsMap[selectedCountry]) {
+      return hardcodedLocationsMap[selectedCountry];
+    }
+    return Object.values(hardcodedLocationsMap).flat();
   }, [selectedCountry]);
 
   const hardcodedCountries = [
@@ -462,9 +469,11 @@ const Home = () => {
                       value={"uae" || field.value}
                       onChange={field.onChange}
                       options={countryOptions}
-                      label="Select Country"
+                      // label="Select Country"
+                      label="Country"
                       placeholder="Select aspiring destination"
                       // disabled={!selectedContinent}
+                      disabled={true}
                       className="w-full "
                     />
                   )}
@@ -476,11 +485,19 @@ const Home = () => {
                   render={({ field }) => (
                     <SearchBarCombobox
                       value={field.value}
+                      //       onChange={field.onChange}
+                      //       label="Select Location"
+                      //       options={locationOptions}
+                      //       placeholder="Select area within country"
+                      //       // disabled={!selectedCountry}
+                      //       className="w-full"
+                      //     />
+                      //   )}
+                      // />
                       onChange={field.onChange}
                       label="Select Location"
                       options={locationOptions}
                       placeholder="Select area within country"
-                      disabled={!selectedCountry}
                       className="w-full"
                     />
                   )}
@@ -583,7 +600,7 @@ const Home = () => {
                         label="Select Location"
                         options={locationOptions}
                         placeholder="Select area within country"
-                        disabled={!selectedCountry}
+                        // disabled={!selectedCountry}
                         className="w-full"
                       />
                     )}
