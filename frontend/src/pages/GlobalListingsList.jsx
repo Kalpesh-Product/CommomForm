@@ -28,6 +28,8 @@ const GlobalListingsList = () => {
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.location.formValues);
   const [expandedCategories, setExpandedCategories] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
   const { handleSubmit, control, reset, setValue, getValues, watch } = useForm({
     defaultValues: {
       country: "",
@@ -89,101 +91,302 @@ const GlobalListingsList = () => {
       reviews: [{ starCount: 4 }, { starCount: 4 }],
       coverImage: "/images/dummy/university-5.jpg",
     },
-
-    // ===== ENGINEERING =====
     {
-      _id: "engineering-1",
-      companyId: "engineering-1",
+      _id: "business-1",
+      companyId: "business-1",
       companyName: "University of Birmingham",
-      companyType: "engineering",
+      companyType: "business",
       location: "abu-dhabi",
-      reviews: [{ starCount: 4 }],
+      reviews: [{ starCount: 4 }, { starCount: 4 }, { starCount: 3 }],
       coverImage: "/images/dummy/university-1.jpg",
     },
     {
-      _id: "engineering-2",
-      companyId: "engineering-2",
+      _id: "business-2",
+      companyId: "business-2",
       companyName: "University of Wollongong",
-      companyType: "engineering",
+      companyType: "business",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }, { starCount: 4 }, { starCount: 4 }],
+      coverImage: "/images/dummy/university-2.jpg",
+    },
+    {
+      _id: "business-3",
+      companyId: "business-3",
+      companyName: "Hult International Business School",
+      companyType: "business",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }, { starCount: 3 }],
+      coverImage: "/images/dummy/university-3.jpg",
+    },
+    {
+      _id: "business-4",
+      companyId: "business-4",
+      companyName: "University of Dubai",
+      companyType: "business",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 5 }, { starCount: 4 }],
+      coverImage: "/images/dummy/university-4.jpg",
+    },
+    {
+      _id: "business-5",
+      companyId: "business-5",
+      companyName: "Canadian University Dubai",
+      companyType: "business",
       location: "abu-dhabi",
       reviews: [{ starCount: 4 }, { starCount: 4 }],
-      coverImage: "/images/dummy/university-2.jpg",
-    },
-    {
-      _id: "engineering-3",
-      companyId: "engineering-3",
-      companyName: "Hult International Business School",
-      companyType: "engineering",
-      location: "abu-dhabi",
-      reviews: [{ starCount: 4 }],
-      coverImage: "/images/dummy/university-3.jpg",
-    },
-    {
-      _id: "engineering-4",
-      companyId: "engineering-4",
-      companyName: "University of Dubai",
-      companyType: "engineering",
-      location: "abu-dhabi",
-      reviews: [{ starCount: 5 }],
-      coverImage: "/images/dummy/university-4.jpg",
-    },
-    {
-      _id: "engineering-5",
-      companyId: "engineering-5",
-      companyName: "Canadian University Dubai",
-      companyType: "engineering",
-      location: "abu-dhabi",
-      reviews: [{ starCount: 4 }],
       coverImage: "/images/dummy/university-5.jpg",
     },
-
-    // ===== HEALTH & LIFE SCIENCES =====
     {
-      _id: "health-1",
-      companyId: "health-1",
+      _id: "business-1",
+      companyId: "business-1",
       companyName: "University of Birmingham",
-      companyType: "health",
+      companyType: "business",
       location: "abu-dhabi",
-      reviews: [{ starCount: 4 }],
+      reviews: [{ starCount: 4 }, { starCount: 4 }, { starCount: 3 }],
       coverImage: "/images/dummy/university-1.jpg",
     },
     {
-      _id: "health-2",
-      companyId: "health-2",
+      _id: "business-2",
+      companyId: "business-2",
       companyName: "University of Wollongong",
-      companyType: "health",
+      companyType: "business",
       location: "abu-dhabi",
-      reviews: [{ starCount: 4 }],
+      reviews: [{ starCount: 4 }, { starCount: 4 }, { starCount: 4 }],
       coverImage: "/images/dummy/university-2.jpg",
     },
     {
-      _id: "health-3",
-      companyId: "health-3",
+      _id: "business-3",
+      companyId: "business-3",
       companyName: "Hult International Business School",
-      companyType: "health",
+      companyType: "business",
       location: "abu-dhabi",
-      reviews: [{ starCount: 4 }],
+      reviews: [{ starCount: 4 }, { starCount: 3 }],
       coverImage: "/images/dummy/university-3.jpg",
     },
     {
-      _id: "health-4",
-      companyId: "health-4",
+      _id: "business-4",
+      companyId: "business-4",
       companyName: "University of Dubai",
-      companyType: "health",
+      companyType: "business",
       location: "abu-dhabi",
-      reviews: [{ starCount: 5 }],
+      reviews: [{ starCount: 5 }, { starCount: 4 }],
       coverImage: "/images/dummy/university-4.jpg",
     },
     {
-      _id: "health-5",
-      companyId: "health-5",
+      _id: "business-5",
+      companyId: "business-5",
       companyName: "Canadian University Dubai",
-      companyType: "health",
+      companyType: "business",
       location: "abu-dhabi",
-      reviews: [{ starCount: 4 }],
+      reviews: [{ starCount: 4 }, { starCount: 4 }],
       coverImage: "/images/dummy/university-5.jpg",
     },
+    {
+      _id: "business-1",
+      companyId: "business-1",
+      companyName: "University of Birmingham",
+      companyType: "business",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }, { starCount: 4 }, { starCount: 3 }],
+      coverImage: "/images/dummy/university-1.jpg",
+    },
+    {
+      _id: "business-2",
+      companyId: "business-2",
+      companyName: "University of Wollongong",
+      companyType: "business",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }, { starCount: 4 }, { starCount: 4 }],
+      coverImage: "/images/dummy/university-2.jpg",
+    },
+    {
+      _id: "business-3",
+      companyId: "business-3",
+      companyName: "Hult International Business School",
+      companyType: "business",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }, { starCount: 3 }],
+      coverImage: "/images/dummy/university-3.jpg",
+    },
+    {
+      _id: "business-4",
+      companyId: "business-4",
+      companyName: "University of Dubai",
+      companyType: "business",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 5 }, { starCount: 4 }],
+      coverImage: "/images/dummy/university-4.jpg",
+    },
+    {
+      _id: "business-5",
+      companyId: "business-5",
+      companyName: "Canadian University Dubai",
+      companyType: "business",
+      location: "abu-dhabi",
+      reviews: [{ starCount: 4 }, { starCount: 4 }],
+      coverImage: "/images/dummy/university-5.jpg",
+    },
+
+    // ===== ENGINEERING =====
+    // {
+    //   _id: "engineering-1",
+    //   companyId: "engineering-1",
+    //   companyName: "University of Birmingham",
+    //   companyType: "engineering",
+    //   location: "abu-dhabi",
+    //   reviews: [{ starCount: 4 }],
+    //   coverImage: "/images/dummy/university-1.jpg",
+    // },
+    // {
+    //   _id: "engineering-2",
+    //   companyId: "engineering-2",
+    //   companyName: "University of Wollongong",
+    //   companyType: "engineering",
+    //   location: "abu-dhabi",
+    //   reviews: [{ starCount: 4 }, { starCount: 4 }],
+    //   coverImage: "/images/dummy/university-2.jpg",
+    // },
+    // {
+    //   _id: "engineering-3",
+    //   companyId: "engineering-3",
+    //   companyName: "Hult International Business School",
+    //   companyType: "engineering",
+    //   location: "abu-dhabi",
+    //   reviews: [{ starCount: 4 }],
+    //   coverImage: "/images/dummy/university-3.jpg",
+    // },
+    // {
+    //   _id: "engineering-4",
+    //   companyId: "engineering-4",
+    //   companyName: "University of Dubai",
+    //   companyType: "engineering",
+    //   location: "abu-dhabi",
+    //   reviews: [{ starCount: 5 }],
+    //   coverImage: "/images/dummy/university-4.jpg",
+    // },
+    // {
+    //   _id: "engineering-5",
+    //   companyId: "engineering-5",
+    //   companyName: "Canadian University Dubai",
+    //   companyType: "engineering",
+    //   location: "abu-dhabi",
+    //   reviews: [{ starCount: 4 }],
+    //   coverImage: "/images/dummy/university-5.jpg",
+    // },
+
+    // // ===== HEALTH & LIFE SCIENCES =====
+    // {
+    //   _id: "health-1",
+    //   companyId: "health-1",
+    //   companyName: "University of Birmingham",
+    //   companyType: "health",
+    //   location: "abu-dhabi",
+    //   reviews: [{ starCount: 4 }],
+    //   coverImage: "/images/dummy/university-1.jpg",
+    // },
+    // {
+    //   _id: "health-2",
+    //   companyId: "health-2",
+    //   companyName: "University of Wollongong",
+    //   companyType: "health",
+    //   location: "abu-dhabi",
+    //   reviews: [{ starCount: 4 }],
+    //   coverImage: "/images/dummy/university-2.jpg",
+    // },
+    // {
+    //   _id: "health-3",
+    //   companyId: "health-3",
+    //   companyName: "Hult International Business School",
+    //   companyType: "health",
+    //   location: "abu-dhabi",
+    //   reviews: [{ starCount: 4 }],
+    //   coverImage: "/images/dummy/university-3.jpg",
+    // },
+    // {
+    //   _id: "health-4",
+    //   companyId: "health-4",
+    //   companyName: "University of Dubai",
+    //   companyType: "health",
+    //   location: "abu-dhabi",
+    //   reviews: [{ starCount: 5 }],
+    //   coverImage: "/images/dummy/university-4.jpg",
+    // },
+    // {
+    //   _id: "health-5",
+    //   companyId: "health-5",
+    //   companyName: "Canadian University Dubai",
+    //   companyType: "health",
+    //   location: "abu-dhabi",
+    //   reviews: [{ starCount: 4 }],
+    //   coverImage: "/images/dummy/university-5.jpg",
+    // },
   ];
+
+  const SEARCH_SUGGESTIONS = [
+    {
+      id: "search-1",
+      label: "University of Birmingham",
+      companyName: "University of Birmingham",
+      companyId: "business-1",
+      companyType: "business",
+    },
+    {
+      id: "search-2",
+      label: "University of Wollongong",
+      companyName: "University of Wollongong",
+      companyId: "business-2",
+      companyType: "business",
+    },
+    {
+      id: "search-3",
+      label: "Hult International Business School",
+      companyName: "Hult International Business School",
+      companyId: "business-3",
+      companyType: "business",
+    },
+    {
+      id: "search-4",
+      label: "University of Dubai",
+      companyName: "University of Dubai",
+      companyId: "business-4",
+      companyType: "business",
+    },
+    {
+      id: "search-5",
+      label: "Canadian University Dubai",
+      companyName: "Canadian University Dubai",
+      companyId: "business-5",
+      companyType: "business",
+    },
+    {
+      id: "search-6",
+      label: "Dubai Design University",
+      companyName: "Dubai Design University",
+      companyId: "design-1",
+      companyType: "design",
+    },
+    {
+      id: "search-7",
+      label: "Abu Dhabi Engineering Institute",
+      companyName: "Abu Dhabi Engineering Institute",
+      companyId: "engineering-1",
+      companyType: "engineering",
+    },
+    {
+      id: "search-8",
+      label: "Gulf Health Sciences Academy",
+      companyName: "Gulf Health Sciences Academy",
+      companyId: "health-1",
+      companyType: "health",
+    },
+  ];
+  const filteredSuggestions = useMemo(() => {
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+    if (!normalizedQuery) return [];
+    return SEARCH_SUGGESTIONS.filter((item) =>
+      item.label.toLowerCase().includes(normalizedQuery)
+    ).slice(0, 6);
+  }, [searchQuery]);
 
   // 🧠 Special users who can see all locations
   const specialUserEmails = [
@@ -460,6 +663,22 @@ const GlobalListingsList = () => {
   const [showMobileSearch, setShowMobileSearch] = useState(false);
   const onSubmit = (data) => {
     locationData(data);
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+    setIsSuggestionsOpen(true);
+  };
+
+  const handleSuggestionSelect = (suggestion) => {
+    setSearchQuery(suggestion.label);
+    setIsSuggestionsOpen(false);
+    navigate(`/college/listings/${suggestion.companyName}`, {
+      state: {
+        companyId: suggestion.companyId,
+        type: suggestion.companyType,
+      },
+    });
   };
 
   useEffect(() => {
@@ -882,7 +1101,7 @@ const GlobalListingsList = () => {
 
                       const displayItems = expandedCategories.includes(type)
                         ? sortedItems
-                        : sortedItems.slice(0, 5);
+                        : sortedItems.slice(0, 50);
 
                       const showViewMore = sortedItems.length > 5;
                       const sectionTitle = `Popular ${
@@ -900,14 +1119,58 @@ const GlobalListingsList = () => {
                             <h2 className="text-subtitle font-semibold mb-5 text-secondary-dark">
                               {sectionTitle}
                             </h2>
-                            <div>
-                              <form action="">
+                            <div className="w-full max-w-xs">
+                              <div className="relative">
+                                <CiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-lg text-slate-400" />
                                 <input
                                   type="search"
-                                  placeholder="serch here"
-                                  className="border"
+                                  placeholder="Type to search..."
+                                  value={searchQuery}
+                                  onChange={handleSearchChange}
+                                  onFocus={() => setIsSuggestionsOpen(true)}
+                                  onBlur={() =>
+                                    setTimeout(
+                                      () => setIsSuggestionsOpen(false),
+                                      120
+                                    )
+                                  }
+                                  className="w-full rounded-full border border-slate-200 bg-white py-2.5 my-4 pl-11 pr-4 text-sm text-slate-700 shadow-sm transition focus:border-primary-blue focus:outline-none focus:ring-2 focus:ring-primary-blue/20"
                                 />
-                              </form>
+                                {isSuggestionsOpen && searchQuery && (
+                                  <div className="absolute right-0 z-20 mt-2 w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg">
+                                    <ul className="max-h-60 overflow-auto py-2 text-sm">
+                                      {filteredSuggestions.length === 0 ? (
+                                        <li className="px-4 py-2 text-slate-500">
+                                          No matches found.
+                                        </li>
+                                      ) : (
+                                        filteredSuggestions.map(
+                                          (suggestion) => (
+                                            <li key={suggestion.id}>
+                                              <button
+                                                type="button"
+                                                onMouseDown={() =>
+                                                  handleSuggestionSelect(
+                                                    suggestion
+                                                  )
+                                                }
+                                                className="flex w-full items-start gap-2 px-4 py-2 text-left text-slate-700 transition hover:bg-slate-50"
+                                              >
+                                                <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary-blue/10 text-xs font-semibold text-primary-blue">
+                                                  {suggestion.label.charAt(0)}
+                                                </span>
+                                                <span className="font-medium">
+                                                  {suggestion.label}
+                                                </span>
+                                              </button>
+                                            </li>
+                                          )
+                                        )
+                                      )}
+                                    </ul>
+                                  </div>
+                                )}
+                              </div>
                             </div>
                           </div>
 
@@ -932,7 +1195,7 @@ const GlobalListingsList = () => {
                             ))}
                           </div>
 
-                          {showViewMore && (
+                          {/* {showViewMore && (
                             <div className="mt-3 text-right">
                               <button
                                 onClick={() => handleShowMoreClick(type)}
@@ -943,7 +1206,7 @@ const GlobalListingsList = () => {
                                   : "View More →"}
                               </button>
                             </div>
-                          )}
+                          )} */}
                         </div>
                       );
                     })
