@@ -896,9 +896,20 @@ const GlobalListingsList = () => {
 
                       return (
                         <div key={type} className="col-span-full mb-6">
-                          <h2 className="text-subtitle font-semibold mb-5 text-secondary-dark">
-                            {sectionTitle}
-                          </h2>
+                          <div className="flex justify-between">
+                            <h2 className="text-subtitle font-semibold mb-5 text-secondary-dark">
+                              {sectionTitle}
+                            </h2>
+                            <div>
+                              <form action="">
+                                <input
+                                  type="search"
+                                  placeholder="serch here"
+                                  className="border"
+                                />
+                              </form>
+                            </div>
+                          </div>
 
                           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-0">
                             {displayItems.map((item) => (
