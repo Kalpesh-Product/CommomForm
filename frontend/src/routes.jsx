@@ -53,6 +53,7 @@ import NomadTermsAndConditions from "./pages/NomadTermsAndConditions";
 import SiteIsDown from "./pages/SiteIsDown";
 import WebsiteUnderMaintenance from "./pages/WebsiteUnderMaintenance";
 import DestinationEvents from "./pages/DestinationEvents";
+import EventDetails from "./pages/EventDetails";
 
 // function getTenantFromHost() {
 //   const hostname = window.location.hostname; // e.g. "nomad.wono.co" or "nomad.localhost"
@@ -117,6 +118,7 @@ const routerConfig = [
           { path: "components", element: <ReusableComponents /> },
           { path: "contact", element: <Contact /> },
           { path: "events", element: <DestinationEvents /> },
+          { path: "events/event-details", element: <EventDetails /> },
           { path: "news", element: <DestinationNews /> },
           { path: "news/news-details", element: <BlogDetails /> },
           { path: "blog", element: <LocalBlog /> },

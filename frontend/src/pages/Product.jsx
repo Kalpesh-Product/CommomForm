@@ -25,7 +25,7 @@ import {
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import AmenitiesList from "../components/AmenitiesList";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaFacebook, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 import TransparentModal from "../components/TransparentModal";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -567,6 +567,16 @@ const Product = () => {
                     About
                   </h1>
                   <div className="items-center flex gap-2">
+                    <div>
+                      <a
+                        // href=""
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-small underline text-primary-blue"
+                      >
+                        View Website
+                      </a>
+                    </div>
                     {resolvedCompanyDetails?.websiteTemplateLink && (
                       <div>
                         <a
@@ -635,28 +645,35 @@ const Product = () => {
             </div>
             <div className="flex flex-col gap-4">
               <div className="border-2 rounded-xl flex  gap-1 items-center p-4">
-                <div className="text-tiny w-full hidden lg:flex justify-center items-center">
+                {/* <div className="text-tiny w-full hidden lg:flex justify-center items-center">
                   <LeafWrapper height="3rem" width={"2rem"}>
                     <div className="text-secondary-dark font-semibold flex lg:text-subtitle flex-col leading-5  items-center">
                       <span>Student</span>
                       <span>Favorite</span>
                     </div>
                   </LeafWrapper>
-                </div>
-                <div className="w-full hidden lg:flex">
-                  <p className="text-tiny ">
-                    One of the most loved Universities in Dubai, by students
-                  </p>
-                </div>
-                <div className="flex w-full lg:w-1/2 gap-1 justify-end">
-                  <div className="flex flex-col gap-0 justify-center items-center">
+                </div> */}
+                <div className="flex w-full  gap-1 justify-between">
+                  <div className="flex flex-col justify-between items-center w-60">
+                    <div className="">
+                      <p className="text-tiny text-center font-semibold">
+                        QS Ranking:
+                      </p>
+                    </div>{" "}
+                    <div className="">
+                      <p className="text-card-title text-center font-semibold">
+                        3
+                      </p>
+                    </div>
+                  </div>
+                  {/* <div className="flex flex-col gap-0 justify-center items-center">
                     <p className="text-tiny lg:text-subtitle">
                       {resolvedCompanyDetails?.ratings || 0}
                     </p>
                     <span className="text-tiny flex lg:text-small font-medium">
                       {renderStars(resolvedCompanyDetails?.ratings || 0)}
                     </span>
-                  </div>
+                  </div> */}
                   {/* Vertical Separator */}
                   <div className="w-px h-10 bg-gray-300 mx-2 my-auto lg:hidden" />
                   <div className="text-tiny w-full flex justify-center items-center lg:hidden">
@@ -667,11 +684,21 @@ const Product = () => {
                       </div>
                     </LeafWrapper>
                   </div>
-
                   {/* Vertical Separator */}
                   <div className="w-px h-10 bg-gray-300 mx-2 my-auto" />
-
-                  <div className="flex flex-col gap-4 lg:gap-0 justify-center items-center">
+                  <div className="flex flex-col justify-between items-center w-60">
+                    <div className="">
+                      <p className="text-tiny text-center font-semibold">
+                        Overall Score:
+                      </p>
+                    </div>{" "}
+                    <div className="">
+                      <p className="text-card-title text-center font-semibold">
+                        98.9
+                      </p>
+                    </div>
+                  </div>
+                  {/* <div className="flex flex-col gap-4 lg:gap-0 justify-center items-center">
                     <p className="text-tiny lg:text-subtitle mt-1">
                       {resolvedCompanyDetails?.reviewCount ||
                         resolvedCompanyDetails?.totalReviews ||
@@ -680,11 +707,11 @@ const Product = () => {
                     <span className="text-tiny lg:text-small font-medium">
                       Reviews
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
-              <div className="shadow-md flex flex-col gap-4 p-6 rounded-xl border-2">
+              {/* <div className="shadow-md flex flex-col gap-4 p-6 rounded-xl border-2">
                 <h1 className="text-card-title text-secondary-dark font-semibold leading-normal">
                   START BUILDING YOUR COMMON FORM
                 </h1>
@@ -744,59 +771,6 @@ const Product = () => {
                       </TextField>
                     )}
                   />
-                  {/* <Controller
-                    name="noOfPeople"
-                    control={control}
-                    rules={{
-                      required: "No. of people is required",
-                      validate: (value) => value > 0 || "Country is required",
-                    }}
-                    render={({ field }) => (
-                      <div className="flex flex-col gap-1">
-                        <label className="text-sm text-gray-600 font-medium">
-                          Country
-                        </label>
-                        <div className="flex items-center border-b border-gray-300 py-1 w-full max-w-xs">
-                      
-                          <button
-                            type="button"
-                            onClick={() =>
-                              field.onChange(
-                                Math.max(0, Number(field.value || 0) - 1)
-                              )
-                            }
-                            className="px-3 py-1 text-lg font-semibold text-gray-600 hover:text-primary-blue"
-                          >
-                            −
-                          </button>
-
-                    
-                          <input
-                            {...field}
-                            readOnly
-                            className="w-full text-center outline-none bg-transparent text-gray-800 text-sm font-medium"
-                            value={field.value || 0}
-                          />
-
-                   
-                          <button
-                            type="button"
-                            onClick={() =>
-                              field.onChange(Number(field.value || 0) + 1)
-                            }
-                            className="px-3 py-1 text-lg font-semibold text-gray-600 hover:text-primary-blue"
-                          >
-                            +
-                          </button>
-                        </div>
-                        {errors?.noOfPeople && (
-                          <p className="text-red-500 text-xs mt-1">
-                            {errors.noOfPeople.message}
-                          </p>
-                        )}
-                      </div>
-                    )}
-                  /> */}
 
                   <Controller
                     name="mobileNumber"
@@ -845,50 +819,6 @@ const Product = () => {
                     )}
                   />
 
-                  {/* {resolvedCompanyDetails?.type === "coworking" && (
-                    <Controller
-                      name="numberOfDesks"
-                      control={control}
-                      render={({ field }) => (
-                        <TextField
-                          {...field}
-                          label="Number of Desk"
-                          fullWidth
-                          variant="standard"
-                          size="small"
-                          select>
-                          <MenuItem value="" disabled>
-                            <em>Select Number of Desk</em>
-                          </MenuItem>
-                          <MenuItem value={2}>2</MenuItem>
-                          <MenuItem value={4}>4</MenuItem>
-                          <MenuItem value={10}>10</MenuItem>
-                          <MenuItem value={20}>20</MenuItem>
-                        </TextField>
-                      )}
-                    />
-                  )} */}
-                  {/* <Controller
-                    name="startDate"
-                    control={control}
-                    render={({ field }) => (
-                      <DesktopDatePicker
-                        {...field}
-                        label="Start Date"
-                        disablePast
-                        format="DD-MM-YYYY"
-                        value={field.value ? dayjs(field.value) : null}
-                        onChange={field.onChange}
-                        slotProps={{
-                          textField: {
-                            size: "small",
-                            fullWidth: true,
-                            variant: "standard",
-                          },
-                        }}
-                      />
-                    )}
-                  /> */}
                   <Controller
                     name="startDate"
                     control={control}
@@ -927,28 +857,6 @@ const Product = () => {
                     )}
                   />
 
-                  {/* <Controller
-                    name="endDate"
-                    control={control}
-                    render={({ field }) => (
-                      <DesktopDatePicker
-                        {...field}
-                        label="End Date"
-                        format="DD-MM-YYYY"
-                        disablePast
-                        disabled={!selectedStartDate}
-                        value={field.value ? dayjs(field.value) : null}
-                        onChange={field.onChange}
-                        slotProps={{
-                          textField: {
-                            size: "small",
-                            fullWidth: true,
-                            variant: "standard",
-                          },
-                        }}
-                      />
-                    )}
-                  /> */}
                   <Controller
                     name="endDate"
                     control={control}
@@ -1004,6 +912,75 @@ const Product = () => {
                     />
                   </div>
                 </form>
+              </div> */}
+              <div className="shadow-md flex flex-col gap-4 p-6 rounded-xl border-2">
+                <h1 className="text-hero text-secondary-dark font-semibold leading-normal">
+                  Contributor
+                </h1>
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
+                    <div className="flex justify-center sm:justify-start py-4">
+                      <img
+                        src="/images/bg-image.jpg"
+                        alt="Steel Wagstaff"
+                        className="h-60 w-60 rounded-full object-cover shadow-md"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <div>
+                        <p className="text-card-title text-secondary-dark font-semibold pt-2 pb-4">
+                          Steel Wagstaff
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          Final Year Student
+                        </p>
+                      </div>
+                      <a
+                        href="https://steelwagstaff.info"
+                        className="text-sm text-red-600 underline underline-offset-4"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        https://steelwagstaff.info
+                      </a>
+                      <div className="flex gap-3">
+                        <a
+                          href="https://twitter.com"
+                          className="flex h-8 w-8 items-center justify-center rounded-md bg-red-700 text-white"
+                          aria-label="Twitter"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <FaTwitter size={16} />
+                        </a>
+                        <a
+                          href="https://linkedin.com"
+                          className="flex h-8 w-8 items-center justify-center rounded-md bg-red-700 text-white"
+                          aria-label="LinkedIn"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <FaLinkedinIn size={16} />
+                        </a>
+                        <a
+                          href="https://github.com"
+                          className="flex h-8 w-8 items-center justify-center rounded-md bg-red-700 text-white"
+                          aria-label="GitHub"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <FaFacebook size={16} />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="pt-4">
+                <p className="text-card-title font-semibold">
+                  <span className="text-blue-700 ">Sign In</span> To Contribute
+                  To University Content
+                </p>
               </div>
             </div>
           </div>
@@ -1031,32 +1008,6 @@ const Product = () => {
 
           <hr className="my-5 lg:my-10" />
           <div className="flex flex-col gap-8 w-full">
-            <h1 className="text-title text-gray-700 font-medium uppercase">
-              What Inclusions does it offer
-            </h1>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-24 gap-y-10">
-              {standardAmenities.map((amenity) => (
-                <div
-                  key={amenity.title}
-                  className="flex flex-row gap-1 w-full lg:w-40 items-center"
-                >
-                  <div className="h-10 w-10 overflow-hidden relative rounded">
-                    <img
-                      src={amenity.image}
-                      className="h-full w-full object-contain"
-                      alt={amenity.title}
-                    />
-                  </div>
-                  <p className="text-center text-secondary-dark w-full text-[0.89rem] uppercase">
-                    {amenity.title}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <hr className="my-5 lg:my-10" />
-          <div className="flex flex-col gap-8 w-full">
             {/* <div className="flex flex-col justify-center items-center max-w-4xl mx-auto">
               <h1 className="text-main-header font-medium mt-5">
                 <LeafRatings
@@ -1071,9 +1022,58 @@ const Product = () => {
                 and reliability
               </span>
             </div> */}
-            <h1 className="text-title text-gray-700 font-medium uppercase">
-              CommonForm Student Reviews
-            </h1>
+            <div className="flex justify-between">
+              <div>
+                <h1 className="text-title text-gray-700 font-medium uppercase">
+                  CommonForm Student Reviews
+                </h1>
+              </div>
+              <div className="0">
+                <div className="flex w-full  gap-1 justify-end items-center">
+                  <div>
+                    <SecondaryButton
+                      // disabled={isSubmitting}
+                      // isLoading={isSubmitting}
+                      title={"Add A Review"}
+                      // type={"submit"}
+                      externalStyles={"w-54 mx-4"}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-0 justify-center items-center ">
+                    <p className="text-tiny lg:text-subtitle">
+                      {resolvedCompanyDetails?.ratings || 0}
+                    </p>
+                    <span className="text-tiny flex lg:text-small font-medium">
+                      {renderStars(resolvedCompanyDetails?.ratings || 0)}
+                    </span>
+                  </div>
+                  {/* Vertical Separator */}
+                  <div className="w-px h-10 bg-gray-300 mx-2 my-auto lg:hidden" />
+                  <div className="text-tiny w-full flex justify-center items-center lg:hidden">
+                    <LeafWrapper height="3rem" width={"2rem"}>
+                      <div className="text-secondary-dark font-semibold flex text-tiny lg:text-subtitle flex-col leading-5  items-center">
+                        <span>Guest</span>
+                        <span>Favorite</span>
+                      </div>
+                    </LeafWrapper>
+                  </div>
+
+                  {/* Vertical Separator */}
+                  <div className="w-px h-10 bg-gray-300 mx-2 my-auto" />
+
+                  <div className="flex flex-col gap-4 lg:gap-0 justify-center items-center">
+                    <p className="text-tiny lg:text-subtitle mt-1">
+                      {resolvedCompanyDetails?.reviewCount ||
+                        resolvedCompanyDetails?.totalReviews ||
+                        0}
+                    </p>
+                    <span className="text-tiny lg:text-small font-medium">
+                      Reviews
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-0 lg:p-0">
               {resolvedCompanyDetails?.reviews?.length > 0 ? (
                 resolvedCompanyDetails?.reviews
@@ -1095,9 +1095,49 @@ const Product = () => {
               )}
             </div>{" "}
             <hr className="my-5 lg:my-10" />
-            <h1 className="text-title text-gray-700 font-medium uppercase">
-              Google Student Reviews
-            </h1>
+            <div className="flex justify-between">
+              <div>
+                <h1 className="text-title text-gray-700 font-medium uppercase">
+                  Google Student Reviews
+                </h1>
+              </div>
+              <div className="">
+                <div className="flex w-full  gap-1 justify-end items-center">
+                  <div className="flex flex-col gap-0 justify-center items-center ">
+                    <p className="text-tiny lg:text-subtitle">
+                      {resolvedCompanyDetails?.ratings || 0}
+                    </p>
+                    <span className="text-tiny flex lg:text-small font-medium">
+                      {renderStars(resolvedCompanyDetails?.ratings || 0)}
+                    </span>
+                  </div>
+                  {/* Vertical Separator */}
+                  <div className="w-px h-10 bg-gray-300 mx-2 my-auto lg:hidden" />
+                  <div className="text-tiny w-full flex justify-center items-center lg:hidden">
+                    <LeafWrapper height="3rem" width={"2rem"}>
+                      <div className="text-secondary-dark font-semibold flex text-tiny lg:text-subtitle flex-col leading-5  items-center">
+                        <span>Guest</span>
+                        <span>Favorite</span>
+                      </div>
+                    </LeafWrapper>
+                  </div>
+
+                  {/* Vertical Separator */}
+                  <div className="w-px h-10 bg-gray-300 mx-2 my-auto" />
+
+                  <div className="flex flex-col gap-4 lg:gap-0 justify-center items-center">
+                    <p className="text-tiny lg:text-subtitle mt-1">
+                      {resolvedCompanyDetails?.reviewCount ||
+                        resolvedCompanyDetails?.totalReviews ||
+                        0}
+                    </p>
+                    <span className="text-tiny lg:text-small font-medium">
+                      Reviews
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-0 lg:p-0">
               {resolvedCompanyDetails?.reviews?.length > 0 ? (
                 resolvedCompanyDetails?.reviews
@@ -1117,6 +1157,31 @@ const Product = () => {
                   No reviews yet.
                 </div>
               )}
+            </div>
+            <hr className="my-5 lg:my-10" />
+            <div className="flex flex-col gap-8 w-full">
+              <h1 className="text-title text-gray-700 font-medium uppercase">
+                What Inclusions does it offer
+              </h1>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-24 gap-y-10">
+                {standardAmenities.map((amenity) => (
+                  <div
+                    key={amenity.title}
+                    className="flex flex-row gap-1 w-full lg:w-40 items-center"
+                  >
+                    <div className="h-10 w-10 overflow-hidden relative rounded">
+                      <img
+                        src={amenity.image}
+                        className="h-full w-full object-contain"
+                        alt={amenity.title}
+                      />
+                    </div>
+                    <p className="text-center text-secondary-dark w-full text-[0.89rem] uppercase">
+                      {amenity.title}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
             <hr className="my-5 lg:my-10" />
             {/* Map */}

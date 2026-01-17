@@ -106,8 +106,21 @@ const ListingCard = ({ item, handleNavigation, showVertical = true }) => {
     meetingroom: "Meeting Rooms",
   };
 
-  const thumbnailImage = item?.images?.[0]?.url;
+  // const thumbnailImage = item?.images?.[0]?.url;
 
+  const fallbackImage =
+    "https://biznest.co.in/assets/img/projects/subscription/Managed%20Workspace.webp";
+  const fallbackCarouselImages = [
+    fallbackImage,
+    "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
+    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
+    "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
+  ];
+  const imageUrls =
+    item?.images?.map((image) => image?.url).filter(Boolean) || [];
+  const resolvedImages =
+    imageUrls.length > 0 ? imageUrls : fallbackCarouselImages;
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
   const typeMap = {
     coworking: "Co-Working",
     meetingroom: "Meetings",
@@ -120,6 +133,24 @@ const ListingCard = ({ item, handleNavigation, showVertical = true }) => {
   const displayType =
     typeMap[item.companyType?.toLowerCase()] || item.companyType;
 
+  useEffect(() => {
+    setActiveImageIndex(0);
+  }, [item?._id]);
+
+  const handlePrevImage = (event) => {
+    event.stopPropagation();
+    setActiveImageIndex((current) =>
+      current === 0 ? resolvedImages.length - 1 : current - 1
+    );
+  };
+
+  const handleNextImage = (event) => {
+    event.stopPropagation();
+    setActiveImageIndex((current) =>
+      current === resolvedImages.length - 1 ? 0 : current + 1
+    );
+  };
+
   return (
     <div
       onClick={handleNavigation}
@@ -128,15 +159,36 @@ const ListingCard = ({ item, handleNavigation, showVertical = true }) => {
     >
       {/* <div className="h-full w-full overflow-hidden rounded-3xl border-2 relative"> */}
       <div className="w-full aspect-square overflow-hidden rounded-3xl relative">
-        <img
-          src={
-            thumbnailImage ||
-            "https://biznest.co.in/assets/img/projects/subscription/Managed%20Workspace.webp"
-          }
-          alt={item.companyName}
-          className="w-full h-full object-cover hover:scale-105 transition-all"
-          loading="lazy"
-        />
+        <div
+          className="flex h-full w-full transition-transform duration-500 ease-out"
+          style={{ transform: `translateX(-${activeImageIndex * 100}%)` }}
+        >
+          {resolvedImages.map((imageUrl, index) => (
+            <img
+              key={`${item?._id || "listing"}-${index}`}
+              src={imageUrl}
+              alt={item.companyName}
+              className="h-full w-full flex-shrink-0 object-cover hover:scale-105 transition-all"
+              loading="lazy"
+            />
+          ))}
+        </div>
+        <button
+          type="button"
+          aria-label="Previous image"
+          className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/60 text-white px-3.5 py-1 text-lg transition hover:bg-black/80 pointer-events-auto"
+          onClick={handlePrevImage}
+        >
+          ‹
+        </button>
+        <button
+          type="button"
+          aria-label="Next image"
+          className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/60 text-white px-3.5 py-1 text-lg transition hover:bg-black/80 pointer-events-auto"
+          onClick={handleNextImage}
+        >
+          ›
+        </button>
         <div className="absolute top-2 right-2 pb-4 w-full h-full pl-0 pointer-events-none">
           <div className="flex flex-col items-end h-full justify-between">
             <button
