@@ -1,10 +1,9 @@
-// src/components/EventsFetch.jsx
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "../utils/axios.js";
+import axios from "../utils/axios"; // your custom axios instance
 import { IoChevronDown } from "react-icons/io5";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import humanDate from "../utils/humanDate.js";
+import humanDate from "../utils/humanDate";
 import { useSelector } from "react-redux";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
@@ -19,62 +18,74 @@ const DESTS = [
   { label: "Dubai", country: "uae", keyword: "dubai", lang: "en" },
 ];
 
+const stripHTML = (html) => {
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  return div.textContent || div.innerText || "";
+};
+
 const extractImageFromContent = (content) => {
   const match = content?.match(/<img.*?src=["'](.*?)["']/);
   return match ? match[1] : null;
 };
 
-const NewsCard = ({ a }) => {
+const BlogCard = ({ b }) => {
+  const fallbackImg = extractImageFromContent(b.content || b.description);
+  const thumbnail = b.mainImage || fallbackImg;
   const navigate = useNavigate();
-
-  const fallbackImg = extractImageFromContent(a.content || a.description);
-  const thumbnail = a.mainImage || fallbackImg;
 
   return (
     <article
-      onClick={() => navigate("news-details", { state: { content: a } })}
-      className="group relative rounded-xl border bg-white transition hover:shadow-md cursor-pointer overflow-hidden max-w-full"
+      onClick={() => navigate("event-details", { state: { content: b } })}
+      className="border rounded-xl overflow-hidden shadow-sm hover:shadow-xl cursor-pointer transition"
     >
-      <div className="flex flex-col sm:flex-row gap-4 p-4">
-        {/* Image */}
-        {/* <div className="sm:w-56 shrink-0 block"> */}
-        <div className="w-full sm:w-56 shrink-0 block">
-          <div className="h-40 sm:h-36 rounded-lg overflow-hidden">
-            {thumbnail ? (
-              <img
-                src={thumbnail}
-                alt={a.mainTitle}
-                className="block h-full w-full object-cover"
-                loading="lazy"
-              />
-            ) : (
-              <div className="h-full w-full bg-gray-100" />
-            )}
-          </div>
+      {thumbnail ? (
+        <img
+          src={thumbnail}
+          alt={b.mainTitle}
+          className="w-full h-56 object-cover"
+          loading="lazy"
+        />
+      ) : (
+        <div className="w-full h-44 bg-gray-100" />
+      )}
+
+      <div className="p-4">
+        <h3 className="font-semibold text-lg line-clamp-2">{b.mainTitle}</h3>
+        <p className="text-sm text-gray-600 mt-2 line-clamp-3">
+          {b.mainContent}
+        </p>
+
+        <div className="mt-3 flex items-center justify-between text-xs text-gray-500">
+          <span className="truncate">{b.author || "Author"}</span>
+          <time dateTime={b.date}>{b.date ? humanDate(b.date) : ""}</time>
         </div>
 
-        {/* Text */}
-        <div className="min-w-0 flex-1">
-          <h3 className="mt-1 text-lg font-semibold leading-snug text-gray-900 line-clamp-2">
-            {a.mainTitle}
-          </h3>
+        {/* <NavLink
+          to={"blog-details"}
+          className={"underline"}
+      
+        >
+          Read full blog →
+        </NavLink> */}
 
-          <p className="mt-2 text-sm text-gray-600 line-clamp-3">
-            {a.mainContent}
-          </p>
-
-          <div className="mt-3 flex items-center justify-between text-xs text-gray-500">
-            <span className="truncate">{a.author || "News Desk"}</span>
-            <time dateTime={a.date}>{a.date ? humanDate(a.date) : ""}</time>
-          </div>
-        </div>
+        {/* <a
+          href={b.link}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-block mt-3 text-blue-600 font-medium hover:underline">
+          Read full blog →
+        </a> */}
       </div>
     </article>
   );
 };
 
 const EventsFetch = () => {
+  // const [dest, setDest] = useState(DESTS[0]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const initialDest =
+    DESTS.find((d) => d.label === searchParams.get("dest")) || DESTS[0];
   const [dest, setDest] = useState(DESTS[0]);
   const formData = useSelector((state) => state.location.formValues);
   const initialized = useRef(false);
@@ -83,7 +94,7 @@ const EventsFetch = () => {
     if (initialized.current) return;
     initialized.current = true;
 
-    // 1️⃣ Priority: URL (?dest=...)
+    // 1) Priority: URL (?dest=...)
     const urlDestLabel = searchParams.get("dest");
     if (urlDestLabel) {
       const foundByLabel = DESTS.find((d) => d.label === urlDestLabel);
@@ -91,14 +102,14 @@ const EventsFetch = () => {
         setDest(foundByLabel);
         return;
       } else {
-        // 🚫 Unknown destination in URL → original behavior
+        // URL has an unknown destination -> keep original behavior (null + clear)
         setDest(null);
         setSearchParams({});
         return;
       }
     }
 
-    // 2️⃣ Fallback: Redux (keyword-based)
+    // 2) Fallback: Redux (formData.location uses keyword)
     const selectedDest = formData?.location;
     if (selectedDest) {
       const foundByKeyword = DESTS.find((d) => d.keyword === selectedDest);
@@ -107,28 +118,26 @@ const EventsFetch = () => {
         setSearchParams({ dest: foundByKeyword.label });
         return;
       } else {
-        // 🚫 No matching destination → original behavior
+        // No matching destination -> original behavior
         setDest(null);
         setSearchParams({});
         return;
       }
     }
 
-    // 3️⃣ No destination at all → original behavior
+    // 3) No location in Redux -> original behavior
     setDest(null);
     setSearchParams({});
   }, [formData, searchParams, setSearchParams]);
 
   const handleChange = (val) => {
     const selected = DESTS.find((d) => d.label === val);
-    if (selected) {
-      setDest(selected);
-      setSearchParams({ dest: selected.label });
-    }
+    setDest(selected);
+    setSearchParams({ dest: selected.label });
   };
 
   const params = useMemo(() => {
-    if (!dest || dest.label === "All") return null; // add !dest check
+    if (!dest || dest.label === "All") return null;
     return {
       country: dest.country,
       keyword: dest.keyword,
@@ -138,33 +147,152 @@ const EventsFetch = () => {
     };
   }, [dest]);
 
-  const { data, isPending, isError } = useQuery({
-    queryKey: ["gnews", dest?.label], // use optional chaining
-    queryFn: async () => {
-      if (!dest) return []; // early return if dest is null
-      if (dest.label === "All") {
-        const res = await axios.get("/news/get-news");
-        return res.data;
-      }
-      const res = await axios.get("/news/get-news", { params });
-      return res.data;
-    },
-    refetchOnWindowFocus: false,
-  });
+  // const { data, isPending, isError, refetch, isFetching } = useQuery({
+  //   queryKey: ["blogs", dest.keyword],
+  //   queryFn: async () => {
+  //     const res = await axios.get("/blogs/get-blogs", { params });
+  //     return res.data;
+  //   },
+  // });
 
-  const articles = Array.isArray(data) ? data : [];
+  // const { data, isPending, isError } = useQuery({
+  //   queryKey: ["blogs", dest?.label], // optional chaining
+  //   queryFn: async () => {
+  //     if (!dest) return []; // early return if dest is null
+  //     if (dest.label === "All") {
+  //       const res = await axios.get("/blogs/get-blogs");
+  //       return res.data;
+  //     }
+  //     const res = await axios.get("/blogs/get-blogs", { params });
+  //     return res.data;
+  //   },
+  //   refetchOnWindowFocus: false,
+  // });
+
+  // //   const blogs = Array.isArray(data?.articles) ? data.articles : [];
+  // const blogs = Array.isArray(data) ? data : [];
+
+  const hardcodedEvents = [
+    {
+      guid: "hardcoded-1",
+      mainTitle: "A Quick Guide to Goa’s Best Beaches",
+      mainContent:
+        "Explore North and South Goa with this quick guide to the best beach spots, sunsets, and cafes.",
+      author: "CommonForm",
+      date: "2024-06-10",
+      mainImage:
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Goa is packed with beautiful beaches. From the lively shores of Baga to the calmer sands of Palolem, there is something for every traveler.</p>",
+    },
+    {
+      guid: "hardcoded-2",
+      mainTitle: "Bangkok Street Food: Must-Try Dishes",
+      mainContent:
+        "From pad thai to mango sticky rice, here’s what to eat on your first visit to Bangkok.",
+      author: "CommonForm",
+      date: "2024-05-22",
+      mainImage:
+        "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Bangkok’s street food scene is unbeatable. Start with pad thai, then work your way through spicy papaya salad and freshly grilled skewers.</p>",
+    },
+    {
+      guid: "hardcoded-3",
+      mainTitle: "Weekend Escape: Bali Itinerary",
+      mainContent:
+        "A simple 2-day plan covering Ubud, Seminyak, and the best sunset views.",
+      author: "CommonForm",
+      date: "2024-04-15",
+      mainImage:
+        "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Day one: Ubud’s rice terraces and coffee plantations. Day two: Seminyak shopping and sunset beach bars.</p>",
+    },
+    {
+      guid: "hardcoded-3",
+      mainTitle: "Weekend Escape: Bali Itinerary",
+      mainContent:
+        "A simple 2-day plan covering Ubud, Seminyak, and the best sunset views.",
+      author: "CommonForm",
+      date: "2024-04-15",
+      mainImage:
+        "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Day one: Ubud’s rice terraces and coffee plantations. Day two: Seminyak shopping and sunset beach bars.</p>",
+    },
+    {
+      guid: "hardcoded-3",
+      mainTitle: "Weekend Escape: Bali Itinerary",
+      mainContent:
+        "A simple 2-day plan covering Ubud, Seminyak, and the best sunset views.",
+      author: "CommonForm",
+      date: "2024-04-15",
+      mainImage:
+        "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Day one: Ubud’s rice terraces and coffee plantations. Day two: Seminyak shopping and sunset beach bars.</p>",
+    },
+    {
+      guid: "hardcoded-3",
+      mainTitle: "Weekend Escape: Bali Itinerary",
+      mainContent:
+        "A simple 2-day plan covering Ubud, Seminyak, and the best sunset views.",
+      author: "CommonForm",
+      date: "2024-04-15",
+      mainImage:
+        "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Day one: Ubud’s rice terraces and coffee plantations. Day two: Seminyak shopping and sunset beach bars.</p>",
+    },
+    {
+      guid: "hardcoded-3",
+      mainTitle: "Weekend Escape: Bali Itinerary",
+      mainContent:
+        "A simple 2-day plan covering Ubud, Seminyak, and the best sunset views.",
+      author: "CommonForm",
+      date: "2024-04-15",
+      mainImage:
+        "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Day one: Ubud’s rice terraces and coffee plantations. Day two: Seminyak shopping and sunset beach bars.</p>",
+    },
+  ];
+
+  // ✅ Toggle data source by commenting/uncommenting the blocks below.
+
+  // ✅ API blogs (uncomment to use the API)
+  // const { data, isPending, isError } = useQuery({
+  //   queryKey: ["blogs", dest?.label], // optional chaining
+  //   queryFn: async () => {
+  //     if (!dest) return []; // early return if dest is null
+  //     if (dest.label === "All") {
+  //       const res = await axios.get("/blogs/get-blogs");
+  //       return res.data;
+  //     }
+  //     const res = await axios.get("/blogs/get-blogs", { params });
+  //     return res.data;
+  //   },
+  //   refetchOnWindowFocus: false,
+  // });
+  // const blogs = Array.isArray(data) ? data : [];
+
+  // ✅ Hardcoded blogs (comment out to use the API)
+  const blogs = hardcodedEvents;
+  const isPending = false;
+  const isError = false;
 
   if (!dest) {
     return (
       <div className="my-6">
         <div className="flex justify-between items-center mb-4 flex-col sm:flex-col xs:flex-col md:flex-row lg:flex-row">
-          <h2 className="text-title font-semibold text-host">Events</h2>
-          {/* Controls (keep dropdown usable) */}
-          <div className="flex items-center justify-end gap-3 mb-0 ">
+          <h2 className="text-title font-semibold text-host">Blog</h2>
+
+          {/* Controls */}
+          <div className="flex items-center justify-end gap-3 mb-5">
             <label className="text-sm font-medium text-gray-700">
               Destination
             </label>
-
             <FormControl variant="standard" sx={{ minWidth: 140 }}>
               {/* <InputLabel>Destination</InputLabel> */}
               <Select
@@ -184,10 +312,9 @@ const EventsFetch = () => {
             </FormControl>
           </div>
         </div>
-
         <div className="text-subtitle text-gray-600 my-36">
-          No events available for this location. You can use the filter to check
-          events of other locations.
+          No blog posts available for this location. You can use the filter to
+          check blogs of other locations.
         </div>
       </div>
     );
@@ -196,13 +323,12 @@ const EventsFetch = () => {
   return (
     <div className="my-6">
       <div className="flex justify-between items-center mb-4 flex-col sm:flex-col xs:flex-col md:flex-row lg:flex-row">
-        <h2 className="text-title font-semibold text-host">Events</h2>
+        <h2 className="text-title font-semibold text-host">Blog</h2>
         {/* Controls */}
-        <div className="flex items-center justify-end gap-3 mb-0 ">
+        <div className="flex items-center justify-end gap-3 mb-5">
           <label className="text-sm font-medium text-gray-700">
             Destination
           </label>
-
           <FormControl variant="standard" sx={{ minWidth: 140 }}>
             {/* <InputLabel>Destination</InputLabel> */}
             <Select
@@ -217,11 +343,24 @@ const EventsFetch = () => {
               ))}
             </Select>
           </FormControl>
+
+          {/* <button
+            type="button"
+            onClick={() => refetch()}
+            className="text-xs border rounded px-2 py-1 hover:bg-gray-50"
+            disabled={isFetching}>
+            {isFetching ? "Refreshing…" : "Refresh"}
+          </button> */}
+
+          {/* {isPending && <span className="text-sm text-gray-500">Loading…</span>}
+          {isError && (
+            <span className="text-sm text-red-600">Could not load blogs.</span>
+          )} */}
         </div>
       </div>
 
       {/* Results */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {isPending && (
           <div className="h-screen">
             <span className="text-sm text-gray-500">Loading…</span>
@@ -229,16 +368,16 @@ const EventsFetch = () => {
         )}
         {isError && (
           <div className="h-screen">
-            <span className="text-sm text-red-600">Could not load events.</span>
+            <span className="text-sm text-red-600">Could not load blogs.</span>
           </div>
         )}
-        {articles.map((a) => (
-          <NewsCard key={a.guid} a={a} />
+        {blogs.map((b) => (
+          <BlogCard key={b.guid} b={b} />
         ))}
       </div>
 
-      {!isPending && !isError && articles.length === 0 && (
-        <p className="text-sm text-gray-500 mt-4">No articles found.</p>
+      {!isPending && !isError && blogs.length === 0 && (
+        <p className="text-sm text-gray-500 mt-4">No blog posts found.</p>
       )}
     </div>
   );
