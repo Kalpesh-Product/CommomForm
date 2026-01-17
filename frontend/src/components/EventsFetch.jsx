@@ -172,7 +172,7 @@ const EventsFetch = () => {
   // //   const blogs = Array.isArray(data?.articles) ? data.articles : [];
   // const blogs = Array.isArray(data) ? data : [];
 
-  const hardcodedBlogs = [
+  const hardcodedEvents = [
     {
       guid: "hardcoded-1",
       mainTitle: "A Quick Guide to Goa’s Best Beaches",
@@ -278,7 +278,7 @@ const EventsFetch = () => {
   // const blogs = Array.isArray(data) ? data : [];
 
   // ✅ Hardcoded blogs (comment out to use the API)
-  const blogs = hardcodedBlogs;
+  const blogs = hardcodedEvents;
   const isPending = false;
   const isError = false;
 
