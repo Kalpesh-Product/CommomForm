@@ -567,6 +567,16 @@ const Product = () => {
                     About
                   </h1>
                   <div className="items-center flex gap-2">
+                    <div>
+                      <a
+                        // href=""
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-small underline text-primary-blue"
+                      >
+                        View Website
+                      </a>
+                    </div>
                     {resolvedCompanyDetails?.websiteTemplateLink && (
                       <div>
                         <a
@@ -635,28 +645,35 @@ const Product = () => {
             </div>
             <div className="flex flex-col gap-4">
               <div className="border-2 rounded-xl flex  gap-1 items-center p-4">
-                <div className="text-tiny w-full hidden lg:flex justify-center items-center">
+                {/* <div className="text-tiny w-full hidden lg:flex justify-center items-center">
                   <LeafWrapper height="3rem" width={"2rem"}>
                     <div className="text-secondary-dark font-semibold flex lg:text-subtitle flex-col leading-5  items-center">
                       <span>Student</span>
                       <span>Favorite</span>
                     </div>
                   </LeafWrapper>
-                </div>
-                <div className="w-full hidden lg:flex">
-                  <p className="text-tiny ">
-                    One of the most loved Universities in Dubai, by students
-                  </p>
-                </div>
-                <div className="flex w-full lg:w-1/2 gap-1 justify-end">
-                  <div className="flex flex-col gap-0 justify-center items-center">
+                </div> */}
+                <div className="flex w-full  gap-1 justify-between">
+                  <div className="flex flex-col justify-between items-center w-60">
+                    <div className="">
+                      <p className="text-tiny text-center font-semibold">
+                        QS Ranking:
+                      </p>
+                    </div>{" "}
+                    <div className="">
+                      <p className="text-card-title text-center font-semibold">
+                        3
+                      </p>
+                    </div>
+                  </div>
+                  {/* <div className="flex flex-col gap-0 justify-center items-center">
                     <p className="text-tiny lg:text-subtitle">
                       {resolvedCompanyDetails?.ratings || 0}
                     </p>
                     <span className="text-tiny flex lg:text-small font-medium">
                       {renderStars(resolvedCompanyDetails?.ratings || 0)}
                     </span>
-                  </div>
+                  </div> */}
                   {/* Vertical Separator */}
                   <div className="w-px h-10 bg-gray-300 mx-2 my-auto lg:hidden" />
                   <div className="text-tiny w-full flex justify-center items-center lg:hidden">
@@ -667,11 +684,21 @@ const Product = () => {
                       </div>
                     </LeafWrapper>
                   </div>
-
                   {/* Vertical Separator */}
                   <div className="w-px h-10 bg-gray-300 mx-2 my-auto" />
-
-                  <div className="flex flex-col gap-4 lg:gap-0 justify-center items-center">
+                  <div className="flex flex-col justify-between items-center w-60">
+                    <div className="">
+                      <p className="text-tiny text-center font-semibold">
+                        Overall Score:
+                      </p>
+                    </div>{" "}
+                    <div className="">
+                      <p className="text-card-title text-center font-semibold">
+                        98.9
+                      </p>
+                    </div>
+                  </div>
+                  {/* <div className="flex flex-col gap-4 lg:gap-0 justify-center items-center">
                     <p className="text-tiny lg:text-subtitle mt-1">
                       {resolvedCompanyDetails?.reviewCount ||
                         resolvedCompanyDetails?.totalReviews ||
@@ -680,7 +707,7 @@ const Product = () => {
                     <span className="text-tiny lg:text-small font-medium">
                       Reviews
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
@@ -1031,32 +1058,6 @@ const Product = () => {
 
           <hr className="my-5 lg:my-10" />
           <div className="flex flex-col gap-8 w-full">
-            <h1 className="text-title text-gray-700 font-medium uppercase">
-              What Inclusions does it offer
-            </h1>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-24 gap-y-10">
-              {standardAmenities.map((amenity) => (
-                <div
-                  key={amenity.title}
-                  className="flex flex-row gap-1 w-full lg:w-40 items-center"
-                >
-                  <div className="h-10 w-10 overflow-hidden relative rounded">
-                    <img
-                      src={amenity.image}
-                      className="h-full w-full object-contain"
-                      alt={amenity.title}
-                    />
-                  </div>
-                  <p className="text-center text-secondary-dark w-full text-[0.89rem] uppercase">
-                    {amenity.title}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <hr className="my-5 lg:my-10" />
-          <div className="flex flex-col gap-8 w-full">
             {/* <div className="flex flex-col justify-center items-center max-w-4xl mx-auto">
               <h1 className="text-main-header font-medium mt-5">
                 <LeafRatings
@@ -1071,9 +1072,58 @@ const Product = () => {
                 and reliability
               </span>
             </div> */}
-            <h1 className="text-title text-gray-700 font-medium uppercase">
-              CommonForm Student Reviews
-            </h1>
+            <div className="flex justify-between">
+              <div>
+                <h1 className="text-title text-gray-700 font-medium uppercase">
+                  CommonForm Student Reviews
+                </h1>
+              </div>
+              <div className="0">
+                <div className="flex w-full  gap-1 justify-end items-center">
+                  <div>
+                    <SecondaryButton
+                      // disabled={isSubmitting}
+                      // isLoading={isSubmitting}
+                      title={"Add A Review"}
+                      // type={"submit"}
+                      externalStyles={"w-54 mx-4"}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-0 justify-center items-center ">
+                    <p className="text-tiny lg:text-subtitle">
+                      {resolvedCompanyDetails?.ratings || 0}
+                    </p>
+                    <span className="text-tiny flex lg:text-small font-medium">
+                      {renderStars(resolvedCompanyDetails?.ratings || 0)}
+                    </span>
+                  </div>
+                  {/* Vertical Separator */}
+                  <div className="w-px h-10 bg-gray-300 mx-2 my-auto lg:hidden" />
+                  <div className="text-tiny w-full flex justify-center items-center lg:hidden">
+                    <LeafWrapper height="3rem" width={"2rem"}>
+                      <div className="text-secondary-dark font-semibold flex text-tiny lg:text-subtitle flex-col leading-5  items-center">
+                        <span>Guest</span>
+                        <span>Favorite</span>
+                      </div>
+                    </LeafWrapper>
+                  </div>
+
+                  {/* Vertical Separator */}
+                  <div className="w-px h-10 bg-gray-300 mx-2 my-auto" />
+
+                  <div className="flex flex-col gap-4 lg:gap-0 justify-center items-center">
+                    <p className="text-tiny lg:text-subtitle mt-1">
+                      {resolvedCompanyDetails?.reviewCount ||
+                        resolvedCompanyDetails?.totalReviews ||
+                        0}
+                    </p>
+                    <span className="text-tiny lg:text-small font-medium">
+                      Reviews
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-0 lg:p-0">
               {resolvedCompanyDetails?.reviews?.length > 0 ? (
                 resolvedCompanyDetails?.reviews
@@ -1095,9 +1145,49 @@ const Product = () => {
               )}
             </div>{" "}
             <hr className="my-5 lg:my-10" />
-            <h1 className="text-title text-gray-700 font-medium uppercase">
-              Google Student Reviews
-            </h1>
+            <div className="flex justify-between">
+              <div>
+                <h1 className="text-title text-gray-700 font-medium uppercase">
+                  Google Student Reviews
+                </h1>
+              </div>
+              <div className="">
+                <div className="flex w-full  gap-1 justify-end items-center">
+                  <div className="flex flex-col gap-0 justify-center items-center ">
+                    <p className="text-tiny lg:text-subtitle">
+                      {resolvedCompanyDetails?.ratings || 0}
+                    </p>
+                    <span className="text-tiny flex lg:text-small font-medium">
+                      {renderStars(resolvedCompanyDetails?.ratings || 0)}
+                    </span>
+                  </div>
+                  {/* Vertical Separator */}
+                  <div className="w-px h-10 bg-gray-300 mx-2 my-auto lg:hidden" />
+                  <div className="text-tiny w-full flex justify-center items-center lg:hidden">
+                    <LeafWrapper height="3rem" width={"2rem"}>
+                      <div className="text-secondary-dark font-semibold flex text-tiny lg:text-subtitle flex-col leading-5  items-center">
+                        <span>Guest</span>
+                        <span>Favorite</span>
+                      </div>
+                    </LeafWrapper>
+                  </div>
+
+                  {/* Vertical Separator */}
+                  <div className="w-px h-10 bg-gray-300 mx-2 my-auto" />
+
+                  <div className="flex flex-col gap-4 lg:gap-0 justify-center items-center">
+                    <p className="text-tiny lg:text-subtitle mt-1">
+                      {resolvedCompanyDetails?.reviewCount ||
+                        resolvedCompanyDetails?.totalReviews ||
+                        0}
+                    </p>
+                    <span className="text-tiny lg:text-small font-medium">
+                      Reviews
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-0 lg:p-0">
               {resolvedCompanyDetails?.reviews?.length > 0 ? (
                 resolvedCompanyDetails?.reviews
@@ -1117,6 +1207,31 @@ const Product = () => {
                   No reviews yet.
                 </div>
               )}
+            </div>
+            <hr className="my-5 lg:my-10" />
+            <div className="flex flex-col gap-8 w-full">
+              <h1 className="text-title text-gray-700 font-medium uppercase">
+                What Inclusions does it offer
+              </h1>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-24 gap-y-10">
+                {standardAmenities.map((amenity) => (
+                  <div
+                    key={amenity.title}
+                    className="flex flex-row gap-1 w-full lg:w-40 items-center"
+                  >
+                    <div className="h-10 w-10 overflow-hidden relative rounded">
+                      <img
+                        src={amenity.image}
+                        className="h-full w-full object-contain"
+                        alt={amenity.title}
+                      />
+                    </div>
+                    <p className="text-center text-secondary-dark w-full text-[0.89rem] uppercase">
+                      {amenity.title}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
             <hr className="my-5 lg:my-10" />
             {/* Map */}
