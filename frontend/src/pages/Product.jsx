@@ -711,7 +711,7 @@ const Product = () => {
                 </div>
               </div>
 
-              <div className="shadow-md flex flex-col gap-4 p-6 rounded-xl border-2">
+              {/* <div className="shadow-md flex flex-col gap-4 p-6 rounded-xl border-2">
                 <h1 className="text-card-title text-secondary-dark font-semibold leading-normal">
                   START BUILDING YOUR COMMON FORM
                 </h1>
@@ -771,59 +771,6 @@ const Product = () => {
                       </TextField>
                     )}
                   />
-                  {/* <Controller
-                    name="noOfPeople"
-                    control={control}
-                    rules={{
-                      required: "No. of people is required",
-                      validate: (value) => value > 0 || "Country is required",
-                    }}
-                    render={({ field }) => (
-                      <div className="flex flex-col gap-1">
-                        <label className="text-sm text-gray-600 font-medium">
-                          Country
-                        </label>
-                        <div className="flex items-center border-b border-gray-300 py-1 w-full max-w-xs">
-                      
-                          <button
-                            type="button"
-                            onClick={() =>
-                              field.onChange(
-                                Math.max(0, Number(field.value || 0) - 1)
-                              )
-                            }
-                            className="px-3 py-1 text-lg font-semibold text-gray-600 hover:text-primary-blue"
-                          >
-                            −
-                          </button>
-
-                    
-                          <input
-                            {...field}
-                            readOnly
-                            className="w-full text-center outline-none bg-transparent text-gray-800 text-sm font-medium"
-                            value={field.value || 0}
-                          />
-
-                   
-                          <button
-                            type="button"
-                            onClick={() =>
-                              field.onChange(Number(field.value || 0) + 1)
-                            }
-                            className="px-3 py-1 text-lg font-semibold text-gray-600 hover:text-primary-blue"
-                          >
-                            +
-                          </button>
-                        </div>
-                        {errors?.noOfPeople && (
-                          <p className="text-red-500 text-xs mt-1">
-                            {errors.noOfPeople.message}
-                          </p>
-                        )}
-                      </div>
-                    )}
-                  /> */}
 
                   <Controller
                     name="mobileNumber"
@@ -872,50 +819,6 @@ const Product = () => {
                     )}
                   />
 
-                  {/* {resolvedCompanyDetails?.type === "coworking" && (
-                    <Controller
-                      name="numberOfDesks"
-                      control={control}
-                      render={({ field }) => (
-                        <TextField
-                          {...field}
-                          label="Number of Desk"
-                          fullWidth
-                          variant="standard"
-                          size="small"
-                          select>
-                          <MenuItem value="" disabled>
-                            <em>Select Number of Desk</em>
-                          </MenuItem>
-                          <MenuItem value={2}>2</MenuItem>
-                          <MenuItem value={4}>4</MenuItem>
-                          <MenuItem value={10}>10</MenuItem>
-                          <MenuItem value={20}>20</MenuItem>
-                        </TextField>
-                      )}
-                    />
-                  )} */}
-                  {/* <Controller
-                    name="startDate"
-                    control={control}
-                    render={({ field }) => (
-                      <DesktopDatePicker
-                        {...field}
-                        label="Start Date"
-                        disablePast
-                        format="DD-MM-YYYY"
-                        value={field.value ? dayjs(field.value) : null}
-                        onChange={field.onChange}
-                        slotProps={{
-                          textField: {
-                            size: "small",
-                            fullWidth: true,
-                            variant: "standard",
-                          },
-                        }}
-                      />
-                    )}
-                  /> */}
                   <Controller
                     name="startDate"
                     control={control}
@@ -954,28 +857,6 @@ const Product = () => {
                     )}
                   />
 
-                  {/* <Controller
-                    name="endDate"
-                    control={control}
-                    render={({ field }) => (
-                      <DesktopDatePicker
-                        {...field}
-                        label="End Date"
-                        format="DD-MM-YYYY"
-                        disablePast
-                        disabled={!selectedStartDate}
-                        value={field.value ? dayjs(field.value) : null}
-                        onChange={field.onChange}
-                        slotProps={{
-                          textField: {
-                            size: "small",
-                            fullWidth: true,
-                            variant: "standard",
-                          },
-                        }}
-                      />
-                    )}
-                  /> */}
                   <Controller
                     name="endDate"
                     control={control}
@@ -1031,6 +912,218 @@ const Product = () => {
                     />
                   </div>
                 </form>
+              </div> */}
+              <div className="shadow-md flex flex-col gap-4 p-6 rounded-xl border-2">
+                <h1 className="text-card-title text-secondary-dark font-semibold leading-normal">
+                  CONTRIUTOR
+                </h1>
+                <div className="bg-yellow-500 flex justify-around">
+                  <div className="bg-red-500">profile image</div>{" "}
+                  <div className="bg-red-500">profile details</div>
+                </div>
+                <form
+                  onSubmit={handleSubmit((data) => submitEnquiry(data))}
+                  action=""
+                  className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+                >
+                  <Controller
+                    name="fullName"
+                    rules={{
+                      required: "Full Name is required",
+                      validate: {
+                        noOnlyWhitespace,
+                        isAlphanumeric,
+                      },
+                    }}
+                    control={control}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        label="Full Name"
+                        fullWidth
+                        variant="standard"
+                        size="small"
+                        helperText={errors?.fullName?.message}
+                        sx={{ marginTop: 3 }}
+                        error={!!errors.fullName}
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="country"
+                    control={control}
+                    rules={{
+                      required: "Country is required",
+                    }}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        select
+                        label="Country"
+                        fullWidth
+                        variant="standard"
+                        size="small"
+                        value={field.value || ""}
+                        helperText={errors?.country?.message}
+                        error={!!errors.country}
+                        onChange={(event) => field.onChange(event.target.value)}
+                        sx={{ marginTop: 3 }}
+                      >
+                        {Country.getAllCountries().map((c) => (
+                          <MenuItem key={c.isoCode} value={c.name}>
+                            {c.name}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    )}
+                  />
+
+                  <Controller
+                    name="mobileNumber"
+                    control={control}
+                    rules={{
+                      required: "Mobile number is required",
+                      validate: {
+                        // isValidPhoneNumber,
+                        isValidInternationalPhone,
+                      },
+                    }}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        label="Mobile Number"
+                        fullWidth
+                        type="tel"
+                        value={field.value || ""}
+                        variant="standard"
+                        size="small"
+                        helperText={errors?.mobileNumber?.message}
+                        error={!!errors.mobileNumber}
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="email"
+                    control={control}
+                    rules={{
+                      required: "Email is required",
+                      validate: {
+                        isValidEmail,
+                      },
+                    }}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        label="Email"
+                        fullWidth
+                        type="email"
+                        variant="standard"
+                        size="small"
+                        helperText={errors?.email?.message}
+                        error={!!errors.email}
+                      />
+                    )}
+                  />
+
+                  <Controller
+                    name="startDate"
+                    control={control}
+                    rules={{
+                      validate: (value) => {
+                        const end = watch("endDate");
+                        if (!end || !value) return true;
+
+                        const startDate = dayjs(value);
+                        const endDate = dayjs(end);
+
+                        return (
+                          startDate.isBefore(endDate) ||
+                          "Start date must be before end date"
+                        );
+                      },
+                    }}
+                    render={({ field }) => (
+                      <DesktopDatePicker
+                        {...field}
+                        label="DOB"
+                        // disablePast
+                        format="DD-MM-YYYY"
+                        value={field.value ? dayjs(field.value) : null}
+                        onChange={field.onChange}
+                        slotProps={{
+                          textField: {
+                            size: "small",
+                            fullWidth: true,
+                            variant: "standard",
+                            error: !!errors.startDate,
+                            helperText: errors?.startDate?.message,
+                          },
+                        }}
+                      />
+                    )}
+                  />
+
+                  <Controller
+                    name="endDate"
+                    control={control}
+                    rules={{
+                      validate: (value) => {
+                        const start = watch("startDate");
+                        if (!start || !value) return true;
+
+                        const startDate = dayjs(start);
+                        const endDate = dayjs(value);
+
+                        return (
+                          endDate.isAfter(startDate) ||
+                          "End date must be after start date"
+                        );
+                      },
+                    }}
+                    render={({ field }) => (
+                      <DesktopDatePicker
+                        {...field}
+                        label="Applying For Year"
+                        // format="DD-MM-YYYY"
+                        // disablePast
+                        format="YYYY"
+                        views={["year"]}
+                        openTo="year"
+                        shouldDisableYear={(date) =>
+                          date.year() < dayjs().year()
+                        }
+                        disabled={!selectedStartDate}
+                        value={field.value ? dayjs(field.value) : null}
+                        onChange={field.onChange}
+                        slotProps={{
+                          textField: {
+                            size: "small",
+                            fullWidth: true,
+                            variant: "standard",
+                            error: !!errors.endDate,
+                            helperText: errors?.endDate?.message,
+                          },
+                        }}
+                      />
+                    )}
+                  />
+
+                  <div className="flex justify-center items-center lg:col-span-2">
+                    <SecondaryButton
+                      disabled={isSubmitting}
+                      isLoading={isSubmitting}
+                      title={"Build Your Profile To Apply"}
+                      type={"submit"}
+                      externalStyles={"w-3/4"}
+                    />
+                  </div>
+                </form>
+              </div>
+              <div className="pt-2">
+                <p className="text-card-title font-semibold">
+                  <span className="text-blue-700 ">Sign In</span> To Contribute
+                  To University Content
+                </p>
               </div>
             </div>
           </div>
