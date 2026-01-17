@@ -25,7 +25,7 @@ import {
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import AmenitiesList from "../components/AmenitiesList";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaFacebook, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 import TransparentModal from "../components/TransparentModal";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -914,212 +914,69 @@ const Product = () => {
                 </form>
               </div> */}
               <div className="shadow-md flex flex-col gap-4 p-6 rounded-xl border-2">
-                <h1 className="text-card-title text-secondary-dark font-semibold leading-normal">
-                  CONTRIUTOR
+                <h1 className="text-hero text-secondary-dark font-semibold leading-normal">
+                  Contributor
                 </h1>
-                <div className="bg-yellow-500 flex justify-around">
-                  <div className="bg-red-500">profile image</div>{" "}
-                  <div className="bg-red-500">profile details</div>
-                </div>
-                <form
-                  onSubmit={handleSubmit((data) => submitEnquiry(data))}
-                  action=""
-                  className="grid grid-cols-1 lg:grid-cols-2 gap-6"
-                >
-                  <Controller
-                    name="fullName"
-                    rules={{
-                      required: "Full Name is required",
-                      validate: {
-                        noOnlyWhitespace,
-                        isAlphanumeric,
-                      },
-                    }}
-                    control={control}
-                    render={({ field }) => (
-                      <TextField
-                        {...field}
-                        label="Full Name"
-                        fullWidth
-                        variant="standard"
-                        size="small"
-                        helperText={errors?.fullName?.message}
-                        sx={{ marginTop: 3 }}
-                        error={!!errors.fullName}
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
+                    <div className="flex justify-center sm:justify-start py-4">
+                      <img
+                        src="/images/bg-image.jpg"
+                        alt="Steel Wagstaff"
+                        className="h-60 w-60 rounded-full object-cover shadow-md"
                       />
-                    )}
-                  />
-                  <Controller
-                    name="country"
-                    control={control}
-                    rules={{
-                      required: "Country is required",
-                    }}
-                    render={({ field }) => (
-                      <TextField
-                        {...field}
-                        select
-                        label="Country"
-                        fullWidth
-                        variant="standard"
-                        size="small"
-                        value={field.value || ""}
-                        helperText={errors?.country?.message}
-                        error={!!errors.country}
-                        onChange={(event) => field.onChange(event.target.value)}
-                        sx={{ marginTop: 3 }}
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <div>
+                        <p className="text-card-title text-secondary-dark font-semibold pt-2 pb-4">
+                          Steel Wagstaff
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          Final Year Student
+                        </p>
+                      </div>
+                      <a
+                        href="https://steelwagstaff.info"
+                        className="text-sm text-red-600 underline underline-offset-4"
+                        target="_blank"
+                        rel="noreferrer"
                       >
-                        {Country.getAllCountries().map((c) => (
-                          <MenuItem key={c.isoCode} value={c.name}>
-                            {c.name}
-                          </MenuItem>
-                        ))}
-                      </TextField>
-                    )}
-                  />
-
-                  <Controller
-                    name="mobileNumber"
-                    control={control}
-                    rules={{
-                      required: "Mobile number is required",
-                      validate: {
-                        // isValidPhoneNumber,
-                        isValidInternationalPhone,
-                      },
-                    }}
-                    render={({ field }) => (
-                      <TextField
-                        {...field}
-                        label="Mobile Number"
-                        fullWidth
-                        type="tel"
-                        value={field.value || ""}
-                        variant="standard"
-                        size="small"
-                        helperText={errors?.mobileNumber?.message}
-                        error={!!errors.mobileNumber}
-                      />
-                    )}
-                  />
-                  <Controller
-                    name="email"
-                    control={control}
-                    rules={{
-                      required: "Email is required",
-                      validate: {
-                        isValidEmail,
-                      },
-                    }}
-                    render={({ field }) => (
-                      <TextField
-                        {...field}
-                        label="Email"
-                        fullWidth
-                        type="email"
-                        variant="standard"
-                        size="small"
-                        helperText={errors?.email?.message}
-                        error={!!errors.email}
-                      />
-                    )}
-                  />
-
-                  <Controller
-                    name="startDate"
-                    control={control}
-                    rules={{
-                      validate: (value) => {
-                        const end = watch("endDate");
-                        if (!end || !value) return true;
-
-                        const startDate = dayjs(value);
-                        const endDate = dayjs(end);
-
-                        return (
-                          startDate.isBefore(endDate) ||
-                          "Start date must be before end date"
-                        );
-                      },
-                    }}
-                    render={({ field }) => (
-                      <DesktopDatePicker
-                        {...field}
-                        label="DOB"
-                        // disablePast
-                        format="DD-MM-YYYY"
-                        value={field.value ? dayjs(field.value) : null}
-                        onChange={field.onChange}
-                        slotProps={{
-                          textField: {
-                            size: "small",
-                            fullWidth: true,
-                            variant: "standard",
-                            error: !!errors.startDate,
-                            helperText: errors?.startDate?.message,
-                          },
-                        }}
-                      />
-                    )}
-                  />
-
-                  <Controller
-                    name="endDate"
-                    control={control}
-                    rules={{
-                      validate: (value) => {
-                        const start = watch("startDate");
-                        if (!start || !value) return true;
-
-                        const startDate = dayjs(start);
-                        const endDate = dayjs(value);
-
-                        return (
-                          endDate.isAfter(startDate) ||
-                          "End date must be after start date"
-                        );
-                      },
-                    }}
-                    render={({ field }) => (
-                      <DesktopDatePicker
-                        {...field}
-                        label="Applying For Year"
-                        // format="DD-MM-YYYY"
-                        // disablePast
-                        format="YYYY"
-                        views={["year"]}
-                        openTo="year"
-                        shouldDisableYear={(date) =>
-                          date.year() < dayjs().year()
-                        }
-                        disabled={!selectedStartDate}
-                        value={field.value ? dayjs(field.value) : null}
-                        onChange={field.onChange}
-                        slotProps={{
-                          textField: {
-                            size: "small",
-                            fullWidth: true,
-                            variant: "standard",
-                            error: !!errors.endDate,
-                            helperText: errors?.endDate?.message,
-                          },
-                        }}
-                      />
-                    )}
-                  />
-
-                  <div className="flex justify-center items-center lg:col-span-2">
-                    <SecondaryButton
-                      disabled={isSubmitting}
-                      isLoading={isSubmitting}
-                      title={"Build Your Profile To Apply"}
-                      type={"submit"}
-                      externalStyles={"w-3/4"}
-                    />
+                        https://steelwagstaff.info
+                      </a>
+                      <div className="flex gap-3">
+                        <a
+                          href="https://twitter.com"
+                          className="flex h-8 w-8 items-center justify-center rounded-md bg-red-700 text-white"
+                          aria-label="Twitter"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <FaTwitter size={16} />
+                        </a>
+                        <a
+                          href="https://linkedin.com"
+                          className="flex h-8 w-8 items-center justify-center rounded-md bg-red-700 text-white"
+                          aria-label="LinkedIn"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <FaLinkedinIn size={16} />
+                        </a>
+                        <a
+                          href="https://github.com"
+                          className="flex h-8 w-8 items-center justify-center rounded-md bg-red-700 text-white"
+                          aria-label="GitHub"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <FaFacebook size={16} />
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                </form>
+                </div>
               </div>
-              <div className="pt-2">
+              <div className="pt-4">
                 <p className="text-card-title font-semibold">
                   <span className="text-blue-700 ">Sign In</span> To Contribute
                   To University Content
