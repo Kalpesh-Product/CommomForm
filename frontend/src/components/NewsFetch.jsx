@@ -138,21 +138,83 @@ const NewsFetch = () => {
     };
   }, [dest]);
 
-  const { data, isPending, isError } = useQuery({
-    queryKey: ["gnews", dest?.label], // use optional chaining
-    queryFn: async () => {
-      if (!dest) return []; // early return if dest is null
-      if (dest.label === "All") {
-        const res = await axios.get("/news/get-news");
-        return res.data;
-      }
-      const res = await axios.get("/news/get-news", { params });
-      return res.data;
+  const hardcodedArticles = [
+    {
+      guid: "news-hardcoded-1",
+      mainTitle: "Goa Tourism Sees Early Monsoon Rush",
+      mainContent:
+        "Hotels report higher-than-usual weekend bookings as travelers arrive ahead of the rains.",
+      author: "CommonForm News",
+      date: "2024-06-12",
+      mainImage:
+        "https://images.unsplash.com/photo-1502920514313-52581002a659?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Tourism officials noted a spike in early monsoon travel, with beachside stays seeing strong demand.</p>",
     },
-    refetchOnWindowFocus: false,
-  });
+    {
+      guid: "news-hardcoded-2",
+      mainTitle: "Bangkok Opens New Night Market Hub",
+      mainContent:
+        "A new riverside night market features local food stalls, music, and artisan pop-ups.",
+      author: "CommonForm News",
+      date: "2024-05-28",
+      mainImage:
+        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>City planners say the market will support small businesses while giving visitors a new evening destination.</p>",
+    },
+    {
+      guid: "news-hardcoded-3",
+      mainTitle: "Bali Launches Sustainable Travel Guide",
+      mainContent:
+        "The new guide highlights eco-friendly stays, local tours, and conservation programs.",
+      author: "CommonForm News",
+      date: "2024-04-19",
+      mainImage:
+        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Officials hope the guide encourages mindful tourism while supporting local communities.</p>",
+    },
+  ];
 
-  const articles = Array.isArray(data) ? data : [];
+  // ✅ Toggle data source by commenting/uncommenting the blocks below.
+
+  // ✅ API news (uncomment to use the API)
+  // const { data, isPending, isError } = useQuery({
+  //   queryKey: ["gnews", dest?.label], // use optional chaining
+  //   queryFn: async () => {
+  //     if (!dest) return []; // early return if dest is null
+  //     if (dest.label === "All") {
+  //       const res = await axios.get("/news/get-news");
+  //       return res.data;
+  //     }
+  //     const res = await axios.get("/news/get-news", { params });
+  //     return res.data;
+  //   },
+  //   refetchOnWindowFocus: false,
+  // });
+  // const articles = Array.isArray(data) ? data : [];
+
+  // ✅ Hardcoded news (comment out to use the API)
+  const articles = hardcodedArticles;
+  const isPending = false;
+  const isError = false;
+
+  // const { data, isPending, isError } = useQuery({
+  //   queryKey: ["gnews", dest?.label], // use optional chaining
+  //   queryFn: async () => {
+  //     if (!dest) return []; // early return if dest is null
+  //     if (dest.label === "All") {
+  //       const res = await axios.get("/news/get-news");
+  //       return res.data;
+  //     }
+  //     const res = await axios.get("/news/get-news", { params });
+  //     return res.data;
+  //   },
+  //   refetchOnWindowFocus: false,
+  // });
+
+  // const articles = Array.isArray(data) ? data : [];
 
   if (!dest) {
     return (
