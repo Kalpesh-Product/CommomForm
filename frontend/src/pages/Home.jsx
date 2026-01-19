@@ -53,6 +53,7 @@ const Home = () => {
       country: "uae",
       location: "",
       count: "",
+      fieldOfStudy: "",
     },
   });
   const selectedCountry = watch("country");
@@ -117,7 +118,7 @@ const Home = () => {
     if (!locations.length) return;
 
     const countryExists = locations.some(
-      (c) => c.country?.toLowerCase() === selectedCountry?.toLowerCase()
+      (c) => c.country?.toLowerCase() === selectedCountry?.toLowerCase(),
     );
 
     if (!countryExists && selectedCountry) {
@@ -128,10 +129,10 @@ const Home = () => {
 
     if (countryExists) {
       const current = locations.find(
-        (c) => c.country?.toLowerCase() === selectedCountry?.toLowerCase()
+        (c) => c.country?.toLowerCase() === selectedCountry?.toLowerCase(),
       );
       const locationExists = current?.states?.some(
-        (s) => s.name?.toLowerCase() === selectedState?.toLowerCase()
+        (s) => s.name?.toLowerCase() === selectedState?.toLowerCase(),
       );
 
       if (!locationExists && selectedState) {
@@ -203,7 +204,7 @@ const Home = () => {
     if (selectedContinent) {
       filtered = locations.filter(
         (item) =>
-          item.continent?.toLowerCase() === selectedContinent?.toLowerCase()
+          item.continent?.toLowerCase() === selectedContinent?.toLowerCase(),
       );
     }
 
@@ -280,6 +281,12 @@ const Home = () => {
     { label: "University", value: "University" },
     { label: "School", value: "School" },
     { label: "Tuition", value: "Tuition" },
+  ];
+
+  const FieldOptions = [
+    { label: "Business", value: "Business" },
+    { label: "Technology", value: "Technology" },
+    { label: "Health", value: "Health" },
   ];
 
   const reviewData = [
@@ -519,6 +526,22 @@ const Home = () => {
                     />
                   )}
                 />
+                <div className="w-px h-10 bg-gray-300 mx-2 my-auto" />
+                <Controller
+                  name="fieldOfStudy"
+                  control={control}
+                  render={({ field }) => (
+                    <SearchBarCombobox
+                      value={field.value}
+                      onChange={field.onChange}
+                      options={FieldOptions}
+                      label="Select Field of Study"
+                      placeholder="Select Field of Study"
+                      disabled={!selectedState}
+                      className="w-full "
+                    />
+                  )}
+                />
                 <button
                   type="submit"
                   className="w-fit h-full  bg-[#FF5757] text-white p-5 text-subtitle rounded-full"
@@ -616,6 +639,21 @@ const Home = () => {
                         options={countOptions}
                         label="Select Category"
                         placeholder="Select type of institute"
+                        disabled={!selectedState}
+                        className="w-full"
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="fieldOfStudy"
+                    control={control}
+                    render={({ field }) => (
+                      <SearchBarCombobox
+                        value={field.value}
+                        onChange={field.onChange}
+                        options={FieldOptions}
+                        label="Select Field of Study"
+                        placeholder="Select Field of Study"
                         disabled={!selectedState}
                         className="w-full"
                       />
