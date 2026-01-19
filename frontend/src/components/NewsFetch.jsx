@@ -10,13 +10,15 @@ import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 const DESTS = [
   { label: "All", country: null, keyword: null, lang: null }, // ✅ New option
-  { label: "Goa", country: "in", keyword: "goa", lang: "en" },
-  { label: "Bali", country: "id", keyword: "bali", lang: "en" },
-  { label: "Bangkok", country: "th", keyword: "bangkok", lang: "en" },
-  { label: "Phuket", country: "th", keyword: "phuket", lang: "en" },
-  { label: "Ho Chi Minh", country: "vn", keyword: "ho chi minh", lang: "en" },
-  { label: "Rio", country: "br", keyword: "rio", lang: "en" },
+  // { label: "Goa", country: "in", keyword: "goa", lang: "en" },
+  // { label: "Bali", country: "id", keyword: "bali", lang: "en" },
+  // { label: "Bangkok", country: "th", keyword: "bangkok", lang: "en" },
+  // { label: "Phuket", country: "th", keyword: "phuket", lang: "en" },
+  // { label: "Ho Chi Minh", country: "vn", keyword: "ho chi minh", lang: "en" },
+  // { label: "Rio", country: "br", keyword: "rio", lang: "en" },
+  { label: "Abu Dhabi", country: "uae", keyword: "abudhabi", lang: "en" },
   { label: "Dubai", country: "uae", keyword: "dubai", lang: "en" },
+  { label: "Sarjah", country: "uae", keyword: "sharjah", lang: "en" },
 ];
 
 const extractImageFromContent = (content) => {
@@ -224,7 +226,7 @@ const NewsFetch = () => {
           {/* Controls (keep dropdown usable) */}
           <div className="flex items-center justify-end gap-3 mb-0 ">
             <label className="text-sm font-medium text-gray-700">
-              Destination
+              Location
             </label>
 
             <FormControl variant="standard" sx={{ minWidth: 140 }}>
@@ -232,7 +234,7 @@ const NewsFetch = () => {
               <Select
                 value={""}
                 onChange={(e) => handleChange(e.target.value)}
-                label="Destination"
+                label="Location"
               >
                 <MenuItem value="" disabled>
                   Select
@@ -261,16 +263,14 @@ const NewsFetch = () => {
         <h2 className="text-title font-semibold text-host">News</h2>
         {/* Controls */}
         <div className="flex items-center justify-end gap-3 mb-0 ">
-          <label className="text-sm font-medium text-gray-700">
-            Destination
-          </label>
+          <label className="text-sm font-medium text-gray-700">Location</label>
 
           <FormControl variant="standard" sx={{ minWidth: 140 }}>
             {/* <InputLabel>Destination</InputLabel> */}
             <Select
               value={dest.label}
               onChange={(e) => handleChange(e.target.value)}
-              label="Destination"
+              label="Location"
             >
               {DESTS.map((d) => (
                 <MenuItem key={d.label} value={d.label}>

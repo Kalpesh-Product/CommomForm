@@ -9,13 +9,15 @@ import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 const DESTS = [
   { label: "All", country: null, keyword: null, lang: null }, // ✅ New option
-  { label: "Goa", country: "in", keyword: "goa", lang: "en" },
-  { label: "Bali", country: "id", keyword: "bali", lang: "en" },
-  { label: "Bangkok", country: "th", keyword: "bangkok", lang: "en" },
-  { label: "Phuket", country: "th", keyword: "phuket", lang: "en" },
-  { label: "Ho Chi Minh", country: "vn", keyword: "ho chi minh", lang: "en" },
-  { label: "Rio", country: "br", keyword: "rio", lang: "en" },
+  // { label: "Goa", country: "in", keyword: "goa", lang: "en" },
+  // { label: "Bali", country: "id", keyword: "bali", lang: "en" },
+  // { label: "Bangkok", country: "th", keyword: "bangkok", lang: "en" },
+  // { label: "Phuket", country: "th", keyword: "phuket", lang: "en" },
+  // { label: "Ho Chi Minh", country: "vn", keyword: "ho chi minh", lang: "en" },
+  // { label: "Rio", country: "br", keyword: "rio", lang: "en" },
+  { label: "Abu Dhabi", country: "uae", keyword: "abudhabi", lang: "en" },
   { label: "Dubai", country: "uae", keyword: "dubai", lang: "en" },
+  { label: "Sarjah", country: "uae", keyword: "sharjah", lang: "en" },
 ];
 
 const stripHTML = (html) => {
@@ -291,14 +293,14 @@ const EventsFetch = () => {
           {/* Controls */}
           <div className="flex items-center justify-end gap-3 mb-5">
             <label className="text-sm font-medium text-gray-700">
-              Destination
+              Location
             </label>
             <FormControl variant="standard" sx={{ minWidth: 140 }}>
               {/* <InputLabel>Destination</InputLabel> */}
               <Select
                 value={""}
                 onChange={(e) => handleChange(e.target.value)}
-                label="Destination"
+                label="Location"
               >
                 <MenuItem value="" disabled>
                   Select
@@ -324,27 +326,28 @@ const EventsFetch = () => {
     <div className="my-6">
       <div className="flex justify-between items-center mb-4 flex-col sm:flex-col xs:flex-col md:flex-row lg:flex-row">
         <h2 className="text-title font-semibold text-host">Blog</h2>
-        {/* Controls */}
-        <div className="flex items-center justify-end gap-3 mb-5">
-          <label className="text-sm font-medium text-gray-700">
-            Destination
-          </label>
-          <FormControl variant="standard" sx={{ minWidth: 140 }}>
-            {/* <InputLabel>Destination</InputLabel> */}
-            <Select
-              value={dest.label}
-              onChange={(e) => handleChange(e.target.value)}
-              label="Destination"
-            >
-              {DESTS.map((d) => (
-                <MenuItem key={d.label} value={d.label}>
-                  {d.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+        <div className="flex gap-8">
+          {/* Controls */}
+          <div className="flex items-center justify-end gap-3 mb-5">
+            <label className="text-sm font-medium text-gray-700">
+              Location
+            </label>
+            <FormControl variant="standard" sx={{ minWidth: 140 }}>
+              {/* <InputLabel>Destination</InputLabel> */}
+              <Select
+                value={dest.label}
+                onChange={(e) => handleChange(e.target.value)}
+                label="Location"
+              >
+                {DESTS.map((d) => (
+                  <MenuItem key={d.label} value={d.label}>
+                    {d.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
 
-          {/* <button
+            {/* <button
             type="button"
             onClick={() => refetch()}
             className="text-xs border rounded px-2 py-1 hover:bg-gray-50"
@@ -352,10 +355,44 @@ const EventsFetch = () => {
             {isFetching ? "Refreshing…" : "Refresh"}
           </button> */}
 
-          {/* {isPending && <span className="text-sm text-gray-500">Loading…</span>}
+            {/* {isPending && <span className="text-sm text-gray-500">Loading…</span>}
           {isError && (
             <span className="text-sm text-red-600">Could not load blogs.</span>
           )} */}
+          </div>{" "}
+          {/* Controls */}
+          <div className="flex items-center justify-end gap-3 mb-5">
+            <label className="text-sm font-medium text-gray-700">
+              Type Of Event
+            </label>
+            <FormControl variant="standard" sx={{ minWidth: 140 }}>
+              {/* <InputLabel>Destination</InputLabel> */}
+              <Select
+                value={dest.label}
+                onChange={(e) => handleChange(e.target.value)}
+                label="Type Of Event"
+              >
+                {DESTS.map((d) => (
+                  <MenuItem key={d.label} value={d.label}>
+                    {d.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            {/* <button
+            type="button"
+            onClick={() => refetch()}
+            className="text-xs border rounded px-2 py-1 hover:bg-gray-50"
+            disabled={isFetching}>
+            {isFetching ? "Refreshing…" : "Refresh"}
+          </button> */}
+
+            {/* {isPending && <span className="text-sm text-gray-500">Loading…</span>}
+          {isError && (
+            <span className="text-sm text-red-600">Could not load blogs.</span>
+          )} */}
+          </div>
         </div>
       </div>
 
