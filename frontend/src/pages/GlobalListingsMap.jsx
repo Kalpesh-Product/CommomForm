@@ -15,6 +15,7 @@ import { setFormValues } from "../features/locationSlice.js";
 import ListingCard from "../components/ListingCard.jsx";
 import newIcons from "../assets/newIcons.js";
 import { IoSearch } from "react-icons/io5";
+import { CiSearch } from "react-icons/ci";
 import SearchBarCombobox from "../components/SearchBarCombobox.jsx";
 import { AnimatePresence, motion } from "motion/react";
 import PaginatedGrid from "../components/PaginatedGrid.jsx";
@@ -23,6 +24,8 @@ import useAuth from "../hooks/useAuth.js";
 
 const GlobalListingsMap = () => {
   const [favorites, setFavorites] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.location.formValues);
   const { handleSubmit, control, reset, setValue, getValues, watch } = useForm({
@@ -135,7 +138,7 @@ const GlobalListingsMap = () => {
     if (selectedContinent) {
       filtered = locations.filter(
         (item) =>
-          item.continent?.toLowerCase() === selectedContinent?.toLowerCase()
+          item.continent?.toLowerCase() === selectedContinent?.toLowerCase(),
       );
     }
 
@@ -153,7 +156,7 @@ const GlobalListingsMap = () => {
 
   // Build location options with same restriction logic
   const filteredLocation = locations.find(
-    (item) => item.country?.toLowerCase() === selectedCountry?.toLowerCase()
+    (item) => item.country?.toLowerCase() === selectedCountry?.toLowerCase(),
   );
 
   const locationOptions = useMemo(() => {
@@ -193,7 +196,7 @@ const GlobalListingsMap = () => {
       `/nomad/listings?country=${formData.country}&location=${formData.location}&category=${type}`,
       {
         state: updatedForm,
-      }
+      },
     );
   };
   const { data: listingsData, isPending: isLisitingLoading } = useQuery({
@@ -204,7 +207,7 @@ const GlobalListingsMap = () => {
       const response = await axios.get(
         `company/companiesn?country=${country}&state=${location}&userId=${
           userId || ""
-        }`
+        }`,
       );
 
       // return response.data;
@@ -216,6 +219,33 @@ const GlobalListingsMap = () => {
     refetchOnMount: "always", // ✅ forces refetch on every mount
   });
 
+  const suggestionOptions = useMemo(() => {
+    if (!listingsData || listingsData.length === 0) return [];
+
+    const uniqueNames = [
+      ...new Set(
+        listingsData
+          .map((item) => item?.companyName)
+          .filter(Boolean)
+          .map((name) => name.trim())
+          .filter((name) => name.length > 0),
+      ),
+    ];
+
+    return uniqueNames.map((name) => ({
+      id: name.toLowerCase().replace(/\s+/g, "-"),
+      label: name,
+    }));
+  }, [listingsData]);
+
+  const filteredSuggestions = useMemo(() => {
+    if (!searchQuery) return suggestionOptions;
+    const normalized = searchQuery.toLowerCase();
+    return suggestionOptions.filter((suggestion) =>
+      suggestion.label.toLowerCase().includes(normalized),
+    );
+  }, [searchQuery, suggestionOptions]);
+
   // derive categoryOptions from API response
   const categoryOptions = useMemo(() => {
     if (!listingsData || listingsData.length === 0) return [];
@@ -225,7 +255,7 @@ const GlobalListingsMap = () => {
         listingsData
           .filter((item) => item.companyType !== "privatestay")
           .map((item) => item.companyType)
-          .filter(Boolean)
+          .filter(Boolean),
       ),
     ];
 
@@ -263,7 +293,7 @@ const GlobalListingsMap = () => {
 
   const toggleFavorite = (id) => {
     setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id],
     );
   };
 
@@ -321,7 +351,7 @@ const GlobalListingsMap = () => {
           location: formData.location,
           category: categoryValue,
         },
-      }
+      },
     );
   };
 
@@ -639,6 +669,63 @@ const GlobalListingsMap = () => {
         </div>
         <Container padding={false}>
           <div className="">
+            <div className="hidden lg:block mb-6">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <h2 className="text-subtitle font-semibold text-secondary-dark">
+                  Popular Business Universities in{" "}
+                  {formData?.location
+                    ? formData.location.charAt(0).toUpperCase() +
+                      formData.location.slice(1)
+                    : "your area"}
+                </h2>
+                <div className="w-full max-w-xs">
+                  <div className="relative">
+                    <CiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-lg text-slate-400" />
+                    <input
+                      type="search"
+                      placeholder="Type to search..."
+                      value={searchQuery}
+                      onChange={(event) => setSearchQuery(event.target.value)}
+                      onFocus={() => setIsSuggestionsOpen(true)}
+                      onBlur={() =>
+                        setTimeout(() => setIsSuggestionsOpen(false), 120)
+                      }
+                      className="w-full rounded-full border border-slate-200 bg-white py-2.5 my-4 pl-11 pr-4 text-sm text-slate-700 shadow-sm transition focus:border-primary-blue focus:outline-none focus:ring-2 focus:ring-primary-blue/20"
+                    />
+                    {isSuggestionsOpen && searchQuery && (
+                      <div className="absolute right-0 z-20 mt-2 w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg">
+                        <ul className="max-h-60 overflow-auto py-2 text-sm">
+                          {filteredSuggestions.length === 0 ? (
+                            <li className="px-4 py-2 text-slate-500">
+                              No matches found.
+                            </li>
+                          ) : (
+                            filteredSuggestions.map((suggestion) => (
+                              <li key={suggestion.id}>
+                                <button
+                                  type="button"
+                                  onMouseDown={() =>
+                                    setSearchQuery(suggestion.label)
+                                  }
+                                  className="flex w-full items-start gap-2 px-4 py-2 text-left text-slate-700 transition hover:bg-slate-50"
+                                >
+                                  <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary-blue/10 text-xs font-semibold text-primary-blue">
+                                    {suggestion.label.charAt(0)}
+                                  </span>
+                                  <span className="font-medium">
+                                    {suggestion.label}
+                                  </span>
+                                </button>
+                              </li>
+                            ))
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="font-semibold text-md  grid grid-cols-9 gap-4 pt-3">
               <div className="hidden lg:block custom-scrollbar-hide lg:col-span-5">
                 {isLisitingLoading ? (
@@ -691,7 +778,7 @@ const GlobalListingsMap = () => {
                                       companyId: item.companyId,
                                       type: item.companyType || "ss",
                                     },
-                                  }
+                                  },
                                 )
                               }
                             />
@@ -752,12 +839,12 @@ const GlobalListingsMap = () => {
                     const prioritizedCompanies = ["MeWo", "BIZ Nest"];
                     const sortedItems = items.sort((a, b) => {
                       const aPriority = prioritizedCompanies.includes(
-                        a.companyName
+                        a.companyName,
                       )
                         ? 0
                         : 1;
                       const bPriority = prioritizedCompanies.includes(
-                        b.companyName
+                        b.companyName,
                       )
                         ? 0
                         : 1;
