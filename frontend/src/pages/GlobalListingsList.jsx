@@ -483,7 +483,7 @@ const GlobalListingsList = () => {
     if (selectedContinent) {
       filtered = locations.filter(
         (item) =>
-          item.continent?.toLowerCase() === selectedContinent?.toLowerCase()
+          item.continent?.toLowerCase() === selectedContinent?.toLowerCase(),
       );
     }
 
@@ -504,7 +504,7 @@ const GlobalListingsList = () => {
   // };
 
   const filteredLocation = locations.find(
-    (item) => item.country?.toLowerCase() === selectedCountry?.toLowerCase()
+    (item) => item.country?.toLowerCase() === selectedCountry?.toLowerCase(),
   );
   const locationOptions = useMemo(() => {
     return (
@@ -542,7 +542,7 @@ const GlobalListingsList = () => {
   console.log("formData", formData);
   const handleShowMoreClick = (type) => {
     setExpandedCategories((prev) =>
-      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type],
     );
   };
 
@@ -575,7 +575,7 @@ const GlobalListingsList = () => {
       const res = await axios.get(
         `company/companiesn?country=${country}&state=${location}&userId=${
           userId || ""
-        }`
+        }`,
       );
       return Array.isArray(res.data) ? res.data : [];
     },
@@ -617,7 +617,7 @@ const GlobalListingsList = () => {
     return (effectiveListings || []).filter(
       (item) =>
         item.companyId === selectedSuggestion.companyId ||
-        item.companyName === selectedSuggestion.companyName
+        item.companyName === selectedSuggestion.companyName,
     );
   }, [effectiveListings, selectedSuggestion]);
 
@@ -630,7 +630,7 @@ const GlobalListingsList = () => {
         listingsData
           .filter((item) => item.companyType !== "privatestay")
           .map((item) => item.companyType)
-          .filter(Boolean)
+          .filter(Boolean),
       ),
     ];
 
@@ -689,7 +689,7 @@ const GlobalListingsList = () => {
 
   const toggleFavorite = (id) => {
     setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id],
     );
   };
 
@@ -758,7 +758,7 @@ const GlobalListingsList = () => {
           location: formData.location,
           category: categoryValue,
         },
-      }
+      },
     );
   };
   // Prioritize BIZ Nest and MeWo first, then sort the rest by rating descending
@@ -957,7 +957,7 @@ const GlobalListingsList = () => {
                   initial={{ y: "-100%" }}
                   animate={{ y: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="grid grid-cols-3 md:grid-cols-5 gap-2 gap-y-10 mb-16"
+                  className="grid grid-cols-3 md:grid-cols-4 gap-2 gap-y-10 mb-16"
                 >
                   {categoryOptions.map((cat) => {
                     const iconSrc = newIcons[cat.value];
@@ -1124,7 +1124,7 @@ const GlobalListingsList = () => {
                         No listings found for that selection.
                       </p>
                     ) : (
-                      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-0">
+                      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-0">
                         {suggestionResults.map((item) => (
                           <ListingCard
                             key={item._id}
@@ -1138,7 +1138,7 @@ const GlobalListingsList = () => {
                                     companyId: item.companyId,
                                     type: item.companyType,
                                   },
-                                }
+                                },
                               )
                             }
                           />
@@ -1175,10 +1175,10 @@ const GlobalListingsList = () => {
 
                       const sortedItems = [...items].sort((a, b) => {
                         const aPriorityIndex = prioritizedCompanies.indexOf(
-                          a.companyName
+                          a.companyName,
                         );
                         const bPriorityIndex = prioritizedCompanies.indexOf(
-                          b.companyName
+                          b.companyName,
                         );
 
                         // Both are priority companies
@@ -1197,14 +1197,14 @@ const GlobalListingsList = () => {
                           a.reviews?.length > 0
                             ? a.reviews.reduce(
                                 (sum, r) => sum + r.starCount,
-                                0
+                                0,
                               ) / a.reviews.length
                             : 0;
                         const bRating =
                           b.reviews?.length > 0
                             ? b.reviews.reduce(
                                 (sum, r) => sum + r.starCount,
-                                0
+                                0,
                               ) / b.reviews.length
                             : 0;
 
@@ -1243,7 +1243,7 @@ const GlobalListingsList = () => {
                                   onBlur={() =>
                                     setTimeout(
                                       () => setIsSuggestionsOpen(false),
-                                      120
+                                      120,
                                     )
                                   }
                                   className="w-full rounded-full border border-slate-200 bg-white py-2.5 my-4 pl-11 pr-4 text-sm text-slate-700 shadow-sm transition focus:border-primary-blue focus:outline-none focus:ring-2 focus:ring-primary-blue/20"
@@ -1263,7 +1263,7 @@ const GlobalListingsList = () => {
                                                 type="button"
                                                 onMouseDown={() =>
                                                   handleSuggestionSelect(
-                                                    suggestion
+                                                    suggestion,
                                                   )
                                                 }
                                                 className="flex w-full items-start gap-2 px-4 py-2 text-left text-slate-700 transition hover:bg-slate-50"
@@ -1276,7 +1276,7 @@ const GlobalListingsList = () => {
                                                 </span>
                                               </button>
                                             </li>
-                                          )
+                                          ),
                                         )
                                       )}
                                     </ul>
@@ -1286,7 +1286,7 @@ const GlobalListingsList = () => {
                             </div>
                           </div>
 
-                          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-0">
+                          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-0">
                             {displayItems.map((item) => (
                               <ListingCard
                                 key={item._id}
@@ -1300,7 +1300,7 @@ const GlobalListingsList = () => {
                                         companyId: item.companyId,
                                         type: item.companyType,
                                       },
-                                    }
+                                    },
                                   )
                                 }
                               />
