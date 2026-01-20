@@ -9,7 +9,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Favorites from "./Favorites";
 import { CircularProgress } from "@mui/material";
 
-const Profile = () => {
+const Dashboard = () => {
   // const [activeTab, setActiveTab] = useState("profile");
   const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
@@ -424,4 +424,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Dashboard;
