@@ -20,6 +20,8 @@ const DESTS = [
   { label: "Sarjah", country: "uae", keyword: "sharjah", lang: "en" },
 ];
 
+const EVENT_TYPES = ["Business", "Technology", "Health"];
+
 const stripHTML = (html) => {
   const div = document.createElement("div");
   div.innerHTML = html;
@@ -89,6 +91,7 @@ const EventsFetch = () => {
   const initialDest =
     DESTS.find((d) => d.label === searchParams.get("dest")) || DESTS[0];
   const [dest, setDest] = useState(DESTS[0]);
+  const [eventType, setEventType] = useState(EVENT_TYPES[0]);
   const formData = useSelector((state) => state.location.formValues);
   const initialized = useRef(false);
 
@@ -368,13 +371,13 @@ const EventsFetch = () => {
             <FormControl variant="standard" sx={{ minWidth: 140 }}>
               {/* <InputLabel>Destination</InputLabel> */}
               <Select
-                value={dest.label}
-                onChange={(e) => handleChange(e.target.value)}
+                value={eventType}
+                onChange={(e) => setEventType(e.target.value)}
                 label="Type Of Event"
               >
-                {DESTS.map((d) => (
-                  <MenuItem key={d.label} value={d.label}>
-                    {d.label}
+                {EVENT_TYPES.map((type) => (
+                  <MenuItem key={type} value={type}>
+                    {type}
                   </MenuItem>
                 ))}
               </Select>
