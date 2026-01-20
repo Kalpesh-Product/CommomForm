@@ -18,6 +18,7 @@ const Dashboard = () => {
   const logout = useLogout();
 
   const [isLogoutLoading, setIsLogoutLoading] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   const user = auth?.user || {};
   const userId = auth?.user?._id || auth?.user?.id;
@@ -169,257 +170,307 @@ const Dashboard = () => {
     changePassword({ userId, oldPassword, newPassword, confirmPassword });
   };
 
+  const navItems = [
+    { id: "profile", label: "Profile" },
+    { id: "password", label: "Change Password" },
+    { id: "favorites", label: "Favorites" },
+  ];
+
   return (
     <div className="bg-[#f8f9fc] min-h-screen p-6 font-sans text-[#364D59]">
-      {/* Tabs */}
-      <div className="flex mb-6 border rounded-lg overflow-hidden max-w-3xl mx-auto">
-        <button
-          className={`flex-1 py-3 font-semibold ${
-            activeTab === "profile"
-              ? "bg-[#ff5757] text-white"
-              : "bg-white text-[#ff5757]"
-          }`}
-          onClick={() => handleTabChange("profile")}
-        >
-          Profile
-        </button>
-        <button
-          className={`flex-1 py-3 font-semibold ${
-            activeTab === "password"
-              ? "bg-[#ff5757] text-white"
-              : "bg-white text-[#ff5757]"
-          }`}
-          onClick={() => handleTabChange("password")}
-        >
-          Change Password
-        </button>
-        <button
-          className={`flex-1 py-3 font-semibold ${
-            activeTab === "favorites"
-              ? "bg-[#ff5757] text-white"
-              : "bg-white text-[#ff5757]"
-          }`}
-          onClick={() => handleTabChange("favorites")}
-        >
-          Favorites
-        </button>
-      </div>
-
-      {/* PROFILE TAB */}
-      {activeTab === "profile" && (
-        <div className="bg-white p-6 rounded-lg shadow-sm max-w-5xl mx-auto">
-          <h2 className="text-xl font-bold text-[#ff5757] mb-4">MY PROFILE</h2>
-
-          <div className="flex flex-col md:flex-row items-center justify-between border p-4 rounded-lg">
-            <div className="flex items-center gap-6">
-              <Avatar
-                sx={{
-                  bgcolor: "#ff5757",
-                  width: 80,
-                  height: 80,
-                  fontSize: "2rem",
-                }}
+      <div className="w-full mx-auto">
+        <div className="flex flex-col lg:flex-row gap-6">
+          <aside
+            className={`bg-white rounded-2xl shadow-sm border border-gray-100 transition-all duration-300 ${
+              isSidebarCollapsed ? "lg:w-20" : "lg:w-64"
+            } w-full`}
+          >
+            <div
+              className={`flex items-center justify-between p-4 border-b ${
+                isSidebarCollapsed ? "lg:justify-center" : ""
+              }`}
+            >
+              <div
+                className={`font-semibold text-[#ff5757] text-lg ${
+                  isSidebarCollapsed ? "hidden lg:block lg:text-center" : ""
+                }`}
               >
-                {user?.firstName ? user.firstName.charAt(0).toUpperCase() : "U"}
-              </Avatar>
-              <div>
-                <h3 className="text-lg font-semibold">
-                  {`${user?.firstName || ""} ${user?.lastName || ""}`.trim() ||
-                    "User Name"}
-                </h3>
-                {/* <p className="text-sm text-gray-600">
-                  {user?.country || "N/A"}
-                </p> */}
+                &nbsp;
               </div>
-            </div>
-
-            <div className="text-sm mt-4 md:mt-0">
-              <p>
-                <b>Email:</b> {user?.email || "N/A"}
-              </p>
-              <p>
-                <b>Mobile:</b> {user?.mobile || "N/A"}
-              </p>
-              <br />
-              {/* <Button
-                variant="contained"
-                sx={{
-                  bgcolor: "#ff5757",
-                  textTransform: "none",
-                  px: 6,
-                  "&:hover": { bgcolor: "#fc6b6b" },
-                }}
-                onClick={handleLogout}
+              <button
+                type="button"
+                onClick={() => setIsSidebarCollapsed((prev) => !prev)}
+                className="p-2 rounded-lg border border-gray-200 hover:bg-[#fff4f4] transition"
+                aria-label={
+                  isSidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"
+                }
               >
-                Logout
-              </Button> */}
-              <Button
-                variant="contained"
-                sx={{
-                  bgcolor: "#ff5757",
-                  textTransform: "none",
-                  px: 6,
-                  "&:hover": { bgcolor: "#fc6b6b" },
-                }}
-                onClick={handleLogout}
-                disabled={isLogoutLoading}
-              >
-                {isLogoutLoading ? (
-                  <CircularProgress size={22} sx={{ color: "white" }} />
-                ) : (
-                  "Logout"
-                )}
-              </Button>
+                <span className="text-[#ff5757] font-bold">
+                  {isSidebarCollapsed ? "»" : "«"}
+                </span>
+              </button>
             </div>
-          </div>
+            <nav className="p-3 space-y-2">
+              {navItems.map((item) => {
+                const isActive = activeTab === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => handleTabChange(item.id)}
+                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left font-medium transition ${
+                      isActive
+                        ? "bg-[#ff5757] text-white shadow-sm"
+                        : "text-[#364D59] hover:bg-[#fff4f4]"
+                    } ${isSidebarCollapsed ? "lg:justify-center" : ""}`}
+                  >
+                    <span
+                      className={`text-xs font-semibold uppercase ${
+                        isActive ? "text-white" : "text-[#ff5757]"
+                      }`}
+                    >
+                      {item.label.charAt(0)}
+                    </span>
+                    <span
+                      className={`${
+                        isSidebarCollapsed ? "lg:hidden" : "inline"
+                      }`}
+                    >
+                      {item.label}
+                    </span>
+                  </button>
+                );
+              })}
+            </nav>
+          </aside>
 
-          {/* Personal Info */}
-          <div className="mt-6 border rounded-lg p-4">
-            <h3 className="font-semibold mb-4">Personal Information</h3>
-            <div className="grid md:grid-cols-3 gap-4">
-              <TextField
-                label="First Name"
-                size="small"
-                name="firstName"
-                value={profileForm.firstName}
-                onChange={handleProfileChange}
-                InputProps={{ readOnly: !editMode }}
-              />
-              <TextField
-                label="Last Name"
-                size="small"
-                name="lastName"
-                value={profileForm.lastName}
-                onChange={handleProfileChange}
-                InputProps={{ readOnly: !editMode }}
-              />
-              <TextField
-                label="Mobile"
-                size="small"
-                name="mobile"
-                value={profileForm.mobile}
-                onChange={handleProfileChange}
-                InputProps={{ readOnly: !editMode }}
-              />
-            </div>
+          <main className="flex-1">
+            {/* PROFILE TAB */}
+            {activeTab === "profile" && (
+              <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                <h2 className="text-xl font-bold text-[#ff5757] mb-4">
+                  MY PROFILE
+                </h2>
 
-            <div className="text-center mt-6">
-              {editMode ? (
-                <>
+                <div className="flex flex-col md:flex-row items-center justify-between border p-4 rounded-lg">
+                  <div className="flex items-center gap-6">
+                    <Avatar
+                      sx={{
+                        bgcolor: "#ff5757",
+                        width: 80,
+                        height: 80,
+                        fontSize: "2rem",
+                      }}
+                    >
+                      {user?.firstName
+                        ? user.firstName.charAt(0).toUpperCase()
+                        : "U"}
+                    </Avatar>
+                    <div>
+                      <h3 className="text-lg font-semibold">
+                        {`${user?.firstName || ""} ${
+                          user?.lastName || ""
+                        }`.trim() || "User Name"}
+                      </h3>
+                      {/* <p className="text-sm text-gray-600">
+                        {user?.country || "N/A"}
+                      </p> */}
+                    </div>
+                  </div>
+
+                  <div className="text-sm mt-4 md:mt-0">
+                    <p>
+                      <b>Email:</b> {user?.email || "N/A"}
+                    </p>
+                    <p>
+                      <b>Mobile:</b> {user?.mobile || "N/A"}
+                    </p>
+                    <br />
+                    {/* <Button
+                      variant="contained"
+                      sx={{
+                        bgcolor: "#ff5757",
+                        textTransform: "none",
+                        px: 6,
+                        "&:hover": { bgcolor: "#fc6b6b" },
+                      }}
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </Button> */}
+                    <Button
+                      variant="contained"
+                      sx={{
+                        bgcolor: "#ff5757",
+                        textTransform: "none",
+                        px: 6,
+                        "&:hover": { bgcolor: "#fc6b6b" },
+                      }}
+                      onClick={handleLogout}
+                      disabled={isLogoutLoading}
+                    >
+                      {isLogoutLoading ? (
+                        <CircularProgress size={22} sx={{ color: "white" }} />
+                      ) : (
+                        "Logout"
+                      )}
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Personal Info */}
+                <div className="mt-6 border rounded-lg p-4">
+                  <h3 className="font-semibold mb-4">Personal Information</h3>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <TextField
+                      label="First Name"
+                      size="small"
+                      name="firstName"
+                      value={profileForm.firstName}
+                      onChange={handleProfileChange}
+                      InputProps={{ readOnly: !editMode }}
+                    />
+                    <TextField
+                      label="Last Name"
+                      size="small"
+                      name="lastName"
+                      value={profileForm.lastName}
+                      onChange={handleProfileChange}
+                      InputProps={{ readOnly: !editMode }}
+                    />
+                    <TextField
+                      label="Mobile"
+                      size="small"
+                      name="mobile"
+                      value={profileForm.mobile}
+                      onChange={handleProfileChange}
+                      InputProps={{ readOnly: !editMode }}
+                    />
+                  </div>
+
+                  <div className="text-center mt-6">
+                    {editMode ? (
+                      <>
+                        <Button
+                          variant="contained"
+                          sx={{
+                            bgcolor: "#ff5757",
+                            textTransform: "none",
+                            px: 6,
+                            mr: 2,
+                            "&:hover": { bgcolor: "#fc6b6b" },
+                          }}
+                          onClick={() =>
+                            updateProfile({ userId, profileData: profileForm })
+                          }
+                          disabled={isUpdatePending}
+                        >
+                          {isUpdatePending ? "Saving..." : "Save"}
+                        </Button>
+
+                        <Button
+                          variant="outlined"
+                          sx={{
+                            textTransform: "none",
+                            px: 6,
+                            color: "#fc6b6b",
+                            borderColor: "#fc6b6b",
+                          }}
+                          onClick={() => setEditMode(false)}
+                        >
+                          Cancel
+                        </Button>
+                      </>
+                    ) : (
+                      <Button
+                        variant="contained"
+                        sx={{
+                          bgcolor: "#ff5757",
+                          textTransform: "none",
+                          px: 6,
+                          "&:hover": { bgcolor: "#fc6b6b" },
+                        }}
+                        onClick={() => setEditMode(true)}
+                      >
+                        Edit
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* CHANGE PASSWORD TAB */}
+            {activeTab === "password" && (
+              <div className="bg-white py-6 px-4 md:px-12 rounded-lg shadow-sm border border-gray-100">
+                <h2 className="text-xl text-center font-bold text-[#ff5757] mb-4">
+                  CHANGE PASSWORD
+                </h2>
+                <div className="grid md:grid-cols-1 gap-4 mb-3">
+                  <TextField
+                    label="Current Password"
+                    type="password"
+                    fullWidth
+                    size="small"
+                    name="oldPassword"
+                    value={passwordForm.oldPassword}
+                    onChange={handlePasswordChange}
+                  />
+                  <TextField
+                    label="New Password"
+                    type="password"
+                    fullWidth
+                    size="small"
+                    name="newPassword"
+                    value={passwordForm.newPassword}
+                    onChange={handlePasswordChange}
+                  />
+                  <TextField
+                    label="Confirm Password"
+                    type="password"
+                    fullWidth
+                    size="small"
+                    name="confirmPassword"
+                    value={passwordForm.confirmPassword}
+                    onChange={handlePasswordChange}
+                  />
+                </div>
+
+                <div className="text-sm text-gray-700 mb-4">
+                  <p className="font-semibold">Password Requirements</p>
+                  <ul className="list-disc ml-5">
+                    <li>Must be at least 8 characters long.</li>
+                    <li>
+                      Should include both uppercase and lowercase letters.
+                    </li>
+                    <li>
+                      Must contain at least one number or special character.
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex justify-center items-center">
                   <Button
                     variant="contained"
                     sx={{
                       bgcolor: "#ff5757",
+                      borderRadius: 9999,
+                      paddingX: 5,
                       textTransform: "none",
-                      px: 6,
-                      mr: 2,
                       "&:hover": { bgcolor: "#fc6b6b" },
                     }}
-                    onClick={() =>
-                      updateProfile({ userId, profileData: profileForm })
-                    }
-                    disabled={isUpdatePending}
+                    onClick={handlePasswordSubmit}
+                    disabled={isPasswordPending}
                   >
-                    {isUpdatePending ? "Saving..." : "Save"}
+                    {isPasswordPending ? "Submitting..." : "Submit"}
                   </Button>
+                </div>
+              </div>
+            )}
 
-                  <Button
-                    variant="outlined"
-                    sx={{
-                      textTransform: "none",
-                      px: 6,
-                      color: "#fc6b6b",
-                      borderColor: "#fc6b6b",
-                    }}
-                    onClick={() => setEditMode(false)}
-                  >
-                    Cancel
-                  </Button>
-                </>
-              ) : (
-                <Button
-                  variant="contained"
-                  sx={{
-                    bgcolor: "#ff5757",
-                    textTransform: "none",
-                    px: 6,
-                    "&:hover": { bgcolor: "#fc6b6b" },
-                  }}
-                  onClick={() => setEditMode(true)}
-                >
-                  Edit
-                </Button>
-              )}
-            </div>
-          </div>
+            {/* FAVORITES TAB */}
+            {activeTab === "favorites" && <Favorites />}
+          </main>
         </div>
-      )}
-
-      {/* CHANGE PASSWORD TAB */}
-      {activeTab === "password" && (
-        <div className="bg-white py-6 px-4 md:px-32 rounded-lg shadow-sm max-w-3xl mx-auto">
-          <h2 className="text-xl text-center font-bold text-[#ff5757] mb-4">
-            CHANGE PASSWORD
-          </h2>
-          <div className="grid md:grid-cols-1 gap-4 mb-3">
-            <TextField
-              label="Current Password"
-              type="password"
-              fullWidth
-              size="small"
-              name="oldPassword"
-              value={passwordForm.oldPassword}
-              onChange={handlePasswordChange}
-            />
-            <TextField
-              label="New Password"
-              type="password"
-              fullWidth
-              size="small"
-              name="newPassword"
-              value={passwordForm.newPassword}
-              onChange={handlePasswordChange}
-            />
-            <TextField
-              label="Confirm Password"
-              type="password"
-              fullWidth
-              size="small"
-              name="confirmPassword"
-              value={passwordForm.confirmPassword}
-              onChange={handlePasswordChange}
-            />
-          </div>
-
-          <div className="text-sm text-gray-700 mb-4">
-            <p className="font-semibold">Password Requirements</p>
-            <ul className="list-disc ml-5">
-              <li>Must be at least 8 characters long.</li>
-              <li>Should include both uppercase and lowercase letters.</li>
-              <li>Must contain at least one number or special character.</li>
-            </ul>
-          </div>
-          <div className="flex justify-center items-center">
-            <Button
-              variant="contained"
-              sx={{
-                bgcolor: "#ff5757",
-                borderRadius: 9999,
-                paddingX: 5,
-                textTransform: "none",
-                "&:hover": { bgcolor: "#fc6b6b" },
-              }}
-              onClick={handlePasswordSubmit}
-              disabled={isPasswordPending}
-            >
-              {isPasswordPending ? "Submitting..." : "Submit"}
-            </Button>
-          </div>
-        </div>
-      )}
-
-      {/* FAVORITES TAB */}
-      {activeTab === "favorites" && <Favorites />}
+      </div>
     </div>
   );
 };
