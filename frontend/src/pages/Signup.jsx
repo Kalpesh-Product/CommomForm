@@ -258,6 +258,34 @@ export default function Signup() {
             )}
           />
 
+          {/* Purpose */}
+          <Controller
+            name="purpose"
+            control={control}
+            render={({ field, fieldState }) => (
+              <TextField
+                {...field}
+                label="Purpose"
+                select
+                fullWidth
+                variant="standard"
+                error={!!fieldState.error}
+                helperText={fieldState.error?.message}
+              >
+                <MenuItem value="Browsing">Browsing</MenuItem>
+                <MenuItem value="Applying to University">
+                  Applying to University
+                </MenuItem>
+                <MenuItem value="Searching for tuitions">
+                  Searching for tuitions
+                </MenuItem>
+                <MenuItem value="to become a contributor">
+                  to become a contributor
+                </MenuItem>
+              </TextField>
+            )}
+          />
+
           {/* Customer Type */}
           <Controller
             name="customerType"
@@ -312,33 +340,6 @@ export default function Signup() {
             />
           ) : null}
 
-          {/* Purpose */}
-          <Controller
-            name="purpose"
-            control={control}
-            render={({ field, fieldState }) => (
-              <TextField
-                {...field}
-                label="Purpose"
-                select
-                fullWidth
-                variant="standard"
-                error={!!fieldState.error}
-                helperText={fieldState.error?.message}
-              >
-                <MenuItem value="Browsing">Browsing</MenuItem>
-                <MenuItem value="Applying to University">
-                  Applying to University
-                </MenuItem>
-                <MenuItem value="Searching for tuitions">
-                  Searching for tuitions
-                </MenuItem>
-                <MenuItem value="to become a contributor">
-                  to become a contributor
-                </MenuItem>
-              </TextField>
-            )}
-          />
           <div />
 
           {/* Submit Button */}
