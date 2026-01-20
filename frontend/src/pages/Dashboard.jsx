@@ -8,6 +8,7 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Favorites from "./Favorites";
 import { CircularProgress } from "@mui/material";
+import { FaHeart, FaLock, FaUser } from "react-icons/fa";
 
 const Dashboard = () => {
   // const [activeTab, setActiveTab] = useState("profile");
@@ -171,9 +172,9 @@ const Dashboard = () => {
   };
 
   const navItems = [
-    { id: "profile", label: "Profile" },
-    { id: "password", label: "Change Password" },
-    { id: "favorites", label: "Favorites" },
+    { id: "profile", label: "Profile", icon: FaUser },
+    { id: "password", label: "Change Password", icon: FaLock },
+    { id: "favorites", label: "Favorites", icon: FaHeart },
   ];
 
   return (
@@ -213,6 +214,7 @@ const Dashboard = () => {
             <nav className="p-3 space-y-2">
               {navItems.map((item) => {
                 const isActive = activeTab === item.id;
+                const Icon = item.icon;
                 return (
                   <button
                     key={item.id}
@@ -223,13 +225,12 @@ const Dashboard = () => {
                         : "text-[#364D59] hover:bg-[#fff4f4]"
                     } ${isSidebarCollapsed ? "lg:justify-center" : ""}`}
                   >
-                    <span
-                      className={`text-xs font-semibold uppercase ${
+                    <Icon
+                      className={`text-base ${
                         isActive ? "text-white" : "text-[#ff5757]"
                       }`}
-                    >
-                      {item.label.charAt(0)}
-                    </span>
+                      aria-hidden="true"
+                    />
                     <span
                       className={`${
                         isSidebarCollapsed ? "lg:hidden" : "inline"
