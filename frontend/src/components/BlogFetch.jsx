@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "../utils/axios"; // your custom axios instance
 import { IoChevronDown } from "react-icons/io5";
+import { CiSearch } from "react-icons/ci";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import humanDate from "../utils/humanDate";
 import { useSelector } from "react-redux";
@@ -89,6 +90,8 @@ const BlogFetch = () => {
   const initialDest =
     DESTS.find((d) => d.label === searchParams.get("dest")) || DESTS[0];
   const [dest, setDest] = useState(DESTS[0]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
   const formData = useSelector((state) => state.location.formValues);
   const initialized = useRef(false);
 
@@ -344,6 +347,39 @@ const BlogFetch = () => {
   const isPending = false;
   const isError = false;
 
+  const suggestionOptions = useMemo(() => {
+    if (!blogs || blogs.length === 0) return [];
+    const uniqueTitles = [
+      ...new Set(
+        blogs
+          .map((item) => item?.mainTitle)
+          .filter(Boolean)
+          .map((title) => title.trim())
+          .filter((title) => title.length > 0),
+      ),
+    ];
+    return uniqueTitles.map((title) => ({
+      id: title.toLowerCase().replace(/\s+/g, "-"),
+      label: title,
+    }));
+  }, [blogs]);
+
+  const filteredSuggestions = useMemo(() => {
+    if (!searchQuery) return suggestionOptions;
+    const normalized = searchQuery.toLowerCase();
+    return suggestionOptions.filter((suggestion) =>
+      suggestion.label.toLowerCase().includes(normalized),
+    );
+  }, [searchQuery, suggestionOptions]);
+
+  const filteredBlogs = useMemo(() => {
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+    if (!normalizedQuery) return blogs;
+    return blogs.filter((item) =>
+      item?.mainTitle?.toLowerCase().includes(normalizedQuery),
+    );
+  }, [blogs, searchQuery]);
+
   if (!dest) {
     return (
       <div className="my-6">
@@ -387,7 +423,51 @@ const BlogFetch = () => {
       <div className="flex justify-between items-center mb-4 flex-col sm:flex-col xs:flex-col md:flex-row lg:flex-row">
         <h2 className="text-title font-semibold text-host">Blog</h2>
         {/* Controls */}
-        <div className="flex items-center justify-end gap-3 mb-5">
+        <div className="flex flex-wrap items-center justify-end gap-3 mb-5">
+          <div className="w-full sm:w-auto max-w-xs">
+            <div className="relative">
+              <CiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-lg text-slate-400" />
+              <input
+                type="search"
+                placeholder="Type to search..."
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                onFocus={() => setIsSuggestionsOpen(true)}
+                onBlur={() =>
+                  setTimeout(() => setIsSuggestionsOpen(false), 120)
+                }
+                className="w-full rounded-full border border-slate-200 bg-white py-2.5 pl-11 pr-4 text-sm text-slate-700 shadow-sm transition focus:border-primary-blue focus:outline-none focus:ring-2 focus:ring-primary-blue/20"
+              />
+              {isSuggestionsOpen && searchQuery && (
+                <div className="absolute right-0 z-20 mt-2 w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg">
+                  <ul className="max-h-60 overflow-auto py-2 text-sm">
+                    {filteredSuggestions.length === 0 ? (
+                      <li className="px-4 py-2 text-slate-500">
+                        No matches found.
+                      </li>
+                    ) : (
+                      filteredSuggestions.map((suggestion) => (
+                        <li key={suggestion.id}>
+                          <button
+                            type="button"
+                            onMouseDown={() => setSearchQuery(suggestion.label)}
+                            className="flex w-full items-start gap-2 px-4 py-2 text-left text-slate-700 transition hover:bg-slate-50"
+                          >
+                            <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary-blue/10 text-xs font-semibold text-primary-blue">
+                              {suggestion.label.charAt(0)}
+                            </span>
+                            <span className="font-medium">
+                              {suggestion.label}
+                            </span>
+                          </button>
+                        </li>
+                      ))
+                    )}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
           <label className="text-sm font-medium text-gray-700">Location</label>
           <FormControl variant="standard" sx={{ minWidth: 140 }}>
             {/* <InputLabel>Destination</InputLabel> */}
@@ -431,12 +511,12 @@ const BlogFetch = () => {
             <span className="text-sm text-red-600">Could not load blogs.</span>
           </div>
         )}
-        {blogs.map((b) => (
+        {filteredBlogs.map((b) => (
           <BlogCard key={b.guid} b={b} />
         ))}
       </div>
 
-      {!isPending && !isError && blogs.length === 0 && (
+      {!isPending && !isError && filteredBlogs.length === 0 && (
         <p className="text-sm text-gray-500 mt-4">No blog posts found.</p>
       )}
     </div>
