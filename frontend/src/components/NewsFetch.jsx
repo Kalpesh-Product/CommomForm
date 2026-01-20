@@ -8,6 +8,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import humanDate from "../utils/humanDate.js";
 import { useSelector } from "react-redux";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import PaginatedGrid from "./PaginatedGrid.jsx";
 
 const DESTS = [
   { label: "All", country: null, keyword: null, lang: null }, // ✅ New option
@@ -543,21 +544,24 @@ const NewsFetch = () => {
       </div>
 
       {/* Results */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
-        {isPending && (
-          <div className="h-screen">
-            <span className="text-sm text-gray-500">Loading…</span>
-          </div>
-        )}
-        {isError && (
-          <div className="h-screen">
-            <span className="text-sm text-red-600">Could not load news.</span>
-          </div>
-        )}
-        {filteredArticles.map((a) => (
-          <NewsCard key={a.guid} a={a} />
-        ))}
-      </div>
+      {isPending && (
+        <div className="h-screen">
+          <span className="text-sm text-gray-500">Loading…</span>
+        </div>
+      )}
+      {isError && (
+        <div className="h-screen">
+          <span className="text-sm text-red-600">Could not load news.</span>
+        </div>
+      )}
+      {!isPending && !isError && filteredArticles.length > 0 && (
+        <PaginatedGrid
+          data={filteredArticles}
+          entriesPerPage={12}
+          columns="grid-cols-1 md:grid-cols-2 lg:grid-cols-2"
+          renderItem={(article) => <NewsCard key={article.guid} a={article} />}
+        />
+      )}
 
       {!isPending && !isError && filteredArticles.length === 0 && (
         <p className="text-sm text-gray-500 mt-4">No articles found.</p>

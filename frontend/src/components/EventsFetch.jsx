@@ -7,6 +7,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import humanDate from "../utils/humanDate";
 import { useSelector } from "react-redux";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import PaginatedGrid from "./PaginatedGrid.jsx";
 
 const DESTS = [
   { label: "All", country: null, keyword: null, lang: null }, // ✅ New option
@@ -612,21 +613,24 @@ const EventsFetch = () => {
       </div>
 
       {/* Results */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {isPending && (
-          <div className="h-screen">
-            <span className="text-sm text-gray-500">Loading…</span>
-          </div>
-        )}
-        {isError && (
-          <div className="h-screen">
-            <span className="text-sm text-red-600">Could not load blogs.</span>
-          </div>
-        )}
-        {filteredEvents.map((b) => (
-          <BlogCard key={b.guid} b={b} />
-        ))}
-      </div>
+      {isPending && (
+        <div className="h-screen">
+          <span className="text-sm text-gray-500">Loading…</span>
+        </div>
+      )}
+      {isError && (
+        <div className="h-screen">
+          <span className="text-sm text-red-600">Could not load blogs.</span>
+        </div>
+      )}
+      {!isPending && !isError && filteredEvents.length > 0 && (
+        <PaginatedGrid
+          data={filteredEvents}
+          entriesPerPage={12}
+          columns="grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+          renderItem={(event) => <BlogCard key={event.guid} b={event} />}
+        />
+      )}
 
       {!isPending && !isError && filteredEvents.length === 0 && (
         <p className="text-sm text-gray-500 mt-4">No blog posts found.</p>
