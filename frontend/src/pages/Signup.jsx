@@ -1,4 +1,4 @@
-import { TextField, IconButton, InputAdornment } from "@mui/material";
+import { TextField, IconButton, InputAdornment, MenuItem } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
 import { useForm, Controller } from "react-hook-form";
 import { useEffect, useState } from "react";
@@ -31,6 +31,9 @@ export default function Signup() {
       password: "",
       confirmPassword: "",
       mobile: "",
+      customerType: "",
+      yearOfStudy: "",
+      purpose: "",
     },
   });
 
@@ -48,13 +51,13 @@ export default function Signup() {
 
       const response = await axios.post(
         "/forms/add-new-b2c-form-submission",
-        payload
+        payload,
       );
       return response.data;
     },
     onSuccess: () => {
       toast.success(
-        "Signup successful! Please check your email for confirmation."
+        "Signup successful! Please check your email for confirmation.",
       );
 
       reset();
@@ -218,6 +221,89 @@ export default function Signup() {
               />
             )}
           />
+
+          {/* Customer Type */}
+          <Controller
+            name="customerType"
+            control={control}
+            render={({ field, fieldState }) => (
+              <TextField
+                {...field}
+                label="Customer Type"
+                select
+                fullWidth
+                variant="standard"
+                error={!!fieldState.error}
+                helperText={fieldState.error?.message}
+              >
+                <MenuItem value="School Student">School Student</MenuItem>
+                <MenuItem value="University Student">
+                  University Student
+                </MenuItem>
+                <MenuItem value="Parent">Parent</MenuItem>
+                <MenuItem value="School Representative">
+                  School Representative
+                </MenuItem>
+                <MenuItem value="University Representative">
+                  University Representative
+                </MenuItem>
+              </TextField>
+            )}
+          />
+
+          {/* Year Of Study */}
+          <Controller
+            name="yearOfStudy"
+            control={control}
+            render={({ field, fieldState }) => (
+              <TextField
+                {...field}
+                label="Year Of Study"
+                select
+                fullWidth
+                variant="standard"
+                error={!!fieldState.error}
+                helperText={fieldState.error?.message}
+              >
+                <MenuItem value="10th Standard">10th Standard</MenuItem>
+                <MenuItem value="11th Standard">11th Standard</MenuItem>
+                <MenuItem value="Foundation Year">Foundation Year</MenuItem>
+                <MenuItem value="1st Year">1st Year</MenuItem>
+                <MenuItem value="2nd Year">2nd Year</MenuItem>
+                <MenuItem value="3rd Year">3rd Year</MenuItem>
+                <MenuItem value="4th Year">4th Year</MenuItem>
+              </TextField>
+            )}
+          />
+
+          {/* Purpose */}
+          <Controller
+            name="purpose"
+            control={control}
+            render={({ field, fieldState }) => (
+              <TextField
+                {...field}
+                label="Purpose"
+                select
+                fullWidth
+                variant="standard"
+                error={!!fieldState.error}
+                helperText={fieldState.error?.message}
+              >
+                <MenuItem value="Browsing">Browsing</MenuItem>
+                <MenuItem value="Applying to University">
+                  Applying to University
+                </MenuItem>
+                <MenuItem value="Searching for tuitions">
+                  Searching for tuitions
+                </MenuItem>
+                <MenuItem value="to become a contributor">
+                  to become a contributor
+                </MenuItem>
+              </TextField>
+            )}
+          />
+          <div />
 
           {/* Submit Button */}
           <div className="col-span-1 md:col-span-2 flex justify-center items-center mt-2 py-2 w-full">
