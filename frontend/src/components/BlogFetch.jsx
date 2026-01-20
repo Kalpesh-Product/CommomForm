@@ -211,6 +211,114 @@ const BlogFetch = () => {
       content:
         "<p>Day one: Ubud’s rice terraces and coffee plantations. Day two: Seminyak shopping and sunset beach bars.</p>",
     },
+    {
+      guid: "hardcoded-1",
+      mainTitle: "A Quick Guide to Goa’s Best Beaches",
+      mainContent:
+        "Explore North and South Goa with this quick guide to the best beach spots, sunsets, and cafes.",
+      author: "CommonForm",
+      date: "2024-06-10",
+      mainImage:
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Goa is packed with beautiful beaches. From the lively shores of Baga to the calmer sands of Palolem, there is something for every traveler.</p>",
+    },
+    {
+      guid: "hardcoded-2",
+      mainTitle: "Bangkok Street Food: Must-Try Dishes",
+      mainContent:
+        "From pad thai to mango sticky rice, here’s what to eat on your first visit to Bangkok.",
+      author: "CommonForm",
+      date: "2024-05-22",
+      mainImage:
+        "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Bangkok’s street food scene is unbeatable. Start with pad thai, then work your way through spicy papaya salad and freshly grilled skewers.</p>",
+    },
+    {
+      guid: "hardcoded-3",
+      mainTitle: "Weekend Escape: Bali Itinerary",
+      mainContent:
+        "A simple 2-day plan covering Ubud, Seminyak, and the best sunset views.",
+      author: "CommonForm",
+      date: "2024-04-15",
+      mainImage:
+        "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Day one: Ubud’s rice terraces and coffee plantations. Day two: Seminyak shopping and sunset beach bars.</p>",
+    },
+    {
+      guid: "hardcoded-1",
+      mainTitle: "A Quick Guide to Goa’s Best Beaches",
+      mainContent:
+        "Explore North and South Goa with this quick guide to the best beach spots, sunsets, and cafes.",
+      author: "CommonForm",
+      date: "2024-06-10",
+      mainImage:
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Goa is packed with beautiful beaches. From the lively shores of Baga to the calmer sands of Palolem, there is something for every traveler.</p>",
+    },
+    {
+      guid: "hardcoded-2",
+      mainTitle: "Bangkok Street Food: Must-Try Dishes",
+      mainContent:
+        "From pad thai to mango sticky rice, here’s what to eat on your first visit to Bangkok.",
+      author: "CommonForm",
+      date: "2024-05-22",
+      mainImage:
+        "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Bangkok’s street food scene is unbeatable. Start with pad thai, then work your way through spicy papaya salad and freshly grilled skewers.</p>",
+    },
+    {
+      guid: "hardcoded-3",
+      mainTitle: "Weekend Escape: Bali Itinerary",
+      mainContent:
+        "A simple 2-day plan covering Ubud, Seminyak, and the best sunset views.",
+      author: "CommonForm",
+      date: "2024-04-15",
+      mainImage:
+        "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Day one: Ubud’s rice terraces and coffee plantations. Day two: Seminyak shopping and sunset beach bars.</p>",
+    },
+    {
+      guid: "hardcoded-1",
+      mainTitle: "A Quick Guide to Goa’s Best Beaches",
+      mainContent:
+        "Explore North and South Goa with this quick guide to the best beach spots, sunsets, and cafes.",
+      author: "CommonForm",
+      date: "2024-06-10",
+      mainImage:
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Goa is packed with beautiful beaches. From the lively shores of Baga to the calmer sands of Palolem, there is something for every traveler.</p>",
+    },
+    {
+      guid: "hardcoded-2",
+      mainTitle: "Bangkok Street Food: Must-Try Dishes",
+      mainContent:
+        "From pad thai to mango sticky rice, here’s what to eat on your first visit to Bangkok.",
+      author: "CommonForm",
+      date: "2024-05-22",
+      mainImage:
+        "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Bangkok’s street food scene is unbeatable. Start with pad thai, then work your way through spicy papaya salad and freshly grilled skewers.</p>",
+    },
+    {
+      guid: "hardcoded-3",
+      mainTitle: "Weekend Escape: Bali Itinerary",
+      mainContent:
+        "A simple 2-day plan covering Ubud, Seminyak, and the best sunset views.",
+      author: "CommonForm",
+      date: "2024-04-15",
+      mainImage:
+        "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Day one: Ubud’s rice terraces and coffee plantations. Day two: Seminyak shopping and sunset beach bars.</p>",
+    },
   ];
 
   // ✅ Toggle data source by commenting/uncommenting the blocks below.

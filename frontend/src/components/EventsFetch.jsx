@@ -215,16 +215,28 @@ const EventsFetch = () => {
         "<p>Day one: Ubud’s rice terraces and coffee plantations. Day two: Seminyak shopping and sunset beach bars.</p>",
     },
     {
-      guid: "hardcoded-3",
-      mainTitle: "Weekend Escape: Bali Itinerary",
+      guid: "hardcoded-1",
+      mainTitle: "A Quick Guide to Goa’s Best Beaches",
       mainContent:
-        "A simple 2-day plan covering Ubud, Seminyak, and the best sunset views.",
+        "Explore North and South Goa with this quick guide to the best beach spots, sunsets, and cafes.",
       author: "CommonForm",
-      date: "2024-04-15",
+      date: "2024-06-10",
       mainImage:
-        "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=60",
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=60",
       content:
-        "<p>Day one: Ubud’s rice terraces and coffee plantations. Day two: Seminyak shopping and sunset beach bars.</p>",
+        "<p>Goa is packed with beautiful beaches. From the lively shores of Baga to the calmer sands of Palolem, there is something for every traveler.</p>",
+    },
+    {
+      guid: "hardcoded-2",
+      mainTitle: "Bangkok Street Food: Must-Try Dishes",
+      mainContent:
+        "From pad thai to mango sticky rice, here’s what to eat on your first visit to Bangkok.",
+      author: "CommonForm",
+      date: "2024-05-22",
+      mainImage:
+        "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Bangkok’s street food scene is unbeatable. Start with pad thai, then work your way through spicy papaya salad and freshly grilled skewers.</p>",
     },
     {
       guid: "hardcoded-3",
@@ -239,6 +251,30 @@ const EventsFetch = () => {
         "<p>Day one: Ubud’s rice terraces and coffee plantations. Day two: Seminyak shopping and sunset beach bars.</p>",
     },
     {
+      guid: "hardcoded-1",
+      mainTitle: "A Quick Guide to Goa’s Best Beaches",
+      mainContent:
+        "Explore North and South Goa with this quick guide to the best beach spots, sunsets, and cafes.",
+      author: "CommonForm",
+      date: "2024-06-10",
+      mainImage:
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Goa is packed with beautiful beaches. From the lively shores of Baga to the calmer sands of Palolem, there is something for every traveler.</p>",
+    },
+    {
+      guid: "hardcoded-2",
+      mainTitle: "Bangkok Street Food: Must-Try Dishes",
+      mainContent:
+        "From pad thai to mango sticky rice, here’s what to eat on your first visit to Bangkok.",
+      author: "CommonForm",
+      date: "2024-05-22",
+      mainImage:
+        "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Bangkok’s street food scene is unbeatable. Start with pad thai, then work your way through spicy papaya salad and freshly grilled skewers.</p>",
+    },
+    {
       guid: "hardcoded-3",
       mainTitle: "Weekend Escape: Bali Itinerary",
       mainContent:
@@ -249,6 +285,102 @@ const EventsFetch = () => {
         "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=60",
       content:
         "<p>Day one: Ubud’s rice terraces and coffee plantations. Day two: Seminyak shopping and sunset beach bars.</p>",
+    },
+    {
+      guid: "hardcoded-1",
+      mainTitle: "A Quick Guide to Goa’s Best Beaches",
+      mainContent:
+        "Explore North and South Goa with this quick guide to the best beach spots, sunsets, and cafes.",
+      author: "CommonForm",
+      date: "2024-06-10",
+      mainImage:
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Goa is packed with beautiful beaches. From the lively shores of Baga to the calmer sands of Palolem, there is something for every traveler.</p>",
+    },
+    {
+      guid: "hardcoded-2",
+      mainTitle: "Bangkok Street Food: Must-Try Dishes",
+      mainContent:
+        "From pad thai to mango sticky rice, here’s what to eat on your first visit to Bangkok.",
+      author: "CommonForm",
+      date: "2024-05-22",
+      mainImage:
+        "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Bangkok’s street food scene is unbeatable. Start with pad thai, then work your way through spicy papaya salad and freshly grilled skewers.</p>",
+    },
+    {
+      guid: "hardcoded-3",
+      mainTitle: "Weekend Escape: Bali Itinerary",
+      mainContent:
+        "A simple 2-day plan covering Ubud, Seminyak, and the best sunset views.",
+      author: "CommonForm",
+      date: "2024-04-15",
+      mainImage:
+        "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Day one: Ubud’s rice terraces and coffee plantations. Day two: Seminyak shopping and sunset beach bars.</p>",
+    },
+    {
+      guid: "hardcoded-1",
+      mainTitle: "A Quick Guide to Goa’s Best Beaches",
+      mainContent:
+        "Explore North and South Goa with this quick guide to the best beach spots, sunsets, and cafes.",
+      author: "CommonForm",
+      date: "2024-06-10",
+      mainImage:
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Goa is packed with beautiful beaches. From the lively shores of Baga to the calmer sands of Palolem, there is something for every traveler.</p>",
+    },
+    {
+      guid: "hardcoded-2",
+      mainTitle: "Bangkok Street Food: Must-Try Dishes",
+      mainContent:
+        "From pad thai to mango sticky rice, here’s what to eat on your first visit to Bangkok.",
+      author: "CommonForm",
+      date: "2024-05-22",
+      mainImage:
+        "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Bangkok’s street food scene is unbeatable. Start with pad thai, then work your way through spicy papaya salad and freshly grilled skewers.</p>",
+    },
+    {
+      guid: "hardcoded-3",
+      mainTitle: "Weekend Escape: Bali Itinerary",
+      mainContent:
+        "A simple 2-day plan covering Ubud, Seminyak, and the best sunset views.",
+      author: "CommonForm",
+      date: "2024-04-15",
+      mainImage:
+        "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Day one: Ubud’s rice terraces and coffee plantations. Day two: Seminyak shopping and sunset beach bars.</p>",
+    },
+    {
+      guid: "hardcoded-1",
+      mainTitle: "A Quick Guide to Goa’s Best Beaches",
+      mainContent:
+        "Explore North and South Goa with this quick guide to the best beach spots, sunsets, and cafes.",
+      author: "CommonForm",
+      date: "2024-06-10",
+      mainImage:
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Goa is packed with beautiful beaches. From the lively shores of Baga to the calmer sands of Palolem, there is something for every traveler.</p>",
+    },
+    {
+      guid: "hardcoded-2",
+      mainTitle: "Bangkok Street Food: Must-Try Dishes",
+      mainContent:
+        "From pad thai to mango sticky rice, here’s what to eat on your first visit to Bangkok.",
+      author: "CommonForm",
+      date: "2024-05-22",
+      mainImage:
+        "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1200&q=60",
+      content:
+        "<p>Bangkok’s street food scene is unbeatable. Start with pad thai, then work your way through spicy papaya salad and freshly grilled skewers.</p>",
     },
     {
       guid: "hardcoded-3",
@@ -291,7 +423,7 @@ const EventsFetch = () => {
     return (
       <div className="my-6">
         <div className="flex justify-between items-center mb-4 flex-col sm:flex-col xs:flex-col md:flex-row lg:flex-row">
-          <h2 className="text-title font-semibold text-host">Blog</h2>
+          <h2 className="text-title font-semibold text-host">Events</h2>
 
           {/* Controls */}
           <div className="flex items-center justify-end gap-3 mb-5">
@@ -328,7 +460,7 @@ const EventsFetch = () => {
   return (
     <div className="my-6">
       <div className="flex justify-between items-center mb-4 flex-col sm:flex-col xs:flex-col md:flex-row lg:flex-row">
-        <h2 className="text-title font-semibold text-host">Blog</h2>
+        <h2 className="text-title font-semibold text-host">Events</h2>
         <div className="flex gap-8">
           {/* Controls */}
           <div className="flex items-center justify-end gap-3 mb-5">
