@@ -22,6 +22,7 @@ import SearchBarCombobox from "../components/SearchBarCombobox.jsx";
 import { AnimatePresence, motion } from "motion/react";
 import { Helmet } from "@dr.pogodin/react-helmet";
 import useAuth from "../hooks/useAuth.js";
+import PaginatedGrid from "../components/PaginatedGrid.jsx";
 
 const GlobalListingsList = () => {
   const [favorites, setFavorites] = useState([]);
@@ -1124,8 +1125,14 @@ const GlobalListingsList = () => {
                         No listings found for that selection.
                       </p>
                     ) : (
-                      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-0">
-                        {suggestionResults.map((item) => (
+                      <PaginatedGrid
+                        data={suggestionResults}
+                        allowScroll={false}
+                        entriesPerPage={16}
+                        persistPage={true}
+                        persistKey="globalListingsListSuggestionsPage"
+                        columns="grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-0"
+                        renderItem={(item) => (
                           <ListingCard
                             key={item._id}
                             item={item}
@@ -1142,8 +1149,8 @@ const GlobalListingsList = () => {
                               )
                             }
                           />
-                        ))}
-                      </div>
+                        )}
+                      />
                     )}
                   </div>
                 ) : isLisitingLoading ? (
@@ -1286,8 +1293,14 @@ const GlobalListingsList = () => {
                             </div>
                           </div>
 
-                          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-0">
-                            {displayItems.map((item) => (
+                          <PaginatedGrid
+                            data={displayItems}
+                            allowScroll={false}
+                            entriesPerPage={16}
+                            persistPage={true}
+                            persistKey={`globalListingsList-${type}`}
+                            columns="grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-0"
+                            renderItem={(item) => (
                               <ListingCard
                                 key={item._id}
                                 item={item}
@@ -1304,8 +1317,8 @@ const GlobalListingsList = () => {
                                   )
                                 }
                               />
-                            ))}
-                          </div>
+                            )}
+                          />
 
                           {/* {showViewMore && (
                             <div className="mt-3 text-right">
