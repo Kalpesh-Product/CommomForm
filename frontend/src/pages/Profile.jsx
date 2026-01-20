@@ -51,9 +51,9 @@ const Profile = () => {
   // const handleTabChange = (tab) => setActiveTab(tab);
 
   // users cannot access this page without login
-  useEffect(() => {
-    if (!auth?.user) navigate("/login", { replace: true });
-  }, [auth, navigate]);
+  // useEffect(() => {
+  //   if (!auth?.user) navigate("/login", { replace: true });
+  // }, [auth, navigate]);
 
   useEffect(() => {
     const tab = searchParams.get("tab") || "profile";
@@ -98,7 +98,7 @@ const Profile = () => {
     mutationFn: async ({ userId, profileData }) => {
       const response = await axiosPrivate.patch(
         `/user/profile/${userId}`,
-        profileData
+        profileData,
       );
       return response.data;
     },
