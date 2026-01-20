@@ -23,7 +23,7 @@ export default function Signup() {
   const toggleConfirmPasswordVisibility = () =>
     setShowConfirmPassword((prev) => !prev);
 
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset, setValue, watch } = useForm({
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -70,6 +70,42 @@ export default function Signup() {
   });
 
   const onSubmit = (data) => submitRegistration(data);
+
+  const customerType = watch("customerType");
+  const yearOfStudy = watch("yearOfStudy");
+
+  const yearOfStudyOptions =
+    customerType === "School Student"
+      ? [
+          { value: "10th Standard", label: "10th Standard" },
+          { value: "11th Standard", label: "11th Standard" },
+        ]
+      : customerType === "University Student"
+        ? [
+            { value: "Foundation Year", label: "Foundation Year" },
+            { value: "1st Year", label: "1st Year" },
+            { value: "2nd Year", label: "2nd Year" },
+            { value: "3rd Year", label: "3rd Year" },
+            { value: "4th Year", label: "4th Year" },
+          ]
+        : [];
+
+  const showYearOfStudy =
+    customerType === "School Student" || customerType === "University Student";
+
+  useEffect(() => {
+    if (!showYearOfStudy) {
+      setValue("yearOfStudy", "");
+      return;
+    }
+
+    if (
+      yearOfStudy &&
+      !yearOfStudyOptions.some((option) => option.value === yearOfStudy)
+    ) {
+      setValue("yearOfStudy", "");
+    }
+  }, [showYearOfStudy, yearOfStudy, yearOfStudyOptions, setValue]);
 
   return (
     <div className="flex items-center justify-center px-4 md:h-[60vh] lg:h-[80vh] border-gray-300 rounded-lg">
@@ -252,29 +288,29 @@ export default function Signup() {
           />
 
           {/* Year Of Study */}
-          <Controller
-            name="yearOfStudy"
-            control={control}
-            render={({ field, fieldState }) => (
-              <TextField
-                {...field}
-                label="Year Of Study"
-                select
-                fullWidth
-                variant="standard"
-                error={!!fieldState.error}
-                helperText={fieldState.error?.message}
-              >
-                <MenuItem value="10th Standard">10th Standard</MenuItem>
-                <MenuItem value="11th Standard">11th Standard</MenuItem>
-                <MenuItem value="Foundation Year">Foundation Year</MenuItem>
-                <MenuItem value="1st Year">1st Year</MenuItem>
-                <MenuItem value="2nd Year">2nd Year</MenuItem>
-                <MenuItem value="3rd Year">3rd Year</MenuItem>
-                <MenuItem value="4th Year">4th Year</MenuItem>
-              </TextField>
-            )}
-          />
+          {showYearOfStudy ? (
+            <Controller
+              name="yearOfStudy"
+              control={control}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="Year Of Study"
+                  select
+                  fullWidth
+                  variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                >
+                  {yearOfStudyOptions.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )}
+            />
+          ) : null}
 
           {/* Purpose */}
           <Controller
