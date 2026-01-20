@@ -317,30 +317,30 @@ export default function Signup() {
 
           {/* Year Of Study */}
           {showYearOfStudy ? (
-            <Controller
-              name="yearOfStudy"
-              control={control}
-              render={({ field, fieldState }) => (
-                <TextField
-                  {...field}
-                  label="Year Of Study"
-                  select
-                  fullWidth
-                  variant="standard"
-                  error={!!fieldState.error}
-                  helperText={fieldState.error?.message}
-                >
-                  {yearOfStudyOptions.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              )}
-            />
+            <div className="col-span-1 md:col-span-2">
+              <Controller
+                name="yearOfStudy"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    label="Year Of Study"
+                    select
+                    fullWidth
+                    variant="standard"
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
+                  >
+                    {yearOfStudyOptions.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                )}
+              />
+            </div>
           ) : null}
-
-          <div />
 
           {/* Submit Button */}
           <div className="col-span-1 md:col-span-2 flex justify-center items-center mt-2 py-2 w-full">
