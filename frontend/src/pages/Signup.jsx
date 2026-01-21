@@ -74,6 +74,10 @@ export default function Signup() {
   const customerType = watch("customerType");
   const yearOfStudy = watch("yearOfStudy");
 
+  const isPurposeDisabled =
+    customerType === "School Representative" ||
+    customerType === "University Representative";
+
   const yearOfStudyOptions =
     customerType === "School Student"
       ? [
@@ -106,6 +110,12 @@ export default function Signup() {
       setValue("yearOfStudy", "");
     }
   }, [showYearOfStudy, yearOfStudy, yearOfStudyOptions, setValue]);
+
+  useEffect(() => {
+    if (isPurposeDisabled) {
+      setValue("purpose", "");
+    }
+  }, [isPurposeDisabled, setValue]);
 
   return (
     <div className="flex items-center justify-center px-4 md:h-[60vh] lg:h-[80vh] border-gray-300 rounded-lg">
@@ -298,6 +308,7 @@ export default function Signup() {
                 select
                 fullWidth
                 variant="standard"
+                disabled={isPurposeDisabled}
                 error={!!fieldState.error}
                 helperText={fieldState.error?.message}
               >
