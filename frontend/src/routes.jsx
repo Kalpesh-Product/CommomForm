@@ -55,6 +55,9 @@ import WebsiteUnderMaintenance from "./pages/WebsiteUnderMaintenance";
 import DestinationEvents from "./pages/DestinationEvents";
 import EventDetails from "./pages/EventDetails";
 import Dashboard from "./pages/Dashboard";
+import DashboardStudent from "./pages/DashboardStudent";
+import DashboardUniversity from "./pages/DashboardUniversity";
+import DashboardParent from "./pages/DashboardParent";
 
 // function getTenantFromHost() {
 //   const hostname = window.location.hostname; // e.g. "nomad.wono.co" or "nomad.localhost"
@@ -145,6 +148,9 @@ const routerConfig = [
           { path: "faq", element: <NomadFAQ /> },
           { path: "profile", element: <Profile /> },
           { path: "dashboard", element: <Dashboard /> },
+          { path: "dashboard-university", element: <DashboardUniversity /> },
+          { path: "dashboard-student", element: <DashboardStudent /> },
+          { path: "dashboard-parent", element: <DashboardParent /> },
           { path: "favorites", element: <Favorites /> },
         ],
       },
