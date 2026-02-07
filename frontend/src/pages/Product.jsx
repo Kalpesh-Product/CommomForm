@@ -50,6 +50,7 @@ const Product = () => {
   console.log("selected : ", selectedReview);
   const [open, setOpen] = useState(false);
   const [contributorOpen, setContributorOpen] = useState(false);
+  const [reviewOpen, setReviewOpen] = useState(false);
 
   const axiosPrivate = useAxiosPrivate();
 
@@ -376,6 +377,26 @@ const Product = () => {
     toast.success("Contributor form submitted.");
     contributorReset();
     setContributorOpen(false);
+  };
+
+  const {
+    handleSubmit: handleReviewSubmit,
+    control: reviewControl,
+    reset: reviewReset,
+    formState: { errors: reviewErrors },
+  } = useForm({
+    defaultValues: {
+      reviewerName: "",
+      rating: "",
+      description: "",
+    },
+    mode: "onChange",
+  });
+
+  const onSubmitReview = () => {
+    toast.success("Review submitted.");
+    reviewReset();
+    setReviewOpen(false);
   };
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -1101,6 +1122,7 @@ const Product = () => {
                       // isLoading={isSubmitting}
                       title={"Add A Review"}
                       // type={"submit"}
+                      handleSubmit={() => setReviewOpen(true)}
                       externalStyles={"w-54 mx-4"}
                     />
                   </div>
@@ -1526,6 +1548,84 @@ const Product = () => {
               selectedReview?.description}
           </div>
         </div>
+      </MuiModal>
+
+      <MuiModal
+        open={reviewOpen}
+        onClose={() => setReviewOpen(false)}
+        title={"Add A Review"}
+      >
+        <form
+          className="flex flex-col gap-4"
+          onSubmit={handleReviewSubmit(onSubmitReview)}
+        >
+          <Controller
+            name="reviewerName"
+            control={reviewControl}
+            rules={{
+              required: "Name is required",
+              validate: { noOnlyWhitespace },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Your Name"
+                fullWidth
+                variant="standard"
+                size="small"
+                helperText={reviewErrors?.reviewerName?.message}
+                error={!!reviewErrors.reviewerName}
+              />
+            )}
+          />
+          <Controller
+            name="rating"
+            control={reviewControl}
+            rules={{ required: "Rating is required" }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Rating"
+                fullWidth
+                select
+                variant="standard"
+                size="small"
+                helperText={reviewErrors?.rating?.message}
+                error={!!reviewErrors.rating}
+              >
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <MenuItem key={value} value={value}>
+                    {value}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+          />
+          <Controller
+            name="description"
+            control={reviewControl}
+            rules={{
+              required: "Description is required",
+              validate: { noOnlyWhitespace },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Description"
+                fullWidth
+                variant="standard"
+                size="small"
+                multiline
+                rows={4}
+                helperText={reviewErrors?.description?.message}
+                error={!!reviewErrors.description}
+              />
+            )}
+          />
+          <div className="pt-2 flex justify-center">
+            <SecondaryButton title="Submit Review" type="submit" />
+          </div>
+        </form>
       </MuiModal>
 
       <MuiModal
