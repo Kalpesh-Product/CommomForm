@@ -594,7 +594,7 @@ const Product = () => {
                       onClick={() => {
                         if (!userId) {
                           toast.error(
-                            "You need to login to access this feature"
+                            "You need to login to access this feature",
                           );
                           return;
                         }
@@ -976,10 +976,18 @@ const Product = () => {
                   </div>
                 </div>
               </div>
-              <div className="pt-4">
+
+              {/* <div className="pt-4">
                 <p className="text-card-title font-semibold">
                   <span className="text-blue-700 ">Sign In</span> To Contribute
                   To University Content
+                </p>
+              </div>
+               */}
+              <div className="pt-4">
+                <p className="text-card-title font-semibold">
+                  <span className="text-blue-700 ">Apply</span> To Become A
+                  Contributor
                 </p>
               </div>
             </div>
@@ -1196,7 +1204,7 @@ const Product = () => {
               />
             </div>
             {["CMP0001", "CMP0052"].includes(
-              resolvedCompanyDetails?.companyId
+              resolvedCompanyDetails?.companyId,
             ) && (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 pt-10">
@@ -1251,7 +1259,7 @@ const Product = () => {
                       </h1>
                       <form
                         onSubmit={handlesubmitSales((data) =>
-                          submitSales(data)
+                          submitSales(data),
                         )}
                         className="grid grid-cols-1 gap-4"
                       >
