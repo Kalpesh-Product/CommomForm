@@ -96,9 +96,9 @@ const Product = () => {
     inclusions:
       "wifi, powerBackup, kitchen, housekeeping, laundry, workspace, airConditioning",
 
-    country: "India",
+    country: "UAE",
     state: "Goa",
-    city: "Velha Goa",
+    city: "Dubai International Academic City",
     latitude: 15.4989,
     longitude: 73.8278,
 
@@ -204,6 +204,35 @@ const Product = () => {
         ? item?.split(" ").join("")?.trim()
         : item?.trim();
     }) || [];
+
+  const universityPocDetails = [
+    {
+      label: "Address",
+      value:
+        resolvedCompanyDetails?.address ||
+        "Dubai International Academic City, Dubai",
+    },
+    {
+      label: "Country",
+      value: resolvedCompanyDetails?.country || "United Arab Emirates",
+    },
+    {
+      label: "City",
+      value: resolvedCompanyDetails?.city || "Dubai",
+    },
+    {
+      label: "Area",
+      value: resolvedCompanyDetails?.area || "Academic City",
+    },
+    {
+      label: "Email",
+      value: resolvedCompanyDetails?.email || "admissions@bham.ac.uk",
+    },
+    {
+      label: "Phone Number",
+      value: resolvedCompanyDetails?.phoneNumber || "+971 4 123 4567",
+    },
+  ];
 
   // const total = allAmenities.length;
   // const columns = 6;
@@ -1231,6 +1260,43 @@ const Product = () => {
                 disableTwoFingerScroll
               />
             </div>
+            <hr className="my-5 lg:my-10" />
+            <div className="flex flex-col gap-8 w-full">
+              <h1 className="text-title font-medium text-gray-700 uppercase">
+                University POC Details
+              </h1>
+              <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-8 items-start">
+                <div className="flex items-center justify-center border border-gray-200 rounded-xl p-6 bg-white shadow-sm">
+                  {resolvedCompanyDetails?.logo?.url ||
+                  resolvedCompanyDetails?.logo ? (
+                    <img
+                      src={
+                        resolvedCompanyDetails?.logo?.url ||
+                        resolvedCompanyDetails?.logo
+                      }
+                      alt="University logo"
+                      className="w-50 h-50 object-contain"
+                    />
+                  ) : (
+                    <div className="w-32 h-32 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center text-center text-xs uppercase">
+                      No logo
+                    </div>
+                  )}
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {universityPocDetails.map((detail) => (
+                    <div key={detail.label} className="space-y-2">
+                      <p className="text-xs font-semibold uppercase text-gray-500">
+                        {detail.label}
+                      </p>
+                      <p className="text-sm text-gray-700 leading-relaxed">
+                        {detail.value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
             {["CMP0001", "CMP0052"].includes(
               resolvedCompanyDetails?.companyId,
             ) && (
@@ -1269,7 +1335,7 @@ const Product = () => {
                           "Response rate: 100%",
                           "Speaks English, Hindi, Marathi and Konkani",
                           "Responds within an hour",
-                          "Lives in Velha, Goa",
+                          "Lives in Dubai International Academic City",
                         ].map((detail, index) => (
                           <div key={index} className="flex items-start gap-2">
                             <FaCheck className="text-blue-500 mt-1 flex-shrink-0" />
