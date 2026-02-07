@@ -49,6 +49,7 @@ const Product = () => {
   const [showAmenities, setShowAmenities] = useState(false);
   console.log("selected : ", selectedReview);
   const [open, setOpen] = useState(false);
+  const [contributorOpen, setContributorOpen] = useState(false);
 
   const axiosPrivate = useAxiosPrivate();
 
@@ -322,6 +323,31 @@ const Product = () => {
       toast.error(error.response?.data?.message);
     },
   });
+
+  const {
+    handleSubmit: handleContributorSubmit,
+    control: contributorControl,
+    reset: contributorReset,
+    formState: { errors: contributorErrors },
+  } = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      courseYear: "",
+      motivation: "",
+      experience: "",
+      experienceExplanation: "",
+      frequency: "",
+      guidelinesAgree: false,
+    },
+    mode: "onChange",
+  });
+
+  const onSubmitContributor = () => {
+    toast.success("Contributor form submitted.");
+    contributorReset();
+    setContributorOpen(false);
+  };
 
   const [selectedImage, setSelectedImage] = useState(null);
   useEffect(() => {
@@ -984,11 +1010,13 @@ const Product = () => {
                 </p>
               </div>
                */}
-              <div className="pt-4">
-                <p className="text-card-title font-semibold">
-                  <span className="text-blue-700 ">Apply</span> To Become A
-                  Contributor
-                </p>
+              <div className="pt-4 flex justify-center items-center">
+                <SecondaryButton
+                  title="Apply To Become A Contributor"
+                  type="button"
+                  handleSubmit={() => setContributorOpen(true)}
+                  externalStyles="w-full sm:w-auto"
+                />
               </div>
             </div>
           </div>
@@ -1432,6 +1460,183 @@ const Product = () => {
               selectedReview?.description}
           </div>
         </div>
+      </MuiModal>
+
+      <MuiModal
+        open={contributorOpen}
+        onClose={() => setContributorOpen(false)}
+        title={"Contributor Form"}
+      >
+        <form
+          className="flex flex-col gap-4"
+          onSubmit={handleContributorSubmit(onSubmitContributor)}
+        >
+          <Controller
+            name="name"
+            control={contributorControl}
+            rules={{ required: "Name is required" }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Name"
+                fullWidth
+                variant="standard"
+                size="small"
+                helperText={contributorErrors?.name?.message}
+                error={!!contributorErrors.name}
+              />
+            )}
+          />
+          <Controller
+            name="email"
+            control={contributorControl}
+            rules={{
+              required: "Email is required",
+              validate: { isValidEmail },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Email"
+                fullWidth
+                type="email"
+                variant="standard"
+                size="small"
+                helperText={contributorErrors?.email?.message}
+                error={!!contributorErrors.email}
+              />
+            )}
+          />
+          <Controller
+            name="courseYear"
+            control={contributorControl}
+            rules={{
+              required: "Course and year of study is required",
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="What is your course and year of study at this university?"
+                fullWidth
+                variant="standard"
+                size="small"
+                helperText={contributorErrors?.courseYear?.message}
+                error={!!contributorErrors.courseYear}
+              />
+            )}
+          />
+          <Controller
+            name="motivation"
+            control={contributorControl}
+            rules={{
+              required: "Please share why you want to become a contributor",
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Why do you want to become a contributor for this university on Common Form?"
+                fullWidth
+                variant="standard"
+                size="small"
+                multiline
+                rows={7}
+                helperText={
+                  contributorErrors?.motivation?.message ||
+                  // "Short answer (7-8 lines)"
+                  ""
+                }
+                error={!!contributorErrors.motivation}
+              />
+            )}
+          />
+          <Controller
+            name="experience"
+            control={contributorControl}
+            rules={{
+              required: "Please select yes or no",
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Do you have first-hand experience with the information you plan to share?"
+                fullWidth
+                select
+                variant="standard"
+                size="small"
+                helperText={contributorErrors?.experience?.message}
+                error={!!contributorErrors.experience}
+              >
+                <MenuItem value="yes">Yes</MenuItem>
+                <MenuItem value="no">No</MenuItem>
+              </TextField>
+            )}
+          />
+          <Controller
+            name="experienceExplanation"
+            control={contributorControl}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Explain The Above (Optional)"
+                fullWidth
+                variant="standard"
+                size="small"
+              />
+            )}
+          />
+          <Controller
+            name="frequency"
+            control={contributorControl}
+            rules={{
+              required: "Please choose a contribution frequency",
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="How often can you realistically contribute content?"
+                fullWidth
+                select
+                variant="standard"
+                size="small"
+                helperText={contributorErrors?.frequency?.message}
+                error={!!contributorErrors.frequency}
+              >
+                <MenuItem value="once-a-month">Once a month</MenuItem>
+                <MenuItem value="twice-a-month">Twice a month</MenuItem>
+                <MenuItem value="flexible">Flexible</MenuItem>
+              </TextField>
+            )}
+          />
+          <Controller
+            name="guidelinesAgree"
+            control={contributorControl}
+            rules={{
+              required: "You must agree before submitting",
+            }}
+            render={({ field }) => (
+              <div className="flex flex-col gap-1">
+                <label className="flex items-start gap-2 text-sm text-gray-700">
+                  <input
+                    type="checkbox"
+                    className="mt-1"
+                    checked={field.value}
+                    onChange={(event) => field.onChange(event.target.checked)}
+                  />
+                  Do you agree to share accurate, original information and
+                  follow Common Form’s contributor guidelines?
+                </label>
+                {contributorErrors?.guidelinesAgree && (
+                  <span className="text-xs text-red-500">
+                    {contributorErrors.guidelinesAgree.message}
+                  </span>
+                )}
+              </div>
+            )}
+          />
+          <div className="flex justify-center pt-2">
+            <SecondaryButton title="Submit" type="submit" />
+          </div>
+        </form>
       </MuiModal>
       <TransparentModal
         open={showAmenities}
