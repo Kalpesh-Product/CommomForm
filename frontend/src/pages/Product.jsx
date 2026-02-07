@@ -49,6 +49,8 @@ const Product = () => {
   const [showAmenities, setShowAmenities] = useState(false);
   console.log("selected : ", selectedReview);
   const [open, setOpen] = useState(false);
+  const [contributorOpen, setContributorOpen] = useState(false);
+  const [reviewOpen, setReviewOpen] = useState(false);
 
   const axiosPrivate = useAxiosPrivate();
 
@@ -95,9 +97,9 @@ const Product = () => {
     inclusions:
       "wifi, powerBackup, kitchen, housekeeping, laundry, workspace, airConditioning",
 
-    country: "India",
+    country: "UAE",
     state: "Goa",
-    city: "Velha Goa",
+    city: "Dubai International Academic City",
     latitude: 15.4989,
     longitude: 73.8278,
 
@@ -203,6 +205,35 @@ const Product = () => {
         ? item?.split(" ").join("")?.trim()
         : item?.trim();
     }) || [];
+
+  const universityPocDetails = [
+    {
+      label: "Address",
+      value:
+        resolvedCompanyDetails?.address ||
+        "Dubai International Academic City, Dubai",
+    },
+    {
+      label: "Country",
+      value: resolvedCompanyDetails?.country || "United Arab Emirates",
+    },
+    {
+      label: "City",
+      value: resolvedCompanyDetails?.city || "Dubai",
+    },
+    {
+      label: "Area",
+      value: resolvedCompanyDetails?.area || "Academic City",
+    },
+    {
+      label: "Email",
+      value: resolvedCompanyDetails?.email || "admissions@bham.ac.uk",
+    },
+    {
+      label: "Phone Number",
+      value: resolvedCompanyDetails?.phoneNumber || "+971 4 123 4567",
+    },
+  ];
 
   // const total = allAmenities.length;
   // const columns = 6;
@@ -322,6 +353,51 @@ const Product = () => {
       toast.error(error.response?.data?.message);
     },
   });
+
+  const {
+    handleSubmit: handleContributorSubmit,
+    control: contributorControl,
+    reset: contributorReset,
+    formState: { errors: contributorErrors },
+  } = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      courseYear: "",
+      motivation: "",
+      experience: "",
+      experienceExplanation: "",
+      frequency: "",
+      guidelinesAgree: false,
+    },
+    mode: "onChange",
+  });
+
+  const onSubmitContributor = () => {
+    toast.success("Contributor form submitted.");
+    contributorReset();
+    setContributorOpen(false);
+  };
+
+  const {
+    handleSubmit: handleReviewSubmit,
+    control: reviewControl,
+    reset: reviewReset,
+    formState: { errors: reviewErrors },
+  } = useForm({
+    defaultValues: {
+      reviewerName: "",
+      rating: "",
+      description: "",
+    },
+    mode: "onChange",
+  });
+
+  const onSubmitReview = () => {
+    toast.success("Review submitted.");
+    reviewReset();
+    setReviewOpen(false);
+  };
 
   const [selectedImage, setSelectedImage] = useState(null);
   useEffect(() => {
@@ -594,7 +670,7 @@ const Product = () => {
                       onClick={() => {
                         if (!userId) {
                           toast.error(
-                            "You need to login to access this feature"
+                            "You need to login to access this feature",
                           );
                           return;
                         }
@@ -976,11 +1052,21 @@ const Product = () => {
                   </div>
                 </div>
               </div>
-              <div className="pt-4">
+
+              {/* <div className="pt-4">
                 <p className="text-card-title font-semibold">
                   <span className="text-blue-700 ">Sign In</span> To Contribute
                   To University Content
                 </p>
+              </div>
+               */}
+              <div className="pt-4 flex justify-center items-center">
+                <SecondaryButton
+                  title="Apply To Become A Contributor"
+                  type="button"
+                  handleSubmit={() => setContributorOpen(true)}
+                  externalStyles="w-full sm:w-auto"
+                />
               </div>
             </div>
           </div>
@@ -1036,6 +1122,7 @@ const Product = () => {
                       // isLoading={isSubmitting}
                       title={"Add A Review"}
                       // type={"submit"}
+                      handleSubmit={() => setReviewOpen(true)}
                       externalStyles={"w-54 mx-4"}
                     />
                   </div>
@@ -1195,8 +1282,45 @@ const Product = () => {
                 disableTwoFingerScroll
               />
             </div>
+            <hr className="my-5 lg:my-10" />
+            <div className="flex flex-col gap-8 w-full">
+              <h1 className="text-title font-medium text-gray-700 uppercase">
+                University POC Details
+              </h1>
+              <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-8 items-start">
+                <div className="flex items-center justify-center border border-gray-200 rounded-xl p-6 bg-white shadow-sm">
+                  {resolvedCompanyDetails?.logo?.url ||
+                  resolvedCompanyDetails?.logo ? (
+                    <img
+                      src={
+                        resolvedCompanyDetails?.logo?.url ||
+                        resolvedCompanyDetails?.logo
+                      }
+                      alt="University logo"
+                      className="w-50 h-50 object-contain"
+                    />
+                  ) : (
+                    <div className="w-32 h-32 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center text-center text-xs uppercase">
+                      No logo
+                    </div>
+                  )}
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {universityPocDetails.map((detail) => (
+                    <div key={detail.label} className="space-y-2">
+                      <p className="text-xs font-semibold uppercase text-gray-500">
+                        {detail.label}
+                      </p>
+                      <p className="text-sm text-gray-700 leading-relaxed">
+                        {detail.value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
             {["CMP0001", "CMP0052"].includes(
-              resolvedCompanyDetails?.companyId
+              resolvedCompanyDetails?.companyId,
             ) && (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 pt-10">
@@ -1233,7 +1357,7 @@ const Product = () => {
                           "Response rate: 100%",
                           "Speaks English, Hindi, Marathi and Konkani",
                           "Responds within an hour",
-                          "Lives in Velha, Goa",
+                          "Lives in Dubai International Academic City",
                         ].map((detail, index) => (
                           <div key={index} className="flex items-start gap-2">
                             <FaCheck className="text-blue-500 mt-1 flex-shrink-0" />
@@ -1251,7 +1375,7 @@ const Product = () => {
                       </h1>
                       <form
                         onSubmit={handlesubmitSales((data) =>
-                          submitSales(data)
+                          submitSales(data),
                         )}
                         className="grid grid-cols-1 gap-4"
                       >
@@ -1424,6 +1548,261 @@ const Product = () => {
               selectedReview?.description}
           </div>
         </div>
+      </MuiModal>
+
+      <MuiModal
+        open={reviewOpen}
+        onClose={() => setReviewOpen(false)}
+        title={"Add A Review"}
+      >
+        <form
+          className="flex flex-col gap-4"
+          onSubmit={handleReviewSubmit(onSubmitReview)}
+        >
+          <Controller
+            name="reviewerName"
+            control={reviewControl}
+            rules={{
+              required: "Name is required",
+              validate: { noOnlyWhitespace },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Your Name"
+                fullWidth
+                variant="standard"
+                size="small"
+                helperText={reviewErrors?.reviewerName?.message}
+                error={!!reviewErrors.reviewerName}
+              />
+            )}
+          />
+          <Controller
+            name="rating"
+            control={reviewControl}
+            rules={{ required: "Rating is required" }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Rating"
+                fullWidth
+                select
+                variant="standard"
+                size="small"
+                helperText={reviewErrors?.rating?.message}
+                error={!!reviewErrors.rating}
+              >
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <MenuItem key={value} value={value}>
+                    {value}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+          />
+          <Controller
+            name="description"
+            control={reviewControl}
+            rules={{
+              required: "Description is required",
+              validate: { noOnlyWhitespace },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Description"
+                fullWidth
+                variant="standard"
+                size="small"
+                multiline
+                rows={4}
+                helperText={reviewErrors?.description?.message}
+                error={!!reviewErrors.description}
+              />
+            )}
+          />
+          <div className="pt-2 flex justify-center">
+            <SecondaryButton title="Submit Review" type="submit" />
+          </div>
+        </form>
+      </MuiModal>
+
+      <MuiModal
+        open={contributorOpen}
+        onClose={() => setContributorOpen(false)}
+        title={"Contributor Form"}
+      >
+        <form
+          className="flex flex-col gap-4"
+          onSubmit={handleContributorSubmit(onSubmitContributor)}
+        >
+          <Controller
+            name="name"
+            control={contributorControl}
+            rules={{ required: "Name is required" }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Name"
+                fullWidth
+                variant="standard"
+                size="small"
+                helperText={contributorErrors?.name?.message}
+                error={!!contributorErrors.name}
+              />
+            )}
+          />
+          <Controller
+            name="email"
+            control={contributorControl}
+            rules={{
+              required: "Email is required",
+              validate: { isValidEmail },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Email"
+                fullWidth
+                type="email"
+                variant="standard"
+                size="small"
+                helperText={contributorErrors?.email?.message}
+                error={!!contributorErrors.email}
+              />
+            )}
+          />
+          <Controller
+            name="courseYear"
+            control={contributorControl}
+            rules={{
+              required: "Course and year of study is required",
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="What is your course and year of study at this university?"
+                fullWidth
+                variant="standard"
+                size="small"
+                helperText={contributorErrors?.courseYear?.message}
+                error={!!contributorErrors.courseYear}
+              />
+            )}
+          />
+          <Controller
+            name="motivation"
+            control={contributorControl}
+            rules={{
+              required: "Please share why you want to become a contributor",
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Why do you want to become a contributor for this university on Common Form?"
+                fullWidth
+                variant="standard"
+                size="small"
+                multiline
+                rows={7}
+                helperText={
+                  contributorErrors?.motivation?.message ||
+                  // "Short answer (7-8 lines)"
+                  ""
+                }
+                error={!!contributorErrors.motivation}
+              />
+            )}
+          />
+          <Controller
+            name="experience"
+            control={contributorControl}
+            rules={{
+              required: "Please select yes or no",
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Do you have first-hand experience with the information you plan to share?"
+                fullWidth
+                select
+                variant="standard"
+                size="small"
+                helperText={contributorErrors?.experience?.message}
+                error={!!contributorErrors.experience}
+              >
+                <MenuItem value="yes">Yes</MenuItem>
+                <MenuItem value="no">No</MenuItem>
+              </TextField>
+            )}
+          />
+          <Controller
+            name="experienceExplanation"
+            control={contributorControl}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Explain The Above (Optional)"
+                fullWidth
+                variant="standard"
+                size="small"
+              />
+            )}
+          />
+          <Controller
+            name="frequency"
+            control={contributorControl}
+            rules={{
+              required: "Please choose a contribution frequency",
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="How often can you realistically contribute content?"
+                fullWidth
+                select
+                variant="standard"
+                size="small"
+                helperText={contributorErrors?.frequency?.message}
+                error={!!contributorErrors.frequency}
+              >
+                <MenuItem value="once-a-month">Once a month</MenuItem>
+                <MenuItem value="twice-a-month">Twice a month</MenuItem>
+                <MenuItem value="flexible">Flexible</MenuItem>
+              </TextField>
+            )}
+          />
+          <Controller
+            name="guidelinesAgree"
+            control={contributorControl}
+            rules={{
+              required: "You must agree before submitting",
+            }}
+            render={({ field }) => (
+              <div className="flex flex-col gap-1">
+                <label className="flex items-start gap-2 text-sm text-gray-700">
+                  <input
+                    type="checkbox"
+                    className="mt-1"
+                    checked={field.value}
+                    onChange={(event) => field.onChange(event.target.checked)}
+                  />
+                  Do you agree to share accurate, original information and
+                  follow Common Form’s contributor guidelines?
+                </label>
+                {contributorErrors?.guidelinesAgree && (
+                  <span className="text-xs text-red-500">
+                    {contributorErrors.guidelinesAgree.message}
+                  </span>
+                )}
+              </div>
+            )}
+          />
+          <div className="flex justify-center pt-2">
+            <SecondaryButton title="Submit" type="submit" />
+          </div>
+        </form>
       </MuiModal>
       <TransparentModal
         open={showAmenities}
